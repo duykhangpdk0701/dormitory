@@ -1,10 +1,10 @@
-const Permission = require('../Model/permission.model');
+const Priority = require('../Model/priority.model');
 
-class PermissionController {
+class PriorityController {
     async showAll(req, res) {
         try {
-            const permissions = await Permission.find({});
-            res.json({ success: true, data: permissions})
+            const prioritys = await Priority.find({});
+            res.json({ success: true, data: prioritys})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -14,9 +14,9 @@ class PermissionController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const permission = await Permission.findById(id)
-            if (!permission) return res.json({ success: false, messages: 'Invalid permission' })
-            res.json({ success: true, data: permission })
+            const priority = await Priority.findById(id)
+            if (!priority) return res.json({ success: false, messages: 'Invalid priority' })
+            res.json({ success: true, data: priority })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -24,8 +24,8 @@ class PermissionController {
 
     async store(req, res) {
         try {
-            const permission = new Permission(req.body)
-            await permission.save()
+            const priority = new Priority(req.body)
+            await priority.save()
             res.json({ success: true, messages: 'Create successfully', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
@@ -36,8 +36,8 @@ class PermissionController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const permission = await Permission.updateOne({ _id: id }, req.body, { new: true })
-            if (!permission) return res.json({ success: false, messages: 'Cant update permission' })
+            const priority = await Priority.updateOne({ _id: id }, req.body, { new: true })
+            if (!priority) return res.json({ success: false, messages: 'Cant update priority' })
             res.json({ success: true, messages: 'Update successfully ' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
@@ -48,8 +48,8 @@ class PermissionController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const permission = await Permission.deleteOne({ _id: id })
-            if (!permission) return res.status(401).json({ success: false, messages: 'Cant delete permission' })
+            const priority = await Priority.deleteOne({ _id: id })
+            if (!priority) return res.status(401).json({ success: false, messages: 'Cant delete priority' })
             res.json({ success: true, messages: 'Delete successfully' })
         } catch (error) {
             res.status(500).json({ success: false, messages: 'Interval server error' })
@@ -57,4 +57,4 @@ class PermissionController {
     }
 }
 
-module.exports = new PermissionController()
+module.exports = new PriorityController()
