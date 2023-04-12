@@ -8,11 +8,35 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+            integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+            referrerPolicy="no-referrer"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
         </body>
+
+        <Script
+          src="https://unpkg.com/react@16/umd/react.development.js"
+          crossOrigin="anonymous"
+        ></Script>
+        <Script
+          src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+          crossOrigin="anonymous"
+        ></Script>
+        <Script src="https://unpkg.com/react-quill@1.3.3/dist/react-quill.js"></Script>
+        <Script src="https://unpkg.com/babel-standalone@6/babel.min.js"></Script>
+        <Script type="text/babel" src="/my-scripts.js"></Script>
       </Html>
     );
   }

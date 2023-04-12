@@ -1,6 +1,6 @@
-import { Helmet } from 'react-helmet-async';
-import PageTitle from 'src/components/PageTitle';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
+import Head from "next/head";
+import PageTitle from "@/components/PageTitle";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
 import {
   Button,
   Container,
@@ -9,18 +9,18 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Divider
-} from '@mui/material';
-import Footer from 'src/components/Footer';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+  Divider,
+} from "@mui/material";
+import Footer from "@/components/Footer";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 function Buttons() {
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Buttons - Components</title>
-      </Helmet>
+      </Head>
       <PageTitleWrapper>
         <PageTitle
           heading="Buttons"

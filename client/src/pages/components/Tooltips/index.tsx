@@ -1,25 +1,25 @@
-import { Helmet } from 'react-helmet-async';
-import PageTitle from 'src/components/PageTitle';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
+import Head from "next/head";
+import PageTitle from "@/components/PageTitle";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
 import {
   Container,
   Grid,
   Card,
   CardHeader,
   CardContent,
-  Divider
-} from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import Footer from 'src/components/Footer';
+  Divider,
+} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import Footer from "@/components/Footer";
 
 function Tooltips() {
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Tooltips - Components</title>
-      </Helmet>
+      </Head>
       <PageTitleWrapper>
         <PageTitle
           heading="Tooltips"
@@ -39,7 +39,7 @@ function Tooltips() {
             <Card>
               <CardHeader title="Positioning" />
               <Divider />
-              <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CardContent sx={{ display: "flex", justifyContent: "center" }}>
                 <Box sx={{ width: 500 }}>
                   <Grid container justifyContent="center">
                     <Grid item>

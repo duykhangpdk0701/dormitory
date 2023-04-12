@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Typography,
   Hidden,
   Container,
   Button,
-  Grid
-} from '@mui/material';
-import { Helmet } from 'react-helmet-async';
-import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
-import LoadingButton from '@mui/lab/LoadingButton';
+  Grid,
+} from "@mui/material";
+import Head from "next/head";
+import RefreshTwoToneIcon from "@mui/icons-material/RefreshTwoTone";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 const GridWrapper = styled(Grid)(
   ({ theme }) => `
@@ -51,13 +51,13 @@ function Status500() {
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Status - 500</title>
-      </Helmet>
+      </Head>
       <MainContent>
         <Grid
           container
-          sx={{ height: '100%' }}
+          sx={{ height: "100%" }}
           alignItems="stretch"
           spacing={0}
         >

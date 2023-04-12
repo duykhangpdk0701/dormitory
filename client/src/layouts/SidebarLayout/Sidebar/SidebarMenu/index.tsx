@@ -197,6 +197,68 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
+
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              Home
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/awaiting-student"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách sinh viên đợi duyệt
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  component={Link}
+                  onClick={closeSidebar}
+                  href="/admin/messenger"
+                  startIcon={<MmsTwoToneIcon />}
+                >
+                  Messenger
+                </Button>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              Room
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/room"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Room
+                </Button>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+
         <List
           component="div"
           subheader={
@@ -306,7 +368,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/buttons"
+                  href="/components/buttons"
                   startIcon={<BallotTwoToneIcon />}
                 >
                   Buttons
@@ -317,7 +379,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/modals"
+                  href="/components/modals"
                   startIcon={<BeachAccessTwoToneIcon />}
                 >
                   Modals
@@ -328,7 +390,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/accordions"
+                  href="/components/accordions"
                   startIcon={<EmojiEventsTwoToneIcon />}
                 >
                   Accordions
@@ -339,7 +401,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/tabs"
+                  href="/components/tabs"
                   startIcon={<FilterVintageTwoToneIcon />}
                 >
                   Tabs
@@ -350,7 +412,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/badges"
+                  href="/components/badges"
                   startIcon={<HowToVoteTwoToneIcon />}
                 >
                   Badges
@@ -361,7 +423,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/tooltips"
+                  href="/components/tooltips"
                   startIcon={<LocalPharmacyTwoToneIcon />}
                 >
                   Tooltips
@@ -372,7 +434,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/avatars"
+                  href="/components/avatars"
                   startIcon={<RedeemTwoToneIcon />}
                 >
                   Avatars
@@ -383,7 +445,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="/admin/components/cards"
+                  href="/components/cards"
                   startIcon={<SettingsTwoToneIcon />}
                 >
                   Cards
@@ -394,7 +456,7 @@ function SidebarMenu() {
                   disableRipple
                   component={Link}
                   onClick={closeSidebar}
-                  href="admin/components/forms"
+                  href="/components/forms"
                   startIcon={<TrafficTwoToneIcon />}
                 >
                   Forms
