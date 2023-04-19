@@ -69,8 +69,6 @@ const LoginPage: NextPageWithLayout = () => {
     <>
       <Head>
         <title>Đăng nhập | SGU domitory</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Login
         errorResMessage={error}

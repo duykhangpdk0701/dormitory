@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import PageHeader from "./PageHeader";
 
-interface IAwaitingStudentRequest {
-  table: ReactNode;
+interface IRooms {
+  roomsTable: ReactNode;
 }
 
-const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
-  const { table } = props;
+const Rooms: FC<IRooms> = (props) => {
+  const { roomsTable } = props;
   return (
     <>
       <PageTitleWrapper>
@@ -24,7 +24,7 @@ const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
           spacing={3}
         >
           <Grid item xs={12}>
-            <Card>{table}</Card>
+            <Card>{roomsTable}</Card>
           </Grid>
         </Grid>
       </Container>
@@ -33,4 +33,4 @@ const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
   );
 };
 
-export default AwaitingStudentRequest;
+export default Rooms;

@@ -13,6 +13,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 import { QueryClient, QueryClientProvider } from "react-query";
+import ActionSnackbar from "@/components/ActionSnackBar";
+import { wrapper } from "@/contexts/store";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,8 +26,7 @@ interface MyAppProps extends AppProps {
 }
 
 const clientSideEmotionCache = createEmotionCache();
-
-export default function App(props: MyAppProps) {
+function App(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   // Use the layout defined at the page level, if available
@@ -43,9 +44,9 @@ export default function App(props: MyAppProps) {
             <ThemeProviderWrapper>
               <>
                 <CssBaseline />
-
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                   {layout}
+                  <ActionSnackbar />
                 </LocalizationProvider>
               </>
             </ThemeProviderWrapper>
@@ -55,3 +56,5 @@ export default function App(props: MyAppProps) {
     </>
   );
 }
+
+export default wrapper.withRedux(App);

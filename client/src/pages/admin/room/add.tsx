@@ -8,21 +8,35 @@ import React, { ReactElement, useState } from "react";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "react-query";
-import categoryAPI from "@/api/categoryAPI";
+import { useQuery } from "react-query";
+import roomTypeAPI from "@/api/roomType";
 
 export interface ICreateRoomParams {
   name: string;
-  slug: string;
+  description: string;
   status: boolean;
-  order: number;
+  numberOfPeople: number;
+  numberBed: number;
+  area: number;
+  length: number;
+  width: number;
+  floor: number;
+  price: number;
+  roomType: string;
 }
 
 const createRoomSchema = yup.object({
   name: yup.string().required("Hãy nhập tên phòng"),
-  slug: yup.string().required(),
-  status: yup.boolean().required(),
-  order: yup.string().required(),
+  description: yup.string().required("Hãy nhập mô tả phòng"),
+  status: yup.boolean().required("Hãy nhập trạng thái"),
+  numberOfPeople: yup.number().required("Hãy nhập sức chứa(người)"),
+  numberBed: yup.number().required("Hãy nhập sức chứa(Giường)"),
+  area: yup.number().required("Hãy nhập diện tích"),
+  length: yup.number().required("Hãy nhập chiều dài"),
+  width: yup.number().required("Hãy nhập chiều rộng"),
+  floor: yup.number().required("Hãy nhập số tầng"),
+  price: yup.number().required("Hãy nhập giá tiền"),
+  roomType: yup.string().required(),
 });
 
 const AddRoomPage: NextPageWithLayout = () => {
@@ -37,8 +51,13 @@ const AddRoomPage: NextPageWithLayout = () => {
     resolver: yupResolver(createRoomSchema),
   });
 
+  const roomTypeQuery = useQuery({
+    queryKey: ["room-type"],
+    queryFn: () => roomTypeAPI.getListOfRoom(),
+  });
+
   const onSubmit: SubmitHandler<ICreateRoomParams> = (data) => {
-    const { name, slug, order, status } = data;
+    const { name, description, status, numberOfPeople } = data;
     console.log(data);
   };
 
@@ -57,6 +76,8 @@ const AddRoomPage: NextPageWithLayout = () => {
             onSubmit={onSubmit}
             isLoading={false}
             errorResMessage={error}
+            roomTypes={roomTypeQuery.data}
+            isLoadingRoomTypes={roomTypeQuery.isLoading}
           />
         }
       />

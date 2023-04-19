@@ -3,6 +3,7 @@ import { Grid, Button } from "@mui/material";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import intro from "@/assets/home/intro.png";
 import procedure from "@/assets/home/thu-tuc.png";
+import Link from "next/link";
 
 const Enroll = () => {
   return (
@@ -37,6 +38,8 @@ const Enroll = () => {
               className="uppercase mb-5"
               variant="contained"
               fullWidth
+              LinkComponent={Link}
+              href="/enroll"
             >
               Đăng Ký ký túc xá
             </Button>

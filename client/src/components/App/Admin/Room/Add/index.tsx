@@ -15,7 +15,7 @@ const AddRoom: FC<IAddRoom> = (props) => {
       <PageTitleWrapper>
         <PageHeader
           title="Thêm phòng"
-          desc="Đây là danh sách phòng sinh viên ở"
+          desc="Tạo Phòng mới"
           isHaveNavigateButton={true}
           navigationName="Trở về danh sách phòng"
           link="/admin/room"

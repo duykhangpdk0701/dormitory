@@ -8,17 +8,22 @@ import {
   FormHelperText,
   Switch,
   Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  InputAdornment,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {
   Control,
-  FieldErrors,
   SubmitHandler,
   UseFormHandleSubmit,
   Controller,
 } from "react-hook-form";
 import { ICreateRoomParams } from "@/pages/admin/room/add";
 import dynamic from "next/dynamic";
+import IRoomType from "@/interfaces/RoomTypet";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface IRoomFormAdd {
@@ -28,6 +33,8 @@ interface IRoomFormAdd {
 
   isLoading: boolean;
   errorResMessage: string;
+  roomTypes?: IRoomType[];
+  isLoadingRoomTypes: boolean;
 }
 
 const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
@@ -38,6 +45,8 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
 
     isLoading,
     errorResMessage,
+    roomTypes,
+    isLoadingRoomTypes,
   } = props;
 
   return (
@@ -57,11 +66,55 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
                 </>
               )}
             />
+
+            <Box className="mt-6">
+              <Controller
+                name="roomType"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <FormControl fullWidth>
+                      <InputLabel id="roomt-type">Age</InputLabel>
+                      <Select
+                        {...field}
+                        id="roomt-type"
+                        fullWidth
+                        error={invalid}
+                        disabled={isLoadingRoomTypes}
+                        label="Loại phòng"
+                      >
+                        {roomTypes?.map((item) => (
+                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
             <Box className="mt-6">
               <Typography variant="h6" className="mb-2">
                 Mô tả
               </Typography>
-              <ReactQuill placeholder="Viết vài mô tả về phòng..." />
+              <Controller
+                name="description"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <ReactQuill
+                      {...field}
+                      placeholder="Viết vài mô tả về phòng..."
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
             </Box>
           </Paper>
         </Grid>
@@ -84,15 +137,22 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
             />
             <Box className="mt-6">
               <Controller
-                name="slug"
+                name="numberOfPeople"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Slug"
+                      label="Sức chứa (Người)"
                       fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            Người
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -103,15 +163,153 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
             </Box>
             <Box className="mt-6">
               <Controller
-                name="order"
+                name="numberBed"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Order"
+                      label="Sức chứa (Giường)"
                       fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            Giường
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box className="mt-6">
+              <Controller
+                name="area"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <TextField
+                      error={invalid}
+                      {...field}
+                      label="Diện tích"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            m<sup>2</sup>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box className="mt-6">
+              <Controller
+                name="length"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <TextField
+                      error={invalid}
+                      {...field}
+                      label="Chiều dài"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            m<sup>2</sup>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box className="mt-6">
+              <Controller
+                name="width"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <TextField
+                      error={invalid}
+                      {...field}
+                      label="Chiều Rộng"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            m<sup>2</sup>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box className="mt-6">
+              <Controller
+                name="price"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <TextField
+                      error={invalid}
+                      {...field}
+                      label="Giá"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">VND</InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box className="mt-6">
+              <Controller
+                name="floor"
+                control={control}
+                render={({ field, fieldState: { error, invalid } }) => (
+                  <>
+                    <TextField
+                      error={invalid}
+                      {...field}
+                      label="Tầng"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">Tầng</InputAdornment>
+                        ),
+                      }}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -127,8 +325,9 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
             variant="contained"
             size="large"
             type="submit"
+            loading={isLoading}
           >
-            Submit
+            Tạo Phòng
           </LoadingButton>
         </Grid>
       </Grid>
