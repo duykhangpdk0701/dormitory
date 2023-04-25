@@ -18,10 +18,11 @@ import { useMutation } from "react-query";
 import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
+import IBooking from "@/interfaces/Booking";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
-  data: IBookingRequest;
+  data: IBooking;
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 

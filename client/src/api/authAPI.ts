@@ -2,9 +2,9 @@ import ILogin from "@/interfaces/Login";
 import axiosClient from "./axiosClient";
 
 const authAPI = {
-  login: async (email: string, password: string): Promise<ILogin> => {
-    const url = "auth/login";
-    const res = await axiosClient.post(url, { email, password });
+  login: async (username: string, password: string): Promise<ILogin> => {
+    const url = "user/login";
+    const res = await axiosClient.post(url, { username, password });
     return res.data;
   },
 

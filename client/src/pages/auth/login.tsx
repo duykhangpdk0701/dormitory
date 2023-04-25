@@ -10,13 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 
 export interface ILoginParams {
-  email: string;
+  username: string;
   password: string;
 }
 
 const loginSchema = yup
   .object({
-    email: yup.string().required(),
+    username: yup.string().required(),
     password: yup.string().required(),
   })
   .required();
@@ -32,7 +32,7 @@ const LoginPage: NextPageWithLayout = () => {
     formState: { errors },
   } = useForm<ILoginParams>({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
     resolver: yupResolver(loginSchema),
@@ -40,10 +40,10 @@ const LoginPage: NextPageWithLayout = () => {
 
   const loginMutation = useMutation({
     mutationKey: ["login"],
-    mutationFn: ({ email, password }: ILoginParams) => {
+    mutationFn: ({ username, password }: ILoginParams) => {
       setLoading(true);
 
-      return authAPI.login(email, password);
+      return authAPI.login(username, password);
     },
     onSuccess: async (data) => {
       sessionStorage.setItem("token", data.token);
@@ -55,14 +55,15 @@ const LoginPage: NextPageWithLayout = () => {
       setLoading(false);
     },
     onError: (error: any) => {
-      setError(error.message);
+      console.log(error);
+      setError(error.messages);
       setLoading(false);
     },
   });
 
   const onSubmit: SubmitHandler<ILoginParams> = (data) => {
-    const { email, password } = data;
-    loginMutation.mutate({ email, password });
+    const { username, password } = data;
+    loginMutation.mutate({ username, password });
   };
 
   return (

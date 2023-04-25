@@ -252,7 +252,53 @@ function SidebarMenu() {
                   href="/admin/room"
                   startIcon={<BrightnessLowTwoToneIcon />}
                 >
-                  Room
+                  Phòng
+                </Button>
+              </ListItem>
+
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/room-type"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Loại phòng
+                </Button>
+              </ListItem>
+
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/booking"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách đã duyệt
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/priority"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Điểm ưu tiên
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/permission"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Quyền
                 </Button>
               </ListItem>
             </List>

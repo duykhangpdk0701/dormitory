@@ -25,7 +25,7 @@ function Footer() {
           }}
           variant="subtitle1"
         >
-          Crafted by{" "}
+          Xây dựng bởi{" "}
           <Link
             href="https://github.com/duykhangpdk0701/dormitory"
             target="_blank"

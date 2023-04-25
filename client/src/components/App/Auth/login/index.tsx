@@ -62,8 +62,10 @@ const Login: FC<ILogin> = (props) => {
             width={70}
             height={70}
           />
-          <h1 className="mb-8 mt-1 text-[16px] font-bold text-center">
-            Chào mừng bạn đến với ký túc xá đại học Sài Gòn
+          <h1 className="mb-8 mt-1 text-xl font-bold text-center">
+            Chào mừng bạn đến với ký túc xá
+            <br />
+            Đại Học Sài Gòn
           </h1>
           {errorResMessage && (
             <Box className="mb-3">
@@ -76,22 +78,21 @@ const Login: FC<ILogin> = (props) => {
           <Box component="form" onSubmit={handleSubmit(onSubmit)}>
             <Box className="mb-3">
               <Controller
-                name="email"
+                name="username"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState: { error, invalid } }) => (
                   <>
-                    <InputLabel error={errors.email ? true : false}>
-                      Email
+                    <InputLabel error={invalid} className="font-semibold">
+                      Tên đăng nhập
                     </InputLabel>
                     <OutlinedInput
                       {...field}
-                      // className="py-2 px-3.5"
-                      placeholder="abd@gmail.com"
+                      placeholder="abcd1234"
                       fullWidth
-                      error={errors.email ? true : false}
+                      error={invalid}
                     />
-                    <FormHelperText error={errors.email ? true : false}>
-                      {errors.email?.message}
+                    <FormHelperText error={invalid}>
+                      {error?.message}
                     </FormHelperText>
                   </>
                 )}
@@ -101,17 +102,17 @@ const Login: FC<ILogin> = (props) => {
               <Controller
                 name="password"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState: { error, invalid } }) => (
                   <>
-                    <InputLabel error={errors.password ? true : false}>
-                      Password
+                    <InputLabel error={invalid} className="font-semibold">
+                      Mật khẩu
                     </InputLabel>
                     <OutlinedInput
                       {...field}
                       placeholder="**********"
                       fullWidth
                       type={showPassword ? "text" : "password"}
-                      error={errors.password ? true : false}
+                      error={invalid}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
@@ -129,8 +130,8 @@ const Login: FC<ILogin> = (props) => {
                         </InputAdornment>
                       }
                     />
-                    <FormHelperText error={errors.password ? true : false}>
-                      {errors.password?.message}
+                    <FormHelperText error={invalid}>
+                      {error?.message}
                     </FormHelperText>
                   </>
                 )}
@@ -145,24 +146,23 @@ const Login: FC<ILogin> = (props) => {
               type="submit"
               loading={isLoading}
             >
-              Submit
+              Đăng nhập
             </LoadingButton>
           </Box>
         </Box>
         <Box className="py-6">
-          <Divider className="text-[#7D879C] text-sm w-52 mx-auto">or</Divider>
+          <Divider className="text-[#7D879C] text-sm w-52 mx-auto">
+            Hoặc
+          </Divider>
         </Box>
 
-        <Box className="mt-5 flex justify-center text-sm">
-          <span>Don't have a account?</span>
-          <Link href="/auth/register" className="ml-2">
-            Sign up
-          </Link>
-        </Box>
         <Box className="mt-5 bg-[#F3F5F9] py-5 flex justify-center text-sm">
-          <span>Forgot your password?</span>
-          <Link href="/auth/reset-password" className="ml-2">
-            Reset It
+          <span> Quên mật khẩu?</span>
+          <Link
+            href="/auth/reset-password"
+            className="ml-2 underline text-blue-500 hover:opacity-70"
+          >
+            Đặt lại mật khẩu
           </Link>
         </Box>
       </Paper>

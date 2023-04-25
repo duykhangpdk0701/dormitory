@@ -2,7 +2,7 @@ import axiosClient from "../axiosClient";
 
 const adminPermission = {
   getList: async (): Promise<IPermission[]> => {
-    const url = "/permisson";
+    const url = "/permission";
     const res = await axiosClient.get(url);
     return res.data;
   },
@@ -14,7 +14,7 @@ const adminPermission = {
   },
 
   getById: async (id: string): Promise<IPermission> => {
-    const url = `/permisson/${id}`;
+    const url = `/permission/${id}`;
     const res = await axiosClient.get(url);
     return res.data;
   },

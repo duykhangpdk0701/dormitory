@@ -10,22 +10,19 @@ import {
   useTheme,
 } from "@mui/material";
 
-import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import getStatusLabel from "@/components/StatusLabel";
-import IBookingRequest from "@/interfaces/BookingRequest";
 import { useMutation } from "react-query";
 import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 
-interface IBookingRequestTableItemProps {
+interface IPermissionTableItemProps {
   isSelected: boolean;
-  data: IBookingRequest;
+  data: IPermission;
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 
-const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
+const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
   const { isSelected, data, handleSelectOneCryptoOrder } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
@@ -98,48 +95,11 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           gutterBottom
           noWrap
         >
-          {data.lastname + " " + data.firstname}
+          {data.name}
         </Typography>
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.studentId}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.email}
-        </Typography>
-      </TableCell>
-      <TableCell align="right">{getStatusLabel("pending")}</TableCell>
+
       <TableCell align="right">
-        <Tooltip title="Chấp nhận" arrow>
-          <IconButton
-            sx={{
-              "&:hover": {
-                background: theme.colors.primary.lighter,
-              },
-              color: theme.palette.primary.main,
-            }}
-            color="inherit"
-            size="small"
-            onClick={handleAccept}
-          >
-            <CheckIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Từ chối" arrow>
           <IconButton
             sx={{
@@ -158,4 +118,4 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
   );
 };
 
-export default BookingRequestTableItem;
+export default PermissionTableItem;

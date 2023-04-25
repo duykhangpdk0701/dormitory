@@ -41,36 +41,31 @@ const RegisterPage: NextPageWithLayout = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const registerMutation = useMutation({
-    mutationKey: ["resgister"],
-    mutationFn: ({
-      firstName,
-      lastName,
-      email,
-      password,
-      agreeCkb,
-      passwordConfirmation,
-    }: IRegisterParams) => {
-      setLoading(true);
-      return authAPI.register(
-        firstName,
-        lastName,
-        email,
-        password,
-        agreeCkb,
-        passwordConfirmation
-      );
-    },
-    onSuccess: async (data) => {
-      await router.push("/auth/login");
-      setLoading(false);
-    },
-    onError: (error: any) => {
-      console.log(error);
-      setError(error.message);
-      setLoading(false);
-    },
-  });
+  // const registerMutation = useMutation({
+  //   mutationKey: ["resgister"],
+  //   mutationFn: ({
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password,
+  //     agreeCkb,
+  //     passwordConfirmation,
+  //   }: IRegisterParams) => {
+  //     setLoading(true);
+  //     return authAPI.register(
+  //      username, password, permis
+  //     );
+  //   },
+  //   onSuccess: async (data) => {
+  //     await router.push("/auth/login");
+  //     setLoading(false);
+  //   },
+  //   onError: (error: any) => {
+  //     console.log(error);
+  //     setError(error.message);
+  //     setLoading(false);
+  //   },
+  // });
 
   const onSubmit: SubmitHandler<IRegisterParams> = (data) => {
     const {
@@ -81,14 +76,16 @@ const RegisterPage: NextPageWithLayout = () => {
       agreeCkb,
       passwordConfirmation,
     } = data;
-    registerMutation.mutate({
-      firstName,
-      lastName,
-      email,
-      password,
-      agreeCkb,
-      passwordConfirmation,
-    });
+
+    console.log(data);
+    // registerMutation.mutate({
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   password,
+    //   agreeCkb,
+    //   passwordConfirmation,
+    // });
   };
   return (
     <>
