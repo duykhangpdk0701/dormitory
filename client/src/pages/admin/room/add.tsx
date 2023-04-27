@@ -10,6 +10,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "react-query";
 import roomTypeAPI from "@/api/roomType";
+import PageHead from "@/components/PageHead";
 
 export interface ICreateRoomParams {
   name: string;
@@ -63,11 +64,7 @@ const AddRoomPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head>
-        <title>Thêm Phòng | SGU domitory</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead title="Thêm Phòng | SGU domitory" />
       <AddRoom
         form={
           <RoomFormAdd

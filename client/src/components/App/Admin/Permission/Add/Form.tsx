@@ -1,4 +1,4 @@
-import { ICreatePriorityParams } from "@/pages/admin/priority/create";
+import { ICreatePermissionParams } from "@/pages/admin/permission/create";
 import React, { FC } from "react";
 import {
   Control,
@@ -15,19 +15,18 @@ import {
   FormHelperText,
   InputAdornment,
 } from "@mui/material";
-
 import { LoadingButton } from "@mui/lab";
 
 interface IPriorityFormAdd {
-  control: Control<ICreatePriorityParams, any>;
-  handleSubmit: UseFormHandleSubmit<ICreatePriorityParams>;
-  onSubmit: SubmitHandler<ICreatePriorityParams>;
+  control: Control<ICreatePermissionParams, any>;
+  handleSubmit: UseFormHandleSubmit<ICreatePermissionParams>;
+  onSubmit: SubmitHandler<ICreatePermissionParams>;
 
   isLoading: boolean;
   errorResMessage: string;
 }
 
-const PriorityFormAdd: FC<IPriorityFormAdd> = (props) => {
+const PermissionForm: FC<IPriorityFormAdd> = (props) => {
   const { control, handleSubmit, onSubmit, isLoading, errorResMessage } = props;
 
   return (
@@ -53,14 +52,14 @@ const PriorityFormAdd: FC<IPriorityFormAdd> = (props) => {
           <Paper className="p-6">
             <Box>
               <Controller
-                name="score"
+                name="desc"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Điểm"
+                      label="Mô tả"
                       fullWidth
                     />
                     <FormHelperText error={invalid}>
@@ -87,4 +86,4 @@ const PriorityFormAdd: FC<IPriorityFormAdd> = (props) => {
   );
 };
 
-export default PriorityFormAdd;
+export default PermissionForm;

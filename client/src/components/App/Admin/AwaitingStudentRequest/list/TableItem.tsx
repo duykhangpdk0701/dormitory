@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 
 import {
   Tooltip,
@@ -50,6 +50,15 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
         })
       );
     },
+    onError: (error: any) => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+    },
   });
 
   const denyRequestMutation = useMutation({
@@ -61,6 +70,15 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarOpen: true,
           snackbarType: "success",
           snackbarMessage: "Từ chối thành công",
+        })
+      );
+    },
+    onError: (error: any) => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
         })
       );
     },

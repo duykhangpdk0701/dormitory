@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
 import bookingRequestAPI from "@/api/bookingRequest";
+import PageHead from "@/components/PageHead";
 
 export interface IEnrollParams {
   firstName: string;
@@ -73,9 +74,7 @@ const EnrollPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head>
-        <title>Đăng ký ở ký túc xá | SGU domitory</title>
-      </Head>
+      <PageHead title="Đăng ký ở ký túc xá | SGU domitory" />
       <Enroll
         control={control}
         isLoading={loading}

@@ -15,6 +15,7 @@ const DashboardPage: NextPageWithLayout = () => {
   );
 };
 
+
 DashboardPage.getLayout = function getLayout(page: ReactElement) {
   return <SidebarLayout>{page}</SidebarLayout>;
 };

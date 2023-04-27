@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import adminRoomAPI from "@/api/admin/room";
 import Rooms from "@/components/App/Admin/Room/List";
 import RoomTable from "@/components/App/Admin/Room/List/Table";
+import PageHead from "@/components/PageHead";
 
 const RoomPage: NextPageWithLayout = () => {
   const roomQuery = useQuery({
@@ -15,11 +16,7 @@ const RoomPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head>
-        <title>Danh sách Phòng | SGU domitory</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead title="Danh sách phòng | SGU domitory" />
       <Rooms roomsTable={<RoomTable data={roomQuery.data} />} />
     </>
   );
