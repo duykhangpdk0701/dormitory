@@ -1,6 +1,6 @@
 import axiosClient from "../axiosClient";
 
-const adminPermission = {
+const adminPermissionAPI = {
   getList: async (): Promise<IPermission[]> => {
     const url = "/permission";
     const res = await axiosClient.get(url);
@@ -8,7 +8,7 @@ const adminPermission = {
   },
 
   create: async (name: string, description: string): Promise<IPermission> => {
-    const url = "/permission";
+    const url = "/permission/store";
     const res = await axiosClient.post(url, { name, description });
     return res.data;
   },
@@ -20,4 +20,4 @@ const adminPermission = {
   },
 };
 
-export default adminPermission;
+export default adminPermissionAPI;

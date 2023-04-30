@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from "react";
+import { FC, ChangeEvent, useState, Fragment } from "react";
 
 import {
   Divider,
@@ -199,11 +199,13 @@ const PermissionTable: FC<IPermissionTableProps> = ({ data }) => {
                 cryptoOrder._id
               );
               return (
-                <PermissionTableItem
-                  isSelected={isCryptoOrderSelected}
-                  data={cryptoOrder}
-                  handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                />
+                <Fragment key={cryptoOrder._id}>
+                  <PermissionTableItem
+                    isSelected={isCryptoOrderSelected}
+                    data={cryptoOrder}
+                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                  />
+                </Fragment>
               );
             })}
           </TableBody>

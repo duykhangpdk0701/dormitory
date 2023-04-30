@@ -9,6 +9,10 @@ import React, { ReactNode, useState } from "react";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "react-query";
+import adminPermission from "@/api/admin/permission";
+import { useAppDispatch } from "@/hooks/redux";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 
 export interface ICreatePermissionParams {
   name: string;
@@ -22,15 +26,45 @@ const createPermissionSchema = yup.object({
 
 const PermissionCreatePage: NextPageWithLayout = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const createPermissionMutation = useMutation({
+    mutationKey: ["permission"],
+    mutationFn: ({ name, desc }: ICreatePermissionParams) =>
+      adminPermission.create(name, desc),
+    onSuccess: async () => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Tạo quyền thành công",
+        })
+      );
+      await router.push("admin/permission");
+      setLoading(false);
+    },
+    onError: (error: any) => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+      setLoading(false);
+    },
+  });
 
   const { control, handleSubmit } = useForm<ICreatePermissionParams>({
     resolver: yupResolver(createPermissionSchema),
   });
 
-  const onSubmit: SubmitHandler<ICreatePermissionParams> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ICreatePermissionParams> = async (data) => {
+    const { name, desc } = data;
+    setLoading(true);
+    await createPermissionMutation.mutateAsync({ name, desc });
   };
 
   return (

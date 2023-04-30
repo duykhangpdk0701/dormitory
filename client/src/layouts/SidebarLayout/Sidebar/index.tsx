@@ -9,10 +9,8 @@ import {
   styled,
   Divider,
   useTheme,
-  Button,
   lighten,
   darken,
-  Tooltip,
 } from "@mui/material";
 
 import SidebarMenu from "./SidebarMenu";
