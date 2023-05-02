@@ -346,6 +346,17 @@ function SidebarMenu() {
                   Danh sách nhân viên
                 </Button>
               </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/task"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách nhiệm vụ
+                </Button>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>

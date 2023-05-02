@@ -34,7 +34,7 @@ const JobFormCreate: FC<IJobFormCreate> = (props) => {
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Mã sinh viên"
+                      label="Tên công việc"
                       fullWidth
                     />
                     <FormHelperText error={invalid}>

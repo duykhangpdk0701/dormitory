@@ -16,7 +16,7 @@ const adminJobAPI = {
 
   create: async (name: string, desc: string): Promise<IJob> => {
     const url = "/job/store";
-    const res = await axiosClient.post(url, { name, desc });
+    const res = await axiosClient.post(url, { name, description: desc });
     return res.data;
   },
 };

@@ -4,21 +4,21 @@ import PageHeader from "@/components/PageHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import { Container } from "@mui/material";
 
-interface IStaffCreate {
+interface ITaskCreate {
   form: ReactNode;
 }
 
-const StaffCreate: FC<IStaffCreate> = (props) => {
+const TaskCreate: FC<ITaskCreate> = (props) => {
   const { form } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Thêm nhân viên"
-          desc="Thêm nhân viên mới"
+          title="Thêm công việc"
+          desc="Tạo công việc mới"
           isHaveNavigateButton={true}
-          navigationName="Trở về danh sách nhân viên"
-          link="/admin/staff"
+          navigationName="Trở về danh sách công việc"
+          link="/admin/job"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">{form}</Container>
@@ -27,4 +27,4 @@ const StaffCreate: FC<IStaffCreate> = (props) => {
   );
 };
 
-export default StaffCreate;
+export default TaskCreate;
