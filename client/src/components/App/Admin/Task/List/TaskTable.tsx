@@ -23,18 +23,18 @@ import { CryptoOrderStatus } from "@/models/crypto_order";
 
 import BulkActions from "./BulkActions";
 import JobTableItem from "./TableItem";
-import IJob from "@/interfaces/Job";
+import ITask from "@/interfaces/Task";
 
-interface IJobTableProps {
+interface ITaskTableProps {
   className?: string;
-  data?: IJob[];
+  data?: ITask[];
 }
 
 interface Filters {
   status?: CryptoOrderStatus;
 }
 
-const applyFilters = (data: IJob[] = [], filters: Filters): IJob[] => {
+const applyFilters = (data: ITask[] = [], filters: Filters): ITask[] => {
   return data?.filter((cryptoOrder) => {
     let matches = true;
 
@@ -43,14 +43,14 @@ const applyFilters = (data: IJob[] = [], filters: Filters): IJob[] => {
 };
 
 const applyPagination = (
-  cryptoOrders: IJob[] = [],
+  cryptoOrders: ITask[] = [],
   page: number,
   limit: number
-): IJob[] => {
+): ITask[] => {
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const JobTable: FC<IJobTableProps> = ({ data }) => {
+const TaskTable: FC<ITaskTableProps> = ({ data }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -223,4 +223,4 @@ const JobTable: FC<IJobTableProps> = ({ data }) => {
   );
 };
 
-export default JobTable;
+export default TaskTable;
