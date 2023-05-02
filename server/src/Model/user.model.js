@@ -32,6 +32,9 @@ const User = new Schema(
             ref: "permissions",
             required: true,
         },
+        avatar: {
+            type: String,
+        },
         isActive: {
             type: Boolean,
             default: true,

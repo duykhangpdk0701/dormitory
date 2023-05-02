@@ -57,7 +57,6 @@ class BookingRequestController {
             bookingRequest = await BookingRequest.find({ _id: id});
             let room = await Room.find({});   
             delete bookingRequest[0]._doc._id
-            // console.log({...bookingRequest[0]._doc})
 
             const booking = new Booking({...bookingRequest[0]._doc, status: 'Pending', room: room[0]._id})
             await booking.save()

@@ -32,7 +32,7 @@ class UserController {
                 { Id: user._id },
                 process.env.ACCESS_TOKEN_SECRET
             )
-            res.json({ success: true, messages: 'Login successfully', accessToken})
+            res.json({ success: true, messages: 'Login successfully', accessToken, user})
         }
         catch(error){
             res.status(500).json({ success: false, message: error.message });
