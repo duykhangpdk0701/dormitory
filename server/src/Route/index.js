@@ -14,6 +14,7 @@ const serviceRouter = require("./service.route");
 const serviceUsageRouter = require("./serviceUsage.route");
 const staffRouter = require("./staff.route");
 const taskRouter = require("./task.route");
+const jobRouter = require("./job.route");
 
 const Route = (app) => {
     app.use("/user", userRouter);
@@ -32,6 +33,7 @@ const Route = (app) => {
     app.use("/serviceUsage", serviceUsageRouter);
     app.use("/staff", staffRouter);
     app.use("/task", taskRouter);
+    app.use("/job", jobRouter);
 };
 
 module.exports = Route;

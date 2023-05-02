@@ -44,6 +44,42 @@ class TaskController {
         }
     }
 
+    async start(req, res) {
+        const { id } = req.params
+        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        try {
+            const task = await Task.updateOne({ _id: id }, {status: "Working"}, { new: true })
+            if (!task) return res.json({ success: false, messages: 'Cant update task' })
+            res.json({ success: true, messages: 'Update successfully'})
+        } catch (error) {
+            res.status(500).json({ success: false, messages: error.message })
+        }
+    }
+
+    async done(req, res) {
+        const { id } = req.params
+        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        try {
+            const task = await Task.updateOne({ _id: id }, {status: "Done"}, { new: true })
+            if (!task) return res.json({ success: false, messages: 'Cant update task' })
+            res.json({ success: true, messages: 'Update successfully'})
+        } catch (error) {
+            res.status(500).json({ success: false, messages: error.message })
+        }
+    }
+
+    async cancel(req, res) {
+        const { id } = req.params
+        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        try {
+            const task = await Task.updateOne({ _id: id }, {status: "Cancel"}, { new: true })
+            if (!task) return res.json({ success: false, messages: 'Cant update task' })
+            res.json({ success: true, messages: 'Update successfully'})
+        } catch (error) {
+            res.status(500).json({ success: false, messages: error.message })
+        }
+    }
+
     async delete(req, res) {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })

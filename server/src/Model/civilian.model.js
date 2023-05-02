@@ -11,7 +11,7 @@ const Civilian = new Schema(
         address: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "addresss"
+            ref: "addresses"
         },
         studentId: {
             type: String,

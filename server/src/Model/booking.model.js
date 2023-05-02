@@ -16,6 +16,11 @@ const Booking = new Schema(
             type: String,
             require: true,
         },
+        address: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "addresses"
+        },
         gender: {
             type: String,
             enum: ['Male', 'Female','Other'],
@@ -34,6 +39,9 @@ const Booking = new Schema(
             require: true,
         },
         dateOfBirth: {
+            type: Date,
+        },
+        dateStart: {
             type: Date,
         },
         status: { 

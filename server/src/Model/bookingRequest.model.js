@@ -11,6 +11,11 @@ const BookingRequest = new Schema(
             type: String,
             require: true,
         },
+        address: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "addresses"
+        },
         gender: {
             type: String,
             enum: ['Male', 'Female','Other'],
@@ -30,12 +35,16 @@ const BookingRequest = new Schema(
         },
         priority: {
             type: Schema.Types.ObjectId,
-            ref: "prioritys",
+            ref: "priorities",
+            require: true,
         },
         images: {
             type: [String],
         },
         dateOfBirth: {
+            type: Date,
+        },
+        dateStart: {
             type: Date,
         },
         status: { 

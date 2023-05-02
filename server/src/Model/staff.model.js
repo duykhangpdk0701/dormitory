@@ -8,10 +8,15 @@ const Staff = new Schema(
             required: true,
             ref: "users"
         },
+        job: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "jobs"
+        },
         address: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "addresss"
+            ref: "addresses"
         },
         salary: {
             type: Number,

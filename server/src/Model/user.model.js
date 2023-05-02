@@ -27,6 +27,11 @@ const User = new Schema(
         phone: {
             type: String,
         },
+        gender: {
+            type: String,
+            enum: ['Male', 'Female','Other'],
+            require: true,
+        },
         permission: {
             type: Schema.Types.ObjectId,
             ref: "permissions",

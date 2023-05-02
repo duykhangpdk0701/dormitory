@@ -29,17 +29,16 @@ class StaffController {
 
     async store(req, res) {
         try {
-            // const { studentId } = req.body
-            // if(!studentId) res.status(500).json({ success: false, messages: 'Missing data'})
-            // const permission = await Permission.findOne({name: 'staff'})
-            // const hashpassword = await argon2.hash('123');
-            // const account = new Account({ username: studentId + "@dormitory", password: hashpassword, ...req.body, permission: permission._id})
-            // await account.save()
-            // const address = new Address(req.body)
-            // await address.save()
-            const staff = new Staff(req.body)
+            const { email } = req.body
+            const permission = await Permission.findOne({name: 'staff'})
+            const hashpassword = await argon2.hash('123');
+            const account = new Account({ username: email, password: hashpassword, ...req.body, permission: permission._id})
+            await account.save()
+            const address = new Address(req.body)
+            await address.save()
+            const staff = new Staff({ accountId: account._id, address: address._id, ...req.body})
             await staff.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Create successfully', data: staff })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
