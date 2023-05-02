@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken')
 const User = require('../Model/user.model');
@@ -7,7 +8,53 @@ const Civilian = require('../Model/civilian.model');
 class UserController {
     async load(req, res) {
         try {
-            const user = await User.findById(req.Id);
+            const aggregate = [
+                { $match: { _id: new mongoose.Types.ObjectId(req.Id)} },
+                {
+                    $lookup: {
+                        from: "permissions",
+                        localField: "permission",
+                        foreignField: "_id",
+                        as: "permission"
+                    }
+                },
+                { $unwind: '$permission' },
+            ]
+            let user = await User.aggregate(aggregate)
+            user = user[0]
+            if(user.permission.name == 'civilian'){
+                const aggregate = [
+                    { $match: { accountId : user._id } },
+                    {
+                        $lookup: {
+                            from: "addresses",
+                            localField: "address",
+                            foreignField: "_id",
+                            as: "address"
+                        }
+                    },
+                    { $unwind: '$address' },
+                    { $sort: { "priority.score": -1, createdAt: -1 } }
+                ]
+                const civilian = await Civilian.aggregate(aggregate)
+                user.infor = civilian[0]
+            }else if(user.permission.name == 'staff'){
+                const aggregate = [
+                    { $match: { accountId : user._id } },
+                    {
+                        $lookup: {
+                            from: "addresses",
+                            localField: "address",
+                            foreignField: "_id",
+                            as: "address"
+                        }
+                    },
+                    { $unwind: '$address' },
+                    { $sort: { "priority.score": -1, createdAt: -1 } }
+                ]
+                const staff = await Staff.aggregate(aggregate)
+                user.infor = staff[0]
+            }
             if(!user){
                 return res.status(400).json({success: false, messages:'User not found'})
             }
