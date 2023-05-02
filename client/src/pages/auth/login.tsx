@@ -8,13 +8,12 @@ import { NextPageWithLayout } from "@/pages/_app";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
+import PageHead from "@/components/PageHead";
 
 export interface ILoginParams {
   username: string;
   password: string;
 }
-
-
 
 const loginSchema = yup
   .object({
@@ -48,12 +47,9 @@ const LoginPage: NextPageWithLayout = () => {
       return authAPI.login(username, password);
     },
     onSuccess: async (data) => {
-      sessionStorage.setItem("token", data.token);
-      if (data.role === "super admin") {
-        await router.push("/admin");
-      } else {
-        await router.push("/");
-      }
+      console.log(data);
+      sessionStorage.setItem("token", data.accessToken);
+      await router.push("/");
       setLoading(false);
     },
     onError: (error: any) => {
@@ -70,9 +66,7 @@ const LoginPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head>
-        <title>Đăng nhập | SGU domitory</title>
-      </Head>
+      <PageHead title="Đăng nhập | SGU domitory" />
       <Login
         errorResMessage={error}
         isLoading={loading}

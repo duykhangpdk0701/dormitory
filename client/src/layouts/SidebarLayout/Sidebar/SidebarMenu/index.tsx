@@ -301,6 +301,51 @@ function SidebarMenu() {
                   Quyền
                 </Button>
               </ListItem>
+
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/civilian"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách cư dân
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/job"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách công việc
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/service"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách dịch vụ
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/staff"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách nhân viên
+                </Button>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>

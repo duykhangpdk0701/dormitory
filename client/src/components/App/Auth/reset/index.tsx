@@ -35,7 +35,7 @@ const ResetPasswordTemplate = () => {
             height={70}
           />
           <h1 className="mb-8 mt-2 text-[16px] font-bold text-center">
-            Reset your password
+            Đặt lại mật khẩu
           </h1>
           <Box className="mb-3">
             <Controller
@@ -46,7 +46,6 @@ const ResetPasswordTemplate = () => {
                   <InputLabel>Email</InputLabel>
                   <OutlinedInput
                     {...field}
-                    // className="py-2 px-3.5"
                     placeholder="abd@gmail.com"
                     fullWidth
                   />
@@ -61,14 +60,17 @@ const ResetPasswordTemplate = () => {
             disableElevation
             className="font-semibold"
           >
-            Reset
+            Đặt lại
           </Button>
         </Box>
 
         <Box className="mt-5 flex justify-center text-sm">
-          <span>Don't have a account?</span>
-          <Link href="/auth/register" className="ml-2">
-            Sign up
+          <span>Quay trở lại trang </span>
+          <Link
+            href="/auth/login"
+            className="ml-2 text-blue-500 hover:underline"
+          >
+            Đăng nhập
           </Link>
         </Box>
       </Paper>
