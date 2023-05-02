@@ -27,7 +27,7 @@ import PermissionTableItem from "./TableItem";
 
 interface IPermissionTableProps {
   className?: string;
-  data?: IPermission[];
+  data?: ICivilian[];
 }
 
 interface Filters {
@@ -35,9 +35,9 @@ interface Filters {
 }
 
 const applyFilters = (
-  data: IPermission[] = [],
+  data: ICivilian[] = [],
   filters: Filters
-): IPermission[] => {
+): ICivilian[] => {
   return data?.filter((cryptoOrder) => {
     let matches = true;
 
@@ -46,10 +46,10 @@ const applyFilters = (
 };
 
 const applyPagination = (
-  cryptoOrders: IPermission[] = [],
+  cryptoOrders: ICivilian[] = [],
   page: number,
   limit: number
-): IPermission[] => {
+): ICivilian[] => {
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
@@ -189,20 +189,19 @@ const PermissionTable: FC<IPermissionTableProps> = ({ data }) => {
               </TableCell>
               <TableCell>ID</TableCell>
               <TableCell>Tên</TableCell>
-              <TableCell>Điểm</TableCell>
               <TableCell align="right">Hành động</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCryptoOrders.map((cryptoOrder) => {
+            {paginatedCryptoOrders.map((permission) => {
               const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                cryptoOrder._id
+                permission._id
               );
               return (
-                <Fragment key={cryptoOrder._id}>
+                <Fragment key={permission._id}>
                   <PermissionTableItem
                     isSelected={isCryptoOrderSelected}
-                    data={cryptoOrder}
+                    data={permission}
                     handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
                   />
                 </Fragment>

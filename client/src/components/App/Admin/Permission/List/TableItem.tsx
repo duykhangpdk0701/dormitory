@@ -10,15 +10,16 @@ import {
   useTheme,
 } from "@mui/material";
 
-import CloseIcon from "@mui/icons-material/Close";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import { useMutation } from "react-query";
 import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
+import Link from "next/link";
 
 interface IPermissionTableItemProps {
   isSelected: boolean;
-  data: IPermission;
+  data: ICivilian;
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 
@@ -100,17 +101,20 @@ const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
       </TableCell>
 
       <TableCell align="right">
-        <Tooltip title="Từ chối" arrow>
+        <Tooltip title="Chỉnh sửa" arrow>
           <IconButton
             sx={{
-              "&:hover": { background: theme.colors.error.lighter },
-              color: theme.palette.error.main,
+              "&:hover": {
+                background: theme.colors.primary.lighter,
+              },
+              color: theme.palette.primary.main,
             }}
             color="inherit"
             size="small"
-            onClick={handleDeny}
+            LinkComponent={Link}
+            href={`/admin/permission/${data._id}`}
           >
-            <CloseIcon />
+            <EditTwoToneIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </TableCell>

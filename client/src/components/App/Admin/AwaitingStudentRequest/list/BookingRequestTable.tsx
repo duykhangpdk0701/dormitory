@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from "react";
+import { FC, ChangeEvent, useState, Fragment } from "react";
 
 import {
   Divider,
@@ -201,16 +201,18 @@ const BookingRequestTable: FC<IBookingRequestTableProps> = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCryptoOrders.map((cryptoOrder) => {
+            {paginatedCryptoOrders.map((request) => {
               const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                cryptoOrder._id
+                request._id
               );
               return (
-                <BookingRequestTableItem
-                  isSelected={isCryptoOrderSelected}
-                  data={cryptoOrder}
-                  handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                />
+                <Fragment key={request._id}>
+                  <BookingRequestTableItem
+                    isSelected={isCryptoOrderSelected}
+                    data={request}
+                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                  />
+                </Fragment>
               );
             })}
           </TableBody>

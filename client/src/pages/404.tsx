@@ -3,13 +3,12 @@ import React, { ReactElement } from "react";
 import { NextPageWithLayout } from "./_app";
 import Status404 from "@/components/App/Status/Status404";
 import BaseLayout from "@/layouts/BaseLayout";
+import PageHead from "@/components/PageHead";
 
 const Custom404: NextPageWithLayout = () => {
   return (
     <>
-      <Head>
-        <title>User Settings - Applications</title>
-      </Head>
+      <PageHead title="Không tìm thấy trang | SGU dormitory" />
       <Status404 />
     </>
   );

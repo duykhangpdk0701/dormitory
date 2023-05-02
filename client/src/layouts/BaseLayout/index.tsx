@@ -11,8 +11,8 @@ const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
   return (
     <Box
       sx={{
-        flex: 1,
-        height: "100%",
+        minHeight: "100vh",
+        display: "flex",
       }}
     >
       {children}

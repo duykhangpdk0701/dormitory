@@ -1,14 +1,10 @@
 interface IAddress {
-  address: string;
-  phone: string;
-  city_id: number;
-  district_id: number;
-  id: number;
-  name: string;
-  status: number;
-  user_id: number;
-  ward_id: number;
-  parse_address_string: string;
+  _id: string;
+  street: string;
+  district: string;
+  province: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ICity {

@@ -18,7 +18,7 @@ const MainNav = () => {
               <Link href="/">Giới thiệu </Link>
             </li>
             <li>
-              <Link href="/">Giới thiệu </Link>
+              <Link href="/enroll">Đăng ký </Link>
             </li>
             <li>
               <Link href="/">Giới thiệu </Link>

@@ -1,4 +1,4 @@
-interface IPermission {
+interface ICivilian {
   _id: string;
   name: string;
   description: string;
