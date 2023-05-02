@@ -1,9 +1,77 @@
+const mongoose = require('mongoose')
 const Room = require('../Model/room.model');
 
 class RoomController {
     async showAll(req, res) {
         try {
-            const rooms = await Room.find({});
+            const filter = req.query || null
+            let aggregate = []
+            const deFault = [
+                {
+                    $lookup: {
+                        from: "roomtypes",
+                        localField: "roomType",
+                        foreignField: "_id",
+                        as: "roomType"
+                    }
+                },
+                { $unwind: '$roomType' },
+                {
+                    $lookup: {
+                        from: "devices",
+                        localField: "_id",
+                        foreignField: "roomId",
+                        as: "devices"
+                    }
+                },
+                { $sort: { createdAt: -1 } }
+            ]
+            aggregate = aggregate.concat(deFault)
+            if (filter) {
+                if (filter.price) {
+                    aggregate.push(
+                        {
+                            $sort: { price: parseInt(filter.price) }
+                        }
+                    )
+                }
+                if (filter.numberPeople) {
+                    aggregate.push(
+                        {
+                            $sort: { numberPeople: parseInt(filter.numberPeople) }
+                        }
+                    )
+                }
+                if (filter.numberBed) {
+                    aggregate.push(
+                        {
+                            $sort: { numberBed: parseInt(filter.numberBed) }
+                        }
+                    )
+                }
+                if (filter.area) {
+                    aggregate.push(
+                        {
+                            $sort: { area: parseInt(filter.area) }
+                        }
+                    )
+                }
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * 2
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
+            const rooms = await Room.aggregate(aggregate)
             res.json({ success: true, data: rooms})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
@@ -14,7 +82,28 @@ class RoomController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const room = await Room.findById(id)
+            const aggregate = [
+                { $match: { _id : new mongoose.Types.ObjectId(id) } },
+                {
+                    $lookup: {
+                        from: "roomtypes",
+                        localField: "roomType",
+                        foreignField: "_id",
+                        as: "roomType"
+                    }
+                },
+                { $unwind: '$roomType' },
+                {
+                    $lookup: {
+                        from: "devices",
+                        localField: "_id",
+                        foreignField: "roomId",
+                        as: "devices"
+                    }
+                },
+            ]
+            let room = await Room.aggregate(aggregate)
+            room = room[0]
             if (!room) return res.json({ success: false, messages: 'Invalid room' })
             res.json({ success: true, data: room })
         } catch (error) {
