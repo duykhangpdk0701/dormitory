@@ -74,7 +74,7 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <FormControl fullWidth>
-                      <InputLabel id="roomt-type">Age</InputLabel>
+                      <InputLabel id="roomt-type">Loại phòng</InputLabel>
                       <Select
                         {...field}
                         id="roomt-type"
