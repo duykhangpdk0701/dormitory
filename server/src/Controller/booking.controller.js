@@ -124,10 +124,10 @@ class BookingController {
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
 
             booking = await Booking.findOne({ _id: id});
-            const {firstname, lastname, dateOfBirth, email, phone } = booking
+            const {firstname, lastname, dateOfBirth, email, phone, gender } = booking
             const permission = await Permission.findOne({name: 'civilian'})
             const hashpassword = await argon2.hash('123');
-            const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone})
+            const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone, gender})
             await account.save()
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
             await civilian.save()

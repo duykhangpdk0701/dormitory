@@ -4,6 +4,8 @@ const BookingRequest = require('../Model/bookingRequest.model');
 const Address = require('../Model/address.model');
 const Booking = require('../Model/booking.model');
 const Room = require('../Model/room.model');
+const Civilian = require('../Model/civilian.model');
+const Account = require('../Model/user.model');
 
 class BookingRequestController {
     async showAll(req, res) {
@@ -113,12 +115,40 @@ class BookingRequestController {
             let bookingRequest = await BookingRequest.updateOne({ _id: id }, {status: 'Accepted'}, { new: true })
             if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
 
-            // Sắp xếp vào phòng, chưa thực hiện được !!
             bookingRequest = await BookingRequest.findOne({ _id: id});
-            let room = await Room.find({});   
             delete bookingRequest._doc._id
+            // Sắp xếp vào phòng, chưa thực hiện được !!
+            const aggregate = [
+                {
+                    $lookup: {
+                        from: "occupancies",
+                        localField: "_id",
+                        foreignField: "roomId",
+                        as: "occupancies"
+                    }
+                },
+            ]
+            const rooms = await Room.aggregate(aggregate)
+            let idRoom = ''
+            for(var i = 0; i < rooms.length; i++){
+                if(rooms[i].numberPeople > rooms[i].occupancies.length && rooms[i].occupancies.length > 0){
+                    const civilian = await Civilian.findById(rooms[i].occupancies[0].civilianId)
+                    const account = await Account.findById(civilian.accountId)
+                    if(account.gender && account.gender == bookingRequest._doc.gender){
+                        idRoom = rooms[i]._id
+                        break
+                    }
+                }else if(rooms[i].occupancies.length == 0){
+                    idRoom = rooms[i]._id
+                    break
+                }
+            }
 
-            const booking = new Booking({...bookingRequest._doc, status: 'Pending', room: room[0]._id})
+            if(!idRoom){
+                return res.json({ success: false, messages: 'Cant find suitable room' })
+            }
+
+            const booking = new Booking({...bookingRequest._doc, status: 'Pending', room: new mongoose.Types.ObjectId(idRoom)})
             await booking.save()
 
             res.json({ success: true, messages: 'Request accepted' })
