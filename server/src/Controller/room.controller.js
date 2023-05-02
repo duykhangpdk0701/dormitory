@@ -59,7 +59,7 @@ class RoomController {
                 if (filter.page) {
                     aggregate.push(
                         {
-                            $skip: (filter.page - 1) * 2
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
                         }
                     )
                 }

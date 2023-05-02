@@ -5,8 +5,8 @@ const Booking = require('../Model/booking.model');
 const Occupancy = require('../Model/occupancy.model');
 const Civilian = require('../Model/civilian.model');
 const Account = require('../Model/user.model');
-const Address = require('../Model/address.model');
 const Permission = require('../Model/permission.model');
+const Contract = require('../Model/contract.model');
 
 class BookingController {
     async showAll(req, res) {
@@ -44,6 +44,22 @@ class BookingController {
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
+            if (filter) {
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
             const bookings = await Booking.aggregate(aggregate)
             res.json({ success: true, data: bookings})
         } catch (error) {
@@ -148,7 +164,12 @@ class BookingController {
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Paid"}, { new: true })
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
-            booking = await Booking.find({ _id: id});
+            booking = await Booking.findOne({ _id: id});
+
+            const civilian = await Civilian.findOne({ studentId: booking.studentId })
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, staffId: new mongoose.Types.ObjectId('6450c645e3958e8e5fe49721'), totalPrice: booking.totalPrice})
+            await contract.save()
+
             res.json({ success: true, messages: 'paid'})
             sendMail(booking[0].email, "Mail form Dormitory", "Your booking is paid");
         } catch (error) {
@@ -162,7 +183,11 @@ class BookingController {
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Cancel"}, { new: true })
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
-            booking = await Booking.find({ _id: id});
+            booking = await Booking.findOne({ _id: id});
+            const civilian = await Civilian.findOne({ studentId: booking.studentId })
+            await Occupancy.deleteOne({ civilianId: civilian._id })
+            await Account.deleteOne({ _id: civilian.accountId})
+            await Civilian.deleteOne({ studentId: booking.studentId })
             res.json({ success: true, messages: 'cancel'})
             sendMail(booking[0].email, "Mail form Dormitory", "Your booking is cancel");
         } catch (error) {

@@ -1,9 +1,50 @@
+const mongoose = require('mongoose');
 const Device = require('../Model/device.model');
 
 class DeviceController {
     async showAll(req, res) {
         try {
-            const devices = await Device.find({});
+            const filter = req.query || null
+            let aggregate = []
+            const deFault = [
+                {
+                    $lookup: {
+                        from: "rooms",
+                        localField: "roomId",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
+                {
+                    $lookup: {
+                        from: "roomtypes",
+                        localField: "room.roomType",
+                        foreignField: "_id",
+                        as: "room.roomType"
+                    }
+                },
+                { $unwind: '$room.roomType' },
+                { $sort: { createdAt: -1 } }
+            ]
+            aggregate = aggregate.concat(deFault)
+            if (filter) {
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
+            const devices = await Device.aggregate(aggregate)
             res.json({ success: true, data: devices})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
@@ -14,7 +55,30 @@ class DeviceController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const device = await Device.findById(id)
+            const aggregate = [
+                { $match: { _id: new mongoose.Types.ObjectId(id) } },
+                {
+                    $lookup: {
+                        from: "rooms",
+                        localField: "roomId",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
+                {
+                    $lookup: {
+                        from: "roomtypes",
+                        localField: "room.roomType",
+                        foreignField: "_id",
+                        as: "room.roomType"
+                    }
+                },
+                { $unwind: '$room.roomType' },
+                { $sort: { createdAt: -1 } }
+            ]
+            let device = await Device.aggregate(aggregate)
+            device = device[0]
             if (!device) return res.json({ success: false, messages: 'Invalid device' })
             res.json({ success: true, data: device })
         } catch (error) {

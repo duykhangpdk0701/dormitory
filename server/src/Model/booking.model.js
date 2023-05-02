@@ -44,6 +44,12 @@ const Booking = new Schema(
         dateStart: {
             type: Date,
         },
+        priceDeposit: {
+            type: Number,
+        },
+        totalPrice: {
+            type: Number,
+        },
         status: { 
             type: String, 
             enum: ['Pending', 'Deposit', 'Paid','Cancel'],

@@ -1,9 +1,68 @@
+const mongoose = require('mongoose');
 const ServiceUsage = require('../Model/serviceUsage.model');
 
 class ServiceUsageController {
     async showAll(req, res) {
         try {
-            const services = await ServiceUsage.find({});
+            const filter = req.query || null
+            let aggregate = []
+            const deFault = [
+                {
+                    $lookup: {
+                        from: "services",
+                        localField: "serviceId",
+                        foreignField: "_id",
+                        as: "service"
+                    }
+                },
+                { $unwind: '$service' },
+                {
+                    $lookup: {
+                        from: "civilians",
+                        localField: "civilianId",
+                        foreignField: "_id",
+                        as: "civilian"
+                    }
+                },
+                { $unwind: '$civilian' },
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "civilian.accountId",
+                        foreignField: "_id",
+                        as: "civilian.account"
+                    }
+                },
+                { $unwind: '$civilian.account' },
+                {
+                    $lookup: {
+                        from: "addresses",
+                        localField: "civilian.address",
+                        foreignField: "_id",
+                        as: "civilian.address"
+                    }
+                },
+                { $unwind: '$civilian.address' },
+                { $sort: { createdAt: -1 } }
+            ]
+            aggregate = aggregate.concat(deFault)
+            if (filter) {
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
+            const services = await ServiceUsage.aggregate(aggregate)
             res.json({ success: true, data: services})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
@@ -14,7 +73,48 @@ class ServiceUsageController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const service = await ServiceUsage.findById(id)
+            const aggregate = [
+                { $match: { _id: new mongoose.Types.ObjectId(id) } },
+                {
+                    $lookup: {
+                        from: "services",
+                        localField: "serviceId",
+                        foreignField: "_id",
+                        as: "service"
+                    }
+                },
+                { $unwind: '$service' },
+                {
+                    $lookup: {
+                        from: "civilians",
+                        localField: "civilianId",
+                        foreignField: "_id",
+                        as: "civilian"
+                    }
+                },
+                { $unwind: '$civilian' },
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "civilian.accountId",
+                        foreignField: "_id",
+                        as: "civilian.account"
+                    }
+                },
+                { $unwind: '$civilian.account' },
+                {
+                    $lookup: {
+                        from: "addresses",
+                        localField: "civilian.address",
+                        foreignField: "_id",
+                        as: "civilian.address"
+                    }
+                },
+                { $unwind: '$civilian.address' },
+                { $sort: { createdAt: -1 } }
+            ]
+            let service = await ServiceUsage.aggregate(aggregate)
+            service = service[0]
             if (!service) return res.json({ success: false, messages: 'Invalid service' })
             res.json({ success: true, data: service })
         } catch (error) {
