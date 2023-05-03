@@ -28,7 +28,7 @@ const Home: FC = (props) => {
         />
 
         <div className="absolute left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4">
-          <div className="bg-white/70 py-12 px-20 text-center">
+          <div className="bg-white/70 py-12 px-20 text-center shadow-2xl">
             <span className="uppercase font-bold">Đại học Sài Gòn</span>
             <h1 className="text-5xl text-black leading-normal whitespace-nowrap">
               Ký túc xá
