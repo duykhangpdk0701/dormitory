@@ -21,7 +21,6 @@ class ConversationController {
                             as: 'user'
                         }
                     },
-                    { $unwind: '$user' }
                 ])
             }else{
                 conversations = await Conversation.aggregate([
@@ -33,7 +32,6 @@ class ConversationController {
                             as: 'user'
                         }
                     },
-                    { $unwind: '$user' },
                     { $sort : { createdAt: -1 } }
                 ])
             }
@@ -47,7 +45,28 @@ class ConversationController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const conversation = await Conversation.findById(id)
+            const aggregate = [
+                { $match: { _id: new mongoose.Types.ObjectId(id) } },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userId',
+                        foreignField: '_id',
+                        as: 'user'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'messages',
+                        localField: '_id',
+                        foreignField: 'conversation',
+                        as: 'messages'
+                    }
+                },
+                { $sort : { createdAt: -1 } }
+            ]
+            let conversation = await Conversation.aggregate(aggregate)
+            conversation = conversation[0]
             if (!conversation) return res.json({ success: false, messages: 'Invalid conversation' })
             res.json({ success: true, conversation })
         } catch (error) {

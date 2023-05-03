@@ -20,6 +20,7 @@ const complaintRouter = require("./complaint.route");
 const ConversationRouter = require('./conversation.route');
 const MessageRouter = require('./message.route');
 const ViolationRouter = require('./violation.route');
+const BillRouter = require('./bill.route');
 
 const Route = (app) => {
     app.use("/user", userRouter);
@@ -44,6 +45,7 @@ const Route = (app) => {
     app.use('/conversation', ConversationRouter);
     app.use('/message', MessageRouter);
     app.use('/violation', ViolationRouter);
+    app.use('/bill', BillRouter);
 };
 
 module.exports = Route;

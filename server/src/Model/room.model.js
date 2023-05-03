@@ -38,6 +38,9 @@ const Room = new Schema(
             type: Number,
             required: true,
         },
+        images: {
+            type: [String],
+        },
         roomType: {
             type: Schema.Types.ObjectId,
             ref: "roomTypes",

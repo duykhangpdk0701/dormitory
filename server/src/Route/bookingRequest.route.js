@@ -5,8 +5,8 @@ const upload = require('../Middleware/uploadImg');
 
 router.get("/", bookingRequestController.showAll);
 router.get("/:id", bookingRequestController.show);
-router.post("/store", upload.array('image',10), bookingRequestController.store);
-router.put("/:id", bookingRequestController.update);
+router.post("/store", upload.array('images',10), bookingRequestController.store);
+router.put("/:id", upload.array('images',10), bookingRequestController.update);
 router.put("/:id/accepted", bookingRequestController.accepted);
 router.put("/:id/cancel", bookingRequestController.cancel);
 router.delete("/:id", bookingRequestController.delete);

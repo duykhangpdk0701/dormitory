@@ -142,7 +142,7 @@ class UserController {
                 return res.status(400).json({success: false,messages:'Username already taken'});
             }
             const hashpassword = await argon2.hash(password);
-            const newUser = new User({...req.body, password:hashpassword})
+            const newUser = new User({...req.body, password:hashpassword, avatar: "/images/avatar.png"})
             await newUser.save()
 
             const accessToken = jwt.sign(
@@ -186,7 +186,23 @@ class UserController {
             }
             await User.updateOne({ username }, req.body)
 
-            res.json({ success:true, messages:'Change password successfully' })
+            res.json({ success:true, messages:'Change infor successfully' })
+        } catch (error) {
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+
+    async changeAvatar(req, res) {
+        const { username } = req.body;
+        if(!username) return res.status(400).json({success: false, messages: 'Missing username'});
+        try {
+            const user = await User.findOne({ username });
+            if(!user){
+                return res.status(400).json({success: false,messages:'Username uncorrect'});
+            }
+            await User.updateOne({ username }, { avatar: "/images/"+ req.file.filename })
+
+            res.json({ success:true, messages:'Change avatar successfully' })
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }

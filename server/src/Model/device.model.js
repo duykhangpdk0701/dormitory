@@ -15,6 +15,9 @@ const Device = new Schema(
         description: {
             type: String,
         },
+        images: {
+            type: [String],
+        },
         dateAdd: {
             type: Date,
         },

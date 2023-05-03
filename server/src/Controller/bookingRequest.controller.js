@@ -103,7 +103,7 @@ class BookingRequestController {
         try {
             const address = new Address({...req.body})
             await address.save()
-            const bookingRequest = new BookingRequest({...req.body,address: address._id, dateOfBirth: new Date(req.body.dateOfBirth), images: req.files ? req.files.map(file => "/images/"+file.filename) : 'default'})
+            const bookingRequest = new BookingRequest({...req.body,address: address._id, dateOfBirth: new Date(req.body.dateOfBirth), images: req.files ? req.files.map(file => "/images/"+file.filename) : ''})
             await bookingRequest.save()
             res.json({ success: true, messages: 'Create successfully', data: bookingRequest })
             sendMail(bookingRequest.email, createBookingRequest());
@@ -116,8 +116,14 @@ class BookingRequestController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const bookingRequest = await BookingRequest.updateOne({ _id: id }, req.body, { new: true })
-            if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
+            let bookingRequest
+            if(req.files){
+                bookingRequest = await BookingRequest.updateOne({ _id: id }, {...req.body, images: req.files.map(file => "/images/"+file.filename)}, { new: true })
+                if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
+            } else{
+                bookingRequest = await BookingRequest.updateOne({ _id: id }, req.body, { new: true })
+                if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
+            }
             res.json({ success: true, messages: 'Update successfully', data: bookingRequest })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
