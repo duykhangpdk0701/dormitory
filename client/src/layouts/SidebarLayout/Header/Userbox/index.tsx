@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import Link from "next/link";
 
@@ -59,11 +59,18 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-  const user = {
-    name: "Catherine Pike",
-    avatar: "/static/images/avatars/1.jpg",
-    jobtitle: "Project Manager",
-  };
+  const user = useMemo(() => {
+    return {
+      name:
+        typeof window !== "undefined"
+          ? sessionStorage.getItem("username")
+          : null,
+      avatar:
+        typeof window !== "undefined" ? sessionStorage.getItem("avatar") : null,
+      jobtitle:
+        typeof window !== "undefined" ? sessionStorage.getItem("role") : null,
+    };
+  }, []);
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -79,7 +86,12 @@ function HeaderUserbox() {
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        {user.avatar ? (
+          <Avatar variant="rounded" alt={user.name || ""} src={user?.avatar} />
+        ) : (
+          <Avatar variant="rounded" />
+        )}
+
         <Hidden mdDown>
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
@@ -106,7 +118,15 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          {user.avatar ? (
+            <Avatar
+              variant="rounded"
+              alt={user.name || ""}
+              src={user?.avatar}
+            />
+          ) : (
+            <Avatar variant="rounded" />
+          )}
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
@@ -118,15 +138,15 @@ function HeaderUserbox() {
         <List sx={{ p: 1 }} component="nav">
           <ListItem button href="/management/profile/details" component={Link}>
             <AccountBoxTwoToneIcon fontSize="small" />
-            <ListItemText primary="My Profile" />
+            <ListItemText primary="Thông tin cá nhân" />
           </ListItem>
-          <ListItem button href="/dashboards/messenger" component={Link}>
+          <ListItem button href="/admin/messenger" component={Link}>
             <InboxTwoToneIcon fontSize="small" />
-            <ListItemText primary="Messenger" />
+            <ListItemText primary="Tin nhắn" />
           </ListItem>
           <ListItem button href="/management/profile/settings" component={Link}>
             <AccountTreeTwoToneIcon fontSize="small" />
-            <ListItemText primary="Account Settings" />
+            <ListItemText primary="Cài đặt tài khoản" />
           </ListItem>
         </List>
         <Divider />
@@ -138,7 +158,7 @@ function HeaderUserbox() {
             href="/auth/login"
           >
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
-            Sign out
+            Đăng xuất
           </Button>
         </Box>
       </Popover>

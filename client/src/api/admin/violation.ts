@@ -1,14 +1,14 @@
-import ITask from "@/interfaces/Task";
+import IViolation from "@/interfaces/Violation";
 import axiosClient from "../axiosClient";
 import queryString from "query-string";
 
-const adminTaskAPI = {
+const adminViolationAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
     page: number = 0
-  ): Promise<ITask[]> => {
-    const url = "/task";
+  ): Promise<IViolation[]> => {
+    const url = "/violation";
     const searchUrl = queryString.stringifyUrl(
       { url, query: { search, limit, page: page + 1 } },
       { arrayFormat: "index" }
@@ -17,25 +17,25 @@ const adminTaskAPI = {
     return res.data;
   },
 
-  getById: async (id: string): Promise<ITask> => {
-    const url = `/task/${id}`;
+  getById: async (id: string): Promise<IViolation> => {
+    const url = `/violation/${id}`;
     const res = await axiosClient.get(url);
     return res.data;
   },
 
   create: async (
-    staffId: string,
-    desc: string,
-    dateAssign: Date
-  ): Promise<ITask> => {
-    const url = "/task/store";
+    title: string,
+    civilianId: string,
+    desc: string
+  ): Promise<IViolation> => {
+    const url = "/violation/store";
     const res = await axiosClient.post(url, {
+      title,
+      civilianId,
       description: desc,
-      staffId,
-      dateAssign,
     });
     return res.data;
   },
 };
 
-export default adminTaskAPI;
+export default adminViolationAPI;

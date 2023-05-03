@@ -14,13 +14,14 @@ import {
   TableContainer,
   CardHeader,
   TextField,
+  Typography,
 } from "@mui/material";
 
-import { CryptoOrderStatus } from "@/models/crypto_order";
-
 import BulkActions from "./BulkActions";
-import IStaff from "@/interfaces/Staff";
-import StaffTableItem from "./TableItem";
+import IService from "@/interfaces/Service";
+import ServiceTableItem from "./TableItem";
+import { IServiceParams } from "@/pages/admin/service";
+
 import {
   Control,
   Controller,
@@ -28,19 +29,18 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
-import { IStaffParams } from "@/pages/admin/staff";
 
-interface IStaffTableProps {
+interface IServiceTableProps {
   className?: string;
-  data?: IStaff[];
-  control: Control<IStaffParams, any>;
-  handleSubmit: UseFormHandleSubmit<IStaffParams>;
-  onSubmit: SubmitHandler<IStaffParams>;
-  watch: UseFormWatch<IStaffParams>;
+  data?: IService[];
+  control: Control<IServiceParams, any>;
+  handleSubmit: UseFormHandleSubmit<IServiceParams>;
+  onSubmit: SubmitHandler<IServiceParams>;
+  watch: UseFormWatch<IServiceParams>;
   isLoading: boolean;
 }
 
-const StaffTable: FC<IStaffTableProps> = (props) => {
+const ServiceTable: FC<IServiceTableProps> = (props) => {
   const { data, control, handleSubmit, onSubmit, watch, isLoading } = props;
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
@@ -139,21 +139,45 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((staff) => {
+              {data?.map((service) => {
                 const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  staff._id
+                  service._id
                 );
                 return (
-                  <Fragment key={staff._id}>
-                    <StaffTableItem
+                  <Fragment key={service._id}>
+                    <ServiceTableItem
                       isSelected={isCryptoOrderSelected}
-                      data={staff}
+                      data={service}
                       handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
                     />
                   </Fragment>
                 );
               })}
             </TableBody>
+
+            {isNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={99} sx={{ py: 10 }}>
+                    <Box
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" paragraph>
+                        Không tìm thấy
+                      </Typography>
+
+                      <Typography variant="body2">
+                        Không có kết quả tìm kiếm cho &nbsp;
+                        <strong>&quot;{watch("search")}&quot;</strong>.
+                        <br /> Hãy thử kiểm tra cú pháp hoặc nhập đầy đủ từ.
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
           </Table>
         </TableContainer>
         <Box p={2}>
@@ -188,4 +212,4 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
   );
 };
 
-export default StaffTable;
+export default ServiceTable;

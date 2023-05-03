@@ -14,13 +14,13 @@ import {
   TableContainer,
   CardHeader,
   TextField,
+  Typography,
 } from "@mui/material";
 
-import { CryptoOrderStatus } from "@/models/crypto_order";
-
 import BulkActions from "./BulkActions";
-import IStaff from "@/interfaces/Staff";
-import StaffTableItem from "./TableItem";
+import ViolationTableItem from "./TableItem";
+import IViolation from "@/interfaces/Violation";
+import { IViolationParams } from "@/pages/admin/violation";
 import {
   Control,
   Controller,
@@ -28,19 +28,18 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
-import { IStaffParams } from "@/pages/admin/staff";
 
-interface IStaffTableProps {
+interface IViolationTableProps {
   className?: string;
-  data?: IStaff[];
-  control: Control<IStaffParams, any>;
-  handleSubmit: UseFormHandleSubmit<IStaffParams>;
-  onSubmit: SubmitHandler<IStaffParams>;
-  watch: UseFormWatch<IStaffParams>;
+  data?: IViolation[];
+  control: Control<IViolationParams, any>;
+  handleSubmit: UseFormHandleSubmit<IViolationParams>;
+  onSubmit: SubmitHandler<IViolationParams>;
+  watch: UseFormWatch<IViolationParams>;
   isLoading: boolean;
 }
 
-const StaffTable: FC<IStaffTableProps> = (props) => {
+const ViolationTable: FC<IViolationTableProps> = (props) => {
   const { data, control, handleSubmit, onSubmit, watch, isLoading } = props;
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
@@ -133,27 +132,51 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                 <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Mô tả</TableCell>
-
-                <TableCell>Giá(VND)</TableCell>
+                <TableCell>Tên sinh viên</TableCell>
+                <TableCell>Mã sinh viên</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((staff) => {
+              {data?.map((violation) => {
                 const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  staff._id
+                  violation._id
                 );
                 return (
-                  <Fragment key={staff._id}>
-                    <StaffTableItem
+                  <Fragment key={violation._id}>
+                    <ViolationTableItem
                       isSelected={isCryptoOrderSelected}
-                      data={staff}
+                      data={violation}
                       handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
                     />
                   </Fragment>
                 );
               })}
             </TableBody>
+
+            {isNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={99} sx={{ py: 10 }}>
+                    <Box
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" paragraph>
+                        Không tìm thấy
+                      </Typography>
+
+                      <Typography variant="body2">
+                        Không có kết quả tìm kiếm cho &nbsp;
+                        <strong>&quot;{watch("search")}&quot;</strong>.
+                        <br /> Hãy thử kiểm tra cú pháp hoặc nhập đầy đủ từ.
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
           </Table>
         </TableContainer>
         <Box p={2}>
@@ -188,4 +211,4 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
   );
 };
 
-export default StaffTable;
+export default ViolationTable;

@@ -1,6 +1,5 @@
 import authAPI from "@/api/authAPI";
 import Login from "@/components/App/Auth/login";
-import Head from "next/head";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -47,13 +46,17 @@ const LoginPage: NextPageWithLayout = () => {
       return authAPI.login(username, password);
     },
     onSuccess: async (data) => {
-      console.log(data);
       sessionStorage.setItem("token", data.accessToken);
-      await router.push("/");
+      sessionStorage.setItem("username", data.user.username);
+      sessionStorage.setItem("role", data.user.permission.name);
+      if (data.user.permission.name === "admin") {
+        await router.push("/admin");
+      } else {
+        await router.push("/");
+      }
       setLoading(false);
     },
     onError: (error: any) => {
-      console.log(error);
       setError(error.messages);
       setLoading(false);
     },

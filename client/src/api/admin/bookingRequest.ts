@@ -1,9 +1,18 @@
+import queryString from "query-string";
 import axiosClient from "../axiosClient";
 
 const adminBookingRequest = {
-  getList: async (): Promise<any[]> => {
+  getList: async (
+    search?: string,
+    limit: number = 5,
+    page: number = 0
+  ): Promise<any[]> => {
     const url = "/bookingRequest";
-    const res = await axiosClient.get(url);
+    const searchUrl = queryString.stringifyUrl(
+      { url, query: { search, limit, page: page + 1 } },
+      { arrayFormat: "index" }
+    );
+    const res = await axiosClient.get(searchUrl);
     return res.data;
   },
 
