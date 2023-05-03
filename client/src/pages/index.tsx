@@ -4,11 +4,6 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import Home from "@/components/App/Home";
 import NavLayout from "@/layouts/NavLayout";
-import Announcement from "@/components/App/Home/announcement";
-import Activity from "@/components/App/Home/activity";
-import Enroll from "@/components/App/Home/enroll";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const HomePage = () => {
   return (
@@ -20,11 +15,7 @@ const HomePage = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      <Home
-        activity={<Activity />}
-        announcement={<Announcement />}
-        enroll={<Enroll />}
-      />
+      <Home />
     </>
   );
 };
