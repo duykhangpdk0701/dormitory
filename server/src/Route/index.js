@@ -17,6 +17,9 @@ const taskRouter = require("./task.route");
 const jobRouter = require("./job.route");
 const feedbackRouter = require("./feedback.route");
 const complaintRouter = require("./complaint.route");
+const ConversationRouter = require('./conversation.route');
+const MessageRouter = require('./message.route');
+const ViolationRouter = require('./violation.route');
 
 const Route = (app) => {
     app.use("/user", userRouter);
@@ -38,6 +41,9 @@ const Route = (app) => {
     app.use("/job", jobRouter);
     app.use("/feedback", feedbackRouter);
     app.use("/complaint", complaintRouter);
+    app.use('/conversation', ConversationRouter);
+    app.use('/message', MessageRouter);
+    app.use('/violation', ViolationRouter);
 };
 
 module.exports = Route;
