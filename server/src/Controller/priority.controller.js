@@ -3,8 +3,38 @@ const Priority = require('../Model/priority.model');
 class PriorityController {
     async showAll(req, res) {
         try {
-            const prioritys = await Priority.find({});
-            res.json({ success: true, data: prioritys})
+            const filter = req.query || null
+            let aggregate = []
+            if (filter) {
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { name: { $regex: filter.search || '', $options: "i" } },
+                                    { score: { $regex: filter.search || '', $options: "i" } },
+                                ]
+                            }
+                        }
+                    )
+                }
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
+            const priorities = await Priority.aggregate(aggregate)
+            res.json({ success: true, data: priorities})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }

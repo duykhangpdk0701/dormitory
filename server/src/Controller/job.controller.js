@@ -3,7 +3,37 @@ const Job = require('../Model/job.model');
 class JobController {
     async showAll(req, res) {
         try {
-            const jobs = await Job.find({});
+            const filter = req.query || null
+            let aggregate = []
+            if (filter) {
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { name: { $regex: filter.search || '', $options: "i" } },
+                                    { description: { $regex: filter.search || '', $options: "i" } },
+                                ]
+                            }
+                        }
+                    )
+                }
+                if (filter.page) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
+                if (filter.limit) {
+                    aggregate.push(
+                        {
+                            $limit: parseInt(filter.limit)
+                        }
+                    )
+                }
+            }
+            const jobs = await Job.aggregate(aggregate)
             res.json({ success: true, data: jobs})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

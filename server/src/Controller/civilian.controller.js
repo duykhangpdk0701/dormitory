@@ -29,10 +29,41 @@ class CivilianController {
                     }
                 },
                 { $unwind: '$address' },
+                {
+                    $lookup: {
+                        from: "violations",
+                        localField: "_id",
+                        foreignField: "civilianId",
+                        as: "violations"
+                    }
+                },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.onlyViolation) {
+                    aggregate.push(
+                        {
+                            $match: { violations: {$ne : []} }
+                        }
+                    )
+                }
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { name: { $regex: filter.search || '', $options: "i" } },
+                                    { studentId: { $regex: filter.search || '', $options: "i" } },
+                                    { "account.firstname": { $regex: filter.search || '', $options: "i" } },
+                                    { "account.lastname": { $regex: filter.search || '', $options: "i" } },
+                                    { "account.email": { $regex: filter.search || '', $options: "i" } },
+                                    { "account.phone": { $regex: filter.search || '', $options: "i" } }
+                                ]
+                            }
+                        }
+                    )
+                }
                 if (filter.page) {
                     aggregate.push(
                         {

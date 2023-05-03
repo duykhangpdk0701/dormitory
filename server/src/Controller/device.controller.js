@@ -29,6 +29,19 @@ class DeviceController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { name: { $regex: filter.search || '', $options: "i" } },
+                                    { description: { $regex: filter.search || '', $options: "i" } },
+                                    { 'room.name': { $regex: filter.search || '', $options: "i" } },
+                                ]
+                            }
+                        }
+                    )
+                }
                 if (filter.page) {
                     aggregate.push(
                         {

@@ -38,6 +38,19 @@ class ComplaintController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { title: { $regex: filter.search || '', $options: "i" } },
+                                    { description: { $regex: filter.search || '', $options: "i" } },
+                                    { status: { $regex: filter.search || '', $options: "i" } },
+                                ]
+                            }
+                        }
+                    )
+                }
                 if (filter.page) {
                     aggregate.push(
                         {

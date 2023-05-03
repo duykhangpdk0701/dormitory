@@ -28,6 +28,23 @@ class RoomController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.search) {
+                    aggregate.push(
+                        {
+                            $match: {
+                                $or: [
+                                    { name: { $regex: filter.search || '', $options: "i" } },
+                                    { description: { $regex: filter.search || '', $options: "i" } },
+                                    { numberPeople: { $regex: filter.search || '', $options: "i" } },
+                                    { numberBed: { $regex: filter.search || '', $options: "i" } },
+                                    { length: { $regex: filter.search || '', $options: "i" } },
+                                    { width: { $regex: filter.search || '', $options: "i" } },
+                                    { price: { $regex: filter.search || '', $options: "i" } },
+                                ]
+                            }
+                        }
+                    )
+                }
                 if (filter.price) {
                     aggregate.push(
                         {
