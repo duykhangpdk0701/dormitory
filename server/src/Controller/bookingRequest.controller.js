@@ -6,6 +6,7 @@ const Booking = require('../Model/booking.model');
 const Room = require('../Model/room.model');
 const Civilian = require('../Model/civilian.model');
 const Account = require('../Model/user.model');
+const { createBookingRequest, acceptedBookingRequest } = require('../../Utils/mail.format');
 
 class BookingRequestController {
     async showAll(req, res) {
@@ -105,6 +106,7 @@ class BookingRequestController {
             const bookingRequest = new BookingRequest({...req.body,address: address._id, dateOfBirth: new Date(req.body.dateOfBirth), images: req.files ? req.files.map(file => "/images/"+file.filename) : 'default'})
             await bookingRequest.save()
             res.json({ success: true, messages: 'Create successfully', data: bookingRequest })
+            sendMail(bookingRequest.email, createBookingRequest());
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -165,7 +167,7 @@ class BookingRequestController {
             await booking.save()
 
             res.json({ success: true, messages: 'Request accepted' })
-            sendMail(bookingRequest.email, "Mail form Dormitory", "Your request is accepted");
+            sendMail(bookingRequest.email, acceptedBookingRequest(booking, room));
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -195,7 +197,7 @@ class BookingRequestController {
         } catch (error) {
             res.status(500).json({ success: false, messages: 'Interval server error' })
         }
-    }
+    } 
 }
 
 module.exports = new BookingRequestController()

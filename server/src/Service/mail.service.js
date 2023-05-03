@@ -10,13 +10,12 @@ var transporter = nodemailer.createTransport({
     },
 });
 
-
-const sendMail = async (to , subject, text) => {
+const sendMail = async (to, html) => {
     var mailOptions = {
         from: "dormitory.sgu@gmail.com",
         to,
-        subject,
-        text,
+        subject: "Mail form Dormitory",
+        html,
     };
     await new Promise((resolve, reject) => {
         transporter.sendMail(mailOptions, (err, info) => {
@@ -24,11 +23,10 @@ const sendMail = async (to , subject, text) => {
                 console.error(err);
                 reject(err);
             } else {
-                console.log(info);
                 resolve(info);
             }
         });
     });
-}
+};
 
 module.exports = sendMail;

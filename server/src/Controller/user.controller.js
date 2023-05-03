@@ -58,7 +58,7 @@ class UserController {
             if(!user){
                 return res.status(400).json({success: false, messages:'User not found'})
             }
-            res.json({success: true, user})
+            res.json({success: true, data: { user }})
         }
         catch(error){
             console.log(error);
@@ -127,7 +127,7 @@ class UserController {
                 const staff = await Staff.aggregate(aggregate)
                 user.infor = staff[0]
             }
-            res.json({ success: true, messages: 'Login successfully', accessToken, user})
+            res.json({ success: true, messages: 'Login successfully', data: { accessToken, user }})
         }
         catch(error){
             res.status(500).json({ success: false, message: error.message });
@@ -149,7 +149,7 @@ class UserController {
                 { Id: newUser._id },
                 process.env.ACCESS_TOKEN_SECRET
             )
-            res.json({ success:true, messages:'Register successfully', accessToken })
+            res.json({ success:true, messages:'Register successfully', data: { accessToken }})
         } catch (error) {
             res.status(500).json({ success: false, message: req.body });
         }
