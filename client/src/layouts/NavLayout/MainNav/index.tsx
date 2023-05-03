@@ -9,9 +9,9 @@ const MainNav = () => {
   return (
     <nav className="py-3">
       <Container className="flex justify-between items-center">
-        <div>
+        <Link href="/">
           <Image src={logo.src} height={50} width={50} alt="sgu" />
-        </div>
+        </Link>
         <div>
           <ul className="flex justify-around items-center gap-12">
             <li>
@@ -21,16 +21,7 @@ const MainNav = () => {
               <Link href="/enroll">Đăng ký </Link>
             </li>
             <li>
-              <Link href="/">Giới thiệu </Link>
-            </li>
-            <li>
-              <Link href="/">Giới thiệu </Link>
-            </li>
-            <li>
-              <Link href="/">Giới thiệu </Link>
-            </li>
-            <li>
-              <Link href="/">Giới thiệu </Link>
+              <Link href="/announcement"> Thông báo</Link>
             </li>
           </ul>
         </div>

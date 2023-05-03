@@ -32,9 +32,24 @@
 // }
 
 interface ILogin {
-  accessToken: string;
-  messages: string;
   success: boolean;
+  messages: string;
+  accessToken: string;
+  user: {
+    _id: string;
+    username: string;
+    password: string;
+    permission: {
+      _id: string;
+      name: string;
+      description: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export default ILogin;
