@@ -91,7 +91,8 @@ class BookingRequestController {
                 { $unwind: '$address' },
                 { $sort: { "priority.score": -1, createdAt: -1 } }
             ]
-            const bookingRequest = await BookingRequest.aggregate(aggregate)
+            let bookingRequest = await BookingRequest.aggregate(aggregate)
+            bookingRequest = bookingRequest[0]
             if (!bookingRequest) return res.json({ success: false, messages: 'Invalid bookingRequest' })
             res.json({ success: true, data: bookingRequest })
         } catch (error) {
