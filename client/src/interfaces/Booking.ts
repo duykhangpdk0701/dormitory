@@ -7,6 +7,7 @@ interface IBooking {
   email: string;
   phone: string;
   dateOfBirth: string;
+  gender: string;
   status: string;
   createdAt: string;
   updatedAt: string;

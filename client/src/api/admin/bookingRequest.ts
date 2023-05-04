@@ -1,5 +1,6 @@
 import queryString from "query-string";
 import axiosClient from "../axiosClient";
+import IBookingRequest from "@/interfaces/BookingRequest";
 
 const adminBookingRequest = {
   getList: async (
@@ -13,6 +14,12 @@ const adminBookingRequest = {
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);
+    return res.data;
+  },
+
+  getById: async (id: string): Promise<IBookingRequest> => {
+    const url = `/bookingRequest/${id}`;
+    const res = await axiosClient.get(url);
     return res.data;
   },
 

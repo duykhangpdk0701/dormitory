@@ -16,5 +16,11 @@ const adminCivilian = {
     const res = await axiosClient.get(searchUrl);
     return res.data;
   },
+
+  getById: async (id: string): Promise<ICivilian> => {
+    const url = `/civilian/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 export default adminCivilian;

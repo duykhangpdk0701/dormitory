@@ -17,6 +17,12 @@ const adminRoomAPI = {
     return res.data;
   },
 
+  getById: async (id: string): Promise<IRoom> => {
+    const url = `/room/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
+
   create: async (): Promise<IRoom> => {
     const url = "/room/store";
     const res = await axiosClient.post(url);

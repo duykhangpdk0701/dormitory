@@ -10,12 +10,14 @@ import {
   useTheme,
 } from "@mui/material";
 
-import CloseIcon from "@mui/icons-material/Close";
 import { useMutation } from "react-query";
 import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import IPriority from "@/interfaces/Priority";
+import Link from "next/link";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 interface IPriorityTableItemProps {
   isSelected: boolean;
@@ -112,7 +114,23 @@ const PriorityTableItem: FC<IPriorityTableItemProps> = (props) => {
       </TableCell>
 
       <TableCell align="right">
-        <Tooltip title="Từ chối" arrow>
+        <Tooltip title="Chỉnh sửa" arrow>
+          <IconButton
+            LinkComponent={Link}
+            href={`/admin/priority/${data._id}/edit`}
+            sx={{
+              "&:hover": {
+                background: theme.colors.primary.lighter,
+              },
+              color: theme.palette.primary.main,
+            }}
+            color="inherit"
+            size="small"
+          >
+            <EditTwoToneIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Xoá phòng" arrow>
           <IconButton
             sx={{
               "&:hover": { background: theme.colors.error.lighter },
@@ -120,9 +138,8 @@ const PriorityTableItem: FC<IPriorityTableItemProps> = (props) => {
             }}
             color="inherit"
             size="small"
-            onClick={handleDeny}
           >
-            <CloseIcon />
+            <DeleteTwoToneIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </TableCell>
