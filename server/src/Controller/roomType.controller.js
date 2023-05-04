@@ -33,7 +33,7 @@ class RoomTypeController {
                     )
                 }
             }
-            const roomTypes = await RoomType.aggregate(aggregate)
+            const roomTypes = aggregate.length > 0 ? await RoomType.aggregate(aggregate) : await RoomType.find({})
             res.json({ success: true, data: roomTypes})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

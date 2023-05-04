@@ -33,7 +33,7 @@ class ServiceController {
                     )
                 }
             }
-            const services = await Service.aggregate(aggregate)
+            const services = aggregate.length > 0 ? await Service.aggregate(aggregate) : await Service.find({})
             res.json({ success: true, data: services})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

@@ -33,7 +33,7 @@ class PriorityController {
                     )
                 }
             }
-            const priorities = await Priority.aggregate(aggregate)
+            const priorities = aggregate.length > 0 ? await Priority.aggregate(aggregate) : await Priority.find({})
             res.json({ success: true, data: priorities})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

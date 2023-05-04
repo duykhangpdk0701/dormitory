@@ -33,7 +33,7 @@ class PermissionController {
                     )
                 }
             }
-            const permissions = await Permission.aggregate(aggregate)
+            const permissions = aggregate.length > 0 ? await Permission.aggregate(aggregate) : await Permission.find({})
             res.json({ success: true, data: permissions})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

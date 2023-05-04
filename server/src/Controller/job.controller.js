@@ -33,7 +33,7 @@ class JobController {
                     )
                 }
             }
-            const jobs = await Job.aggregate(aggregate)
+            const jobs = aggregate.length > 0 ? await Job.aggregate(aggregate) : await Job.find({})
             res.json({ success: true, data: jobs})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
