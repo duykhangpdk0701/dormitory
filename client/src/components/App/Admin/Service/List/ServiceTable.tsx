@@ -3,8 +3,6 @@ import { FC, ChangeEvent, useState, Fragment } from "react";
 import {
   Divider,
   Box,
-  FormControl,
-  InputLabel,
   Card,
   Checkbox,
   Table,
@@ -14,12 +12,15 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
   CardHeader,
   TextField,
   Typography,
 } from "@mui/material";
+
+import BulkActions from "./BulkActions";
+import IService from "@/interfaces/Service";
+import ServiceTableItem from "./TableItem";
+import { IServiceParams } from "@/pages/admin/service";
 
 import {
   Control,
@@ -29,27 +30,23 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 
-import BulkActions from "./BulkActions";
-
-import PermissionTableItem from "./TableItem";
-import { IPermissionParams } from "@/pages/admin/permission";
-
-interface IPermissionTableProps {
+interface IServiceTableProps {
   className?: string;
-  data?: ICivilian[];
-  control: Control<IPermissionParams, any>;
-  handleSubmit: UseFormHandleSubmit<IPermissionParams>;
-  onSubmit: SubmitHandler<IPermissionParams>;
-  watch: UseFormWatch<IPermissionParams>;
+  data?: IService[];
+  control: Control<IServiceParams, any>;
+  handleSubmit: UseFormHandleSubmit<IServiceParams>;
+  onSubmit: SubmitHandler<IServiceParams>;
+  watch: UseFormWatch<IServiceParams>;
   isLoading: boolean;
 }
 
-const PermissionTable: FC<IPermissionTableProps> = (props) => {
+const ServiceTable: FC<IServiceTableProps> = (props) => {
   const { data, control, handleSubmit, onSubmit, watch, isLoading } = props;
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
   const selectedBulkActions = selectedCryptoOrders.length > 0;
+
   const isNotFound = !data?.length && !!watch("search") && !isLoading;
 
   const emptyRows =
@@ -135,19 +132,22 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
                 </TableCell>
                 <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
+                <TableCell>Mô tả</TableCell>
+
+                <TableCell>Giá(VND)</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((permission) => {
+              {data?.map((service) => {
                 const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  permission._id
+                  service._id
                 );
                 return (
-                  <Fragment key={permission._id}>
-                    <PermissionTableItem
+                  <Fragment key={service._id}>
+                    <ServiceTableItem
                       isSelected={isCryptoOrderSelected}
-                      data={permission}
+                      data={service}
                       handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
                     />
                   </Fragment>
@@ -212,4 +212,4 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
   );
 };
 
-export default PermissionTable;
+export default ServiceTable;

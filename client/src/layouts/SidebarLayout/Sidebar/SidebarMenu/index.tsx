@@ -357,6 +357,18 @@ function SidebarMenu() {
                   Danh sách nhiệm vụ
                 </Button>
               </ListItem>
+
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  LinkComponent={Link}
+                  onClick={closeSidebar}
+                  href="/admin/violation"
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Danh sách vi phạm
+                </Button>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>

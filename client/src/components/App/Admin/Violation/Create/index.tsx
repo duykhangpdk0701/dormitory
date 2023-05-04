@@ -4,21 +4,21 @@ import PageHeader from "@/components/PageHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import { Container } from "@mui/material";
 
-interface IDeviceCreate {
+interface IViolationCreate {
   form: ReactNode;
 }
 
-const DeviceCreate: FC<IDeviceCreate> = (props) => {
+const ViolationCreate: FC<IViolationCreate> = (props) => {
   const { form } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Thêm thêm thiết bị"
-          desc="Tạo thiết bị mới"
+          title="Thêm vi phạm"
+          desc="Tạo vi phạm mới"
           isHaveNavigateButton={true}
-          navigationName="Trở về danh sách thiết bị"
-          link="/admin/device"
+          navigationName="Trở về danh sách vi phạm"
+          link="/admin/violation"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">{form}</Container>
@@ -27,4 +27,4 @@ const DeviceCreate: FC<IDeviceCreate> = (props) => {
   );
 };
 
-export default DeviceCreate;
+export default ViolationCreate;

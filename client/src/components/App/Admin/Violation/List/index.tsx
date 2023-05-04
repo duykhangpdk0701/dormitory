@@ -1,24 +1,25 @@
-import React, { FC, ReactNode } from "react";
-import { Grid, Container, Card } from "@mui/material";
-import Footer from "@/components/Footer";
+import PageHeader from "@/components/PageHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
-import PageHeader from "../../../../PageHeader";
+import React, { FC, ReactNode } from "react";
+import { Container, Grid, Card } from "@mui/material";
+import Footer from "@/components/Footer";
 
-interface IAwaitingStudentRequest {
+interface IViolation {
   table: ReactNode;
 }
 
-const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
+const Violation: FC<IViolation> = (props) => {
   const { table } = props;
+
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title=" Danh sách sinh viên đợi duyệt"
-          desc=" Đây là danh sách sinh viên đã đăng ký và chưa được duyệt"
+          title="Danh sách vi phạm"
+          desc="Dưới đây là danh sách các hành động vi phạm trong hệ thống"
           isHaveNavigateButton={true}
-          navigationName="Thêm sinh viên đợi duyệt"
-          link="/admin/awaiting-student/create"
+          navigationName="Thêm vi phạm"
+          link="/admin/violation/create"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -39,4 +40,4 @@ const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
   );
 };
 
-export default AwaitingStudentRequest;
+export default Violation;

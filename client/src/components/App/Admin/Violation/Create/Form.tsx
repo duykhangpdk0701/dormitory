@@ -18,31 +18,30 @@ import {
   MenuItem,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IDeviceCreateParams } from "@/pages/admin/device/create";
-import { DatePicker } from "@mui/x-date-pickers";
-import IRoom from "@/interfaces/Room";
+import { IViolationCreateParmas } from "@/pages/admin/violation/create";
 import dynamic from "next/dynamic";
+import ICivilian from "@/interfaces/Civilian";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-interface IDeviceFormCreate {
-  control: Control<IDeviceCreateParams, any>;
-  handleSubmit: UseFormHandleSubmit<IDeviceCreateParams>;
-  onSubmit: SubmitHandler<IDeviceCreateParams>;
+interface IViolationFormCreate {
+  control: Control<IViolationCreateParmas, any>;
+  handleSubmit: UseFormHandleSubmit<IViolationCreateParmas>;
+  onSubmit: SubmitHandler<IViolationCreateParmas>;
   isLoading: boolean;
   errorResMessage: string;
-  room?: IRoom[];
-  isLoadingRoom: boolean;
+  civilian?: ICivilian[];
+  isLoadingCivilian: boolean;
 }
 
-const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
+const ViolationFormCreate: FC<IViolationFormCreate> = (props) => {
   const {
     control,
     handleSubmit,
     onSubmit,
     isLoading,
     errorResMessage,
-    room,
-    isLoadingRoom,
+    civilian,
+    isLoadingCivilian,
   } = props;
 
   return (
@@ -52,14 +51,14 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
           <Paper className="p-6">
             <Box className="mb-6">
               <Controller
-                name="name"
+                name="title"
                 control={control}
                 render={({ field, fieldState: { invalid, error } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Tên công việc"
+                      label="Tên vi phạm"
                       fullWidth
                     />
                     <FormHelperText error={invalid}>
@@ -93,64 +92,29 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
           <Paper className="p-6">
             <Box className="mb-6">
               <Controller
-                name="roomId"
+                name="civilianId"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <FormControl fullWidth>
-                      <InputLabel id="roomt-type">Loại phòng</InputLabel>
+                      <InputLabel id="civilian-id">Cư dân</InputLabel>
                       <Select
                         {...field}
-                        id="roomt-type"
+                        id="civilian-id"
                         fullWidth
                         error={invalid}
-                        disabled={isLoadingRoom}
+                        disabled={isLoadingCivilian}
                         label="Loại phòng"
                       >
-                        {room?.map((item) => (
-                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                        {civilian?.map((item) => (
+                          <MenuItem value={item._id}>
+                            {`${item.account.lastname}
+                             
+                              ${item.account.firstname} - (${item.studentId})`}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
-                    <FormHelperText error={invalid}>
-                      {error?.message}
-                    </FormHelperText>
-                  </>
-                )}
-              />
-            </Box>
-
-            <Box className="mb-6">
-              <Controller
-                name="dateAdd"
-                control={control}
-                render={({ field, fieldState: { error, invalid } }) => (
-                  <>
-                    <DatePicker
-                      {...field}
-                      label="Ngày thêm"
-                      slotProps={{ textField: { fullWidth: true } }}
-                    />
-                    <FormHelperText error={invalid}>
-                      {error?.message}
-                    </FormHelperText>
-                  </>
-                )}
-              />
-            </Box>
-            <Box>
-              <Controller
-                name="price"
-                control={control}
-                render={({ field, fieldState: { error, invalid } }) => (
-                  <>
-                    <TextField
-                      error={invalid}
-                      {...field}
-                      label="Giá(VND)"
-                      type="number"
-                      fullWidth
-                    />
                     <FormHelperText error={invalid}>
                       {error?.message}
                     </FormHelperText>
@@ -175,4 +139,4 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
   );
 };
 
-export default DeviceFormCreate;
+export default ViolationFormCreate;

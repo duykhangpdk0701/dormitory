@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent } from "react";
 import {
   Box,
   IconButton,
@@ -15,21 +15,21 @@ import {
   ListItemText,
   ListItemIcon,
   styled,
-  useTheme
-} from '@mui/material';
-import { formatDistance, subMinutes } from 'date-fns';
-import CallTwoToneIcon from '@mui/icons-material/CallTwoTone';
-import VideoCameraFrontTwoToneIcon from '@mui/icons-material/VideoCameraFrontTwoTone';
-import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import ColorLensTwoToneIcon from '@mui/icons-material/ColorLensTwoTone';
-import NotificationsOffTwoToneIcon from '@mui/icons-material/NotificationsOffTwoTone';
-import EmojiEmotionsTwoToneIcon from '@mui/icons-material/EmojiEmotionsTwoTone';
-import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
-import BlockTwoToneIcon from '@mui/icons-material/BlockTwoTone';
-import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
-import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
+  useTheme,
+} from "@mui/material";
+import { formatDistance, subMinutes } from "date-fns";
+import CallTwoToneIcon from "@mui/icons-material/CallTwoTone";
+import VideoCameraFrontTwoToneIcon from "@mui/icons-material/VideoCameraFrontTwoTone";
+import InfoTwoToneIcon from "@mui/icons-material/InfoTwoTone";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import ColorLensTwoToneIcon from "@mui/icons-material/ColorLensTwoTone";
+import NotificationsOffTwoToneIcon from "@mui/icons-material/NotificationsOffTwoTone";
+import EmojiEmotionsTwoToneIcon from "@mui/icons-material/EmojiEmotionsTwoTone";
+import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
+import BlockTwoToneIcon from "@mui/icons-material/BlockTwoTone";
+import WarningTwoToneIcon from "@mui/icons-material/WarningTwoTone";
+import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
 
 const RootWrapper = styled(Box)(
   ({ theme }) => `
@@ -59,7 +59,7 @@ const AccordionSummaryWrapper = styled(AccordionSummary)(
         }
 
         .MuiSvgIcon-root {
-          transition: ${theme.transitions.create(['color'])};
+          transition: ${theme.transitions.create(["color"])};
         }
 
         &.MuiButtonBase-root {
@@ -91,7 +91,7 @@ function TopBarContent() {
     setMobileOpen(!mobileOpen);
   };
 
-  const [expanded, setExpanded] = useState<string | false>('section1');
+  const [expanded, setExpanded] = useState<string | false>("section1");
 
   const handleChange =
     (section: string) => (_event: SyntheticEvent, isExpanded: boolean) => {
@@ -106,7 +106,7 @@ function TopBarContent() {
             variant="rounded"
             sx={{
               width: 48,
-              height: 48
+              height: 48,
             }}
             alt="Zain Baptista"
             src="/static/images/avatars/1.jpg"
@@ -115,26 +115,16 @@ function TopBarContent() {
             <Typography variant="h4">Zain Baptista</Typography>
             <Typography variant="subtitle1">
               {formatDistance(subMinutes(new Date(), 8), new Date(), {
-                addSuffix: true
+                addSuffix: true,
               })}
             </Typography>
           </Box>
         </Box>
         <Box
           sx={{
-            display: { xs: 'none', lg: 'flex' }
+            display: { xs: "none", lg: "flex" },
           }}
         >
-          <Tooltip placement="bottom" title="Start a voice call">
-            <IconButton color="primary">
-              <CallTwoToneIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip placement="bottom" title="Start a video call">
-            <IconButton color="primary">
-              <VideoCameraFrontTwoToneIcon />
-            </IconButton>
-          </Tooltip>
           <Tooltip placement="bottom" title="Conversation information">
             <IconButton color="primary" onClick={handleDrawerToggle}>
               <InfoTwoToneIcon />
@@ -144,31 +134,31 @@ function TopBarContent() {
       </RootWrapper>
       <Drawer
         sx={{
-          display: { xs: 'none', md: 'flex' }
+          display: { xs: "none", md: "flex" },
         }}
         variant="temporary"
-        anchor={theme.direction === 'rtl' ? 'left' : 'right'}
+        anchor={theme.direction === "rtl" ? "left" : "right"}
         open={mobileOpen}
         onClose={handleDrawerToggle}
         elevation={9}
       >
         <Box
           sx={{
-            minWidth: 360
+            minWidth: 360,
           }}
           p={2}
         >
           <Box
             sx={{
-              textAlign: 'center'
+              textAlign: "center",
             }}
           >
             <Avatar
               sx={{
-                mx: 'auto',
+                mx: "auto",
                 my: 2,
                 width: theme.spacing(12),
-                height: theme.spacing(12)
+                height: theme.spacing(12),
               }}
               variant="rounded"
               alt="Zain Baptista"
@@ -176,28 +166,28 @@ function TopBarContent() {
             />
             <Typography variant="h4">Zain Baptista</Typography>
             <Typography variant="subtitle2">
-              Active{' '}
+              Active{" "}
               {formatDistance(subMinutes(new Date(), 7), new Date(), {
-                addSuffix: true
+                addSuffix: true,
               })}
             </Typography>
           </Box>
           <Divider
             sx={{
-              my: 3
+              my: 3,
             }}
           />
 
           <Accordion
-            expanded={expanded === 'section1'}
-            onChange={handleChange('section1')}
+            expanded={expanded === "section1"}
+            onChange={handleChange("section1")}
           >
             <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h5">Customize Chat</Typography>
             </AccordionSummaryWrapper>
             <AccordionDetails
               sx={{
-                p: 0
+                p: 0,
               }}
             >
               <List component="nav">
@@ -207,7 +197,7 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Search in Conversation"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -216,7 +206,7 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Change Theme Styling"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -225,22 +215,22 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Choose Default Emoji"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
               </List>
             </AccordionDetails>
           </Accordion>
           <Accordion
-            expanded={expanded === 'section2'}
-            onChange={handleChange('section2')}
+            expanded={expanded === "section2"}
+            onChange={handleChange("section2")}
           >
             <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h5">Privacy & Support</Typography>
             </AccordionSummaryWrapper>
             <AccordionDetails
               sx={{
-                p: 0
+                p: 0,
               }}
             >
               <List component="nav">
@@ -250,7 +240,7 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Turn off notifications"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -259,7 +249,7 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Ignore all messages"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -268,7 +258,7 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Block user"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -277,24 +267,24 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="Something's Wrong"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                     secondary="Report the conversation and provide feedback"
-                    secondaryTypographyProps={{ variant: 'subtitle1' }}
+                    secondaryTypographyProps={{ variant: "subtitle1" }}
                   />
                 </ListItem>
               </List>
             </AccordionDetails>
           </Accordion>
           <Accordion
-            expanded={expanded === 'section3'}
-            onChange={handleChange('section3')}
+            expanded={expanded === "section3"}
+            onChange={handleChange("section3")}
           >
             <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h5">Shared Files</Typography>
             </AccordionSummaryWrapper>
             <AccordionDetails
               sx={{
-                p: 0
+                p: 0,
               }}
             >
               <List component="nav">
@@ -304,9 +294,9 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="HolidayPictures.zip"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                     secondary="You opened in the past year"
-                    secondaryTypographyProps={{ variant: 'subtitle1' }}
+                    secondaryTypographyProps={{ variant: "subtitle1" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -315,9 +305,9 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="2021Screenshot.jpg"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                     secondary="You edited this file yesterday"
-                    secondaryTypographyProps={{ variant: 'subtitle1' }}
+                    secondaryTypographyProps={{ variant: "subtitle1" }}
                   />
                 </ListItem>
                 <ListItem button>
@@ -326,9 +316,9 @@ function TopBarContent() {
                   </ListItemIconWrapper>
                   <ListItemText
                     primary="PresentationDeck.pdf"
-                    primaryTypographyProps={{ variant: 'h5' }}
+                    primaryTypographyProps={{ variant: "h5" }}
                     secondary="Never opened"
-                    secondaryTypographyProps={{ variant: 'subtitle1' }}
+                    secondaryTypographyProps={{ variant: "subtitle1" }}
                   />
                 </ListItem>
               </List>

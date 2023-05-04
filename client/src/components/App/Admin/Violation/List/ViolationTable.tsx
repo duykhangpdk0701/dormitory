@@ -3,8 +3,6 @@ import { FC, ChangeEvent, useState, Fragment } from "react";
 import {
   Divider,
   Box,
-  FormControl,
-  InputLabel,
   Card,
   Checkbox,
   Table,
@@ -14,13 +12,15 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
   CardHeader,
   TextField,
   Typography,
 } from "@mui/material";
 
+import BulkActions from "./BulkActions";
+import ViolationTableItem from "./TableItem";
+import IViolation from "@/interfaces/Violation";
+import { IViolationParams } from "@/pages/admin/violation";
 import {
   Control,
   Controller,
@@ -29,27 +29,23 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 
-import BulkActions from "./BulkActions";
-
-import PermissionTableItem from "./TableItem";
-import { IPermissionParams } from "@/pages/admin/permission";
-
-interface IPermissionTableProps {
+interface IViolationTableProps {
   className?: string;
-  data?: ICivilian[];
-  control: Control<IPermissionParams, any>;
-  handleSubmit: UseFormHandleSubmit<IPermissionParams>;
-  onSubmit: SubmitHandler<IPermissionParams>;
-  watch: UseFormWatch<IPermissionParams>;
+  data?: IViolation[];
+  control: Control<IViolationParams, any>;
+  handleSubmit: UseFormHandleSubmit<IViolationParams>;
+  onSubmit: SubmitHandler<IViolationParams>;
+  watch: UseFormWatch<IViolationParams>;
   isLoading: boolean;
 }
 
-const PermissionTable: FC<IPermissionTableProps> = (props) => {
+const ViolationTable: FC<IViolationTableProps> = (props) => {
   const { data, control, handleSubmit, onSubmit, watch, isLoading } = props;
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
   const selectedBulkActions = selectedCryptoOrders.length > 0;
+
   const isNotFound = !data?.length && !!watch("search") && !isLoading;
 
   const emptyRows =
@@ -135,19 +131,22 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
                 </TableCell>
                 <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
+                <TableCell>Mô tả</TableCell>
+                <TableCell>Tên sinh viên</TableCell>
+                <TableCell>Mã sinh viên</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((permission) => {
+              {data?.map((violation) => {
                 const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  permission._id
+                  violation._id
                 );
                 return (
-                  <Fragment key={permission._id}>
-                    <PermissionTableItem
+                  <Fragment key={violation._id}>
+                    <ViolationTableItem
                       isSelected={isCryptoOrderSelected}
-                      data={permission}
+                      data={violation}
                       handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
                     />
                   </Fragment>
@@ -212,4 +211,4 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
   );
 };
 
-export default PermissionTable;
+export default ViolationTable;

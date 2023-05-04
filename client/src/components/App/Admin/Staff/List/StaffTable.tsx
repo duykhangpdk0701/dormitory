@@ -3,8 +3,6 @@ import { FC, ChangeEvent, useState, Fragment } from "react";
 import {
   Divider,
   Box,
-  FormControl,
-  InputLabel,
   Card,
   Checkbox,
   Table,
@@ -14,9 +12,8 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
   CardHeader,
+  TextField,
 } from "@mui/material";
 
 import { CryptoOrderStatus } from "@/models/crypto_order";
@@ -24,74 +21,41 @@ import { CryptoOrderStatus } from "@/models/crypto_order";
 import BulkActions from "./BulkActions";
 import IStaff from "@/interfaces/Staff";
 import StaffTableItem from "./TableItem";
+import {
+  Control,
+  Controller,
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormWatch,
+} from "react-hook-form";
+import { IStaffParams } from "@/pages/admin/staff";
 
 interface IStaffTableProps {
   className?: string;
   data?: IStaff[];
+  control: Control<IStaffParams, any>;
+  handleSubmit: UseFormHandleSubmit<IStaffParams>;
+  onSubmit: SubmitHandler<IStaffParams>;
+  watch: UseFormWatch<IStaffParams>;
+  isLoading: boolean;
 }
 
-interface Filters {
-  status?: CryptoOrderStatus;
-}
-
-const applyFilters = (data: IStaff[] = [], filters: Filters): IStaff[] => {
-  return data?.filter((cryptoOrder) => {
-    let matches = true;
-
-    return matches;
-  });
-};
-
-const applyPagination = (
-  cryptoOrders: IStaff[] = [],
-  page: number,
-  limit: number
-): IStaff[] => {
-  return cryptoOrders.slice(page * limit, page * limit + limit);
-};
-
-const StaffTable: FC<IStaffTableProps> = ({ data }) => {
+const StaffTable: FC<IStaffTableProps> = (props) => {
+  const { data, control, handleSubmit, onSubmit, watch, isLoading } = props;
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
   const selectedBulkActions = selectedCryptoOrders.length > 0;
-  const [page, setPage] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(5);
-  const [filters, setFilters] = useState<Filters>({
-    status: undefined,
-  });
 
-  const statusOptions = [
-    {
-      id: "all",
-      name: "All",
-    },
-    {
-      id: "completed",
-      name: "Completed",
-    },
-    {
-      id: "pending",
-      name: "Pending",
-    },
-    {
-      id: "failed",
-      name: "Failed",
-    },
-  ];
+  const isNotFound = !data?.length && !!watch("search") && !isLoading;
 
-  const handleStatusChange = (e: any): void => {
-    let value: any = undefined;
-
-    if (e.target.value !== "all") {
-      value = e.target.value;
-    }
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      status: value,
-    }));
-  };
+  const emptyRows =
+    watch("page") > 0
+      ? Math.max(
+          0,
+          (1 + watch("page")) * watch("rowPerPage") - (data?.length || 0)
+        )
+      : 0;
 
   const handleSelectAllCryptoOrders = (
     event: ChangeEvent<HTMLInputElement>
@@ -119,21 +83,6 @@ const StaffTable: FC<IStaffTableProps> = ({ data }) => {
     }
   };
 
-  const handlePageChange = (event: any, newPage: number): void => {
-    setPage(newPage);
-  };
-
-  const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimit(parseInt(event.target.value));
-  };
-
-  const filteredCryptoOrders = applyFilters(data, filters);
-  const paginatedCryptoOrders = applyPagination(
-    filteredCryptoOrders,
-    page,
-    limit
-  );
-
   const selectedSomeCryptoOrders = selectedCryptoOrders.length > 0;
 
   const selectedAllCryptoOrders = data?.length
@@ -141,87 +90,101 @@ const StaffTable: FC<IStaffTableProps> = ({ data }) => {
     : false;
 
   return (
-    <Card>
-      {selectedBulkActions && (
-        <Box flex={1} p={2}>
-          <BulkActions />
-        </Box>
-      )}
-      {!selectedBulkActions && (
-        <CardHeader
-          action={
-            <Box width={150}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel>Status</InputLabel>
-                <Select
-                  value={filters.status || "all"}
-                  onChange={handleStatusChange}
-                  label="Status"
-                  autoWidth
-                >
-                  {statusOptions.map((statusOption) => (
-                    <MenuItem key={statusOption.id} value={statusOption.id}>
-                      {statusOption.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          }
-          title="Recent Orders"
-        />
-      )}
-      <Divider />
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllCryptoOrders}
-                  indeterminate={selectedSomeCryptoOrders}
-                  onChange={handleSelectAllCryptoOrders}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Card>
+        {selectedBulkActions && (
+          <Box flex={1} p={2}>
+            <BulkActions />
+          </Box>
+        )}
+        {!selectedBulkActions && (
+          <CardHeader
+            action={
+              <Box width={150}>
+                <Controller
+                  name="search"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      placeholder="Tìm kiếm..."
+                      label="Tìm kiếm"
+                    />
+                  )}
                 />
-              </TableCell>
-              <TableCell>ID</TableCell>
-              <TableCell>Tên</TableCell>
-              <TableCell>Mô tả</TableCell>
-
-              <TableCell>Giá(VND)</TableCell>
-              <TableCell align="right">Hành động</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedCryptoOrders.map((permission) => {
-              const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                permission._id
-              );
-              return (
-                <Fragment key={permission._id}>
-                  <StaffTableItem
-                    isSelected={isCryptoOrderSelected}
-                    data={permission}
-                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+              </Box>
+            }
+            title="Recent Orders"
+          />
+        )}
+        <Divider />
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={selectedAllCryptoOrders}
+                    indeterminate={selectedSomeCryptoOrders}
+                    onChange={handleSelectAllCryptoOrders}
                   />
-                </Fragment>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Box p={2}>
-        <TablePagination
-          component="div"
-          count={filteredCryptoOrders.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25, 30]}
-        />
-      </Box>
-    </Card>
+                </TableCell>
+                <TableCell>ID</TableCell>
+                <TableCell>Tên</TableCell>
+                <TableCell>Mô tả</TableCell>
+
+                <TableCell>Giá(VND)</TableCell>
+                <TableCell align="right">Hành động</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.map((staff) => {
+                const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                  staff._id
+                );
+                return (
+                  <Fragment key={staff._id}>
+                    <StaffTableItem
+                      isSelected={isCryptoOrderSelected}
+                      data={staff}
+                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                    />
+                  </Fragment>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box p={2}>
+          <Controller
+            control={control}
+            name="rowPerPage"
+            render={({
+              field: { value: rowPerPageValue, onChange: rowPerPageOnChange },
+            }) => (
+              <Controller
+                control={control}
+                name="page"
+                render={({ field: { value, onChange } }) => (
+                  <TablePagination
+                    component="div"
+                    count={data?.length || 0}
+                    onPageChange={(e, page) => onChange(page)}
+                    onRowsPerPageChange={(e) =>
+                      rowPerPageOnChange(e.target.value)
+                    }
+                    page={value}
+                    rowsPerPage={rowPerPageValue}
+                    rowsPerPageOptions={[5, 10, 25, 30]}
+                  />
+                )}
+              />
+            )}
+          />
+        </Box>
+      </Card>
+    </form>
   );
 };
 

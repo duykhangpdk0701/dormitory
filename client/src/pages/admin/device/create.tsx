@@ -56,7 +56,7 @@ const DevicePage: NextPageWithLayout = () => {
         setSnackbar({
           snackbarOpen: true,
           snackbarType: "success",
-          snackbarMessage: "Tạo công việc thành công",
+          snackbarMessage: "Thêm thiết bị thành công",
         })
       );
       await router.push("/admin/job");
