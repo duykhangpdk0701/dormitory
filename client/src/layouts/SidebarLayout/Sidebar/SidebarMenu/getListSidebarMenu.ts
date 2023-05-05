@@ -135,4 +135,56 @@ const adminMenu = [
   },
 ];
 
+const userMenu = [
+  {
+    subheader: "Trang chủ",
+    child: [
+      {
+        link: "/messenger",
+        starIcon: MmsTwoToneIcon,
+        title: "Tin nhắn",
+      },
+
+      {
+        link: "/complaint",
+        starIcon: MmsTwoToneIcon,
+        title: "Khiếu nại",
+      },
+
+      {
+        link: "/admin/messenger",
+        starIcon: MmsTwoToneIcon,
+        title: "Thông tin phòng",
+      },
+    ],
+  },
+
+  {
+    subheader: "Cá nhân",
+    child: [
+      {
+        link: "/admin/profile",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Trang cá nhân",
+      },
+      {
+        link: "/admin/setting",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Cài đặt tài khoản",
+      },
+    ],
+  },
+];
+
+const getMenu = (value: string) => {
+  switch (value) {
+    case "admin":
+      return adminMenu;
+    case "user":
+      return userMenu;
+    default:
+      return userMenu;
+  }
+};
+
 export default adminMenu;

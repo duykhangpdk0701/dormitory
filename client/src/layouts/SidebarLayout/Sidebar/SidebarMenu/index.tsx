@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import {
   ListSubheader,
@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { SidebarContext } from "@/contexts/SidebarContext";
 import adminMenu from "./getListSidebarMenu";
+import getMenu from "./getListSidebarMenu";
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -157,6 +158,13 @@ const SubMenuWrapper = styled(Box)(
 
 function SidebarMenu() {
   const { closeSidebar } = useContext(SidebarContext);
+
+  const role = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("role") || "";
+    }
+    return "user";
+  }, []);
 
   return (
     <>
