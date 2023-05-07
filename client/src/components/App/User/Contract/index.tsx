@@ -8,17 +8,15 @@ interface IComplaintList {
   list: ReactNode;
 }
 
-const ComplaintList: FC<IComplaintList> = (props) => {
+const ContractList: FC<IComplaintList> = (props) => {
   const { list } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Khiếu nại"
-          desc="Dưới đây là danh sách khiếu nại của bạn"
-          isHaveNavigateButton={true}
-          navigationName="Tạo khiếu nại"
-          link="/user/complaint/create"
+          title="Hợp đồng"
+          desc="Dưới đây là danh sách hợp đồng của bạn"
+          isHaveNavigateButton={false}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">{list}</Container>
@@ -27,4 +25,4 @@ const ComplaintList: FC<IComplaintList> = (props) => {
   );
 };
 
-export default ComplaintList;
+export default ContractList;

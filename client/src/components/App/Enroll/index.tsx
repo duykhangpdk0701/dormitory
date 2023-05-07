@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { Container, Grid, TextField, FormHelperText } from "@mui/material";
+import {
+  Container,
+  Grid,
+  TextField,
+  FormHelperText,
+  FormLabel,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { IEnrollParams } from "@/pages/enroll";
 import {
@@ -11,6 +17,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import enrollImg from "@/assets/enroll/enroll.jpg";
+import Dropzone from "@/components/Dropzone";
 
 interface IEnroll {
   control: Control<IEnrollParams, any>;
@@ -24,12 +31,14 @@ const Enroll: FC<IEnroll> = (props) => {
   const { control, handleSubmit, onSubmit, isLoading, errorResMessage } = props;
 
   return (
-    <div>
-      <Container className="bg-white min-h-[100vh]">
+    <div className="pt-4">
+      <Container>
         <h1 className="mb-10">Đăng ký ở ký túc xá</h1>
+      </Container>
+      <Container className="bg-white min-h-[100vh]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
-            <Grid item xs={0} md={6}>
+            <Grid item xs={12} md={6}>
               <LazyLoadImage
                 className="w-full"
                 src={enrollImg.src}
@@ -150,6 +159,27 @@ const Enroll: FC<IEnroll> = (props) => {
                           slotProps={{ textField: { fullWidth: true } }}
                         />
 
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="images"
+                    control={control}
+                    render={({ field, fieldState: { invalid, error } }) => (
+                      <>
+                        <FormLabel className="font-bold text-base mb-4 block">
+                          Hình ảnh:
+                        </FormLabel>
+                        <Dropzone
+                          onChange={field.onChange}
+                          multiple={true}
+                          error={invalid}
+                        />
                         <FormHelperText error={invalid}>
                           {error?.message}
                         </FormHelperText>

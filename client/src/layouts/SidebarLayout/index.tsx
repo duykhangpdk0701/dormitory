@@ -6,10 +6,11 @@ import Header from "./Header";
 
 interface SidebarLayoutProps {
   children?: ReactNode;
+  menuType?: "user" | "staff";
 }
 
 const SidebarLayout: FC<SidebarLayoutProps> = (props) => {
-  const { children } = props;
+  const { children, menuType } = props;
   const theme = useTheme();
 
   return (
@@ -42,7 +43,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = (props) => {
         }}
       >
         <Header />
-        <Sidebar />
+        <Sidebar menuType={menuType} />
         <Box
           sx={{
             position: "relative",

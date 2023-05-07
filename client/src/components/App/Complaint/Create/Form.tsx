@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import { Grid, Paper, TextField, Box, FormHelperText } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IComplaintCreateParams } from "@/pages/complaint/create";
+import { IComplaintCreateParams } from "@/pages/user/complaint/create";
 
 interface IComplaintFormCreate {
   control: Control<IComplaintCreateParams, any>;

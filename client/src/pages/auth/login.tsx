@@ -51,6 +51,8 @@ const LoginPage: NextPageWithLayout = () => {
       sessionStorage.setItem("role", data.user.permission.name);
       if (data.user.permission.name === "admin") {
         await router.push("/admin");
+      } else if (data.user.permission.name === "civilian") {
+        await router.push("/user");
       } else {
         await router.push("/");
       }

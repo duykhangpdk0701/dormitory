@@ -135,24 +135,24 @@ const adminMenu = [
   },
 ];
 
-const userMenu = [
+export const userMenu = [
   {
     subheader: "Trang chủ",
     child: [
       {
-        link: "/messenger",
+        link: "/user/messenger",
         starIcon: MmsTwoToneIcon,
         title: "Tin nhắn",
       },
 
       {
-        link: "/complaint",
+        link: "/user/complaint",
         starIcon: MmsTwoToneIcon,
         title: "Khiếu nại",
       },
 
       {
-        link: "/admin/messenger",
+        link: "/user/room",
         starIcon: MmsTwoToneIcon,
         title: "Thông tin phòng",
       },
@@ -163,28 +163,23 @@ const userMenu = [
     subheader: "Cá nhân",
     child: [
       {
-        link: "/admin/profile",
+        link: "/user/profile",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Trang cá nhân",
       },
       {
-        link: "/admin/setting",
+        link: "/user/contract",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hợp đồng",
+      },
+
+      {
+        link: "/user/settings",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Cài đặt tài khoản",
       },
     ],
   },
 ];
-
-const getMenu = (value: string) => {
-  switch (value) {
-    case "admin":
-      return adminMenu;
-    case "user":
-      return userMenu;
-    default:
-      return userMenu;
-  }
-};
 
 export default adminMenu;

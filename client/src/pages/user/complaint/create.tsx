@@ -56,7 +56,7 @@ const ComplaintCreatePage: NextPageWithLayout = () => {
 };
 
 ComplaintCreatePage.getLayout = function getLayout(page: ReactElement) {
-  return <SidebarLayout>{page}</SidebarLayout>;
+  return <SidebarLayout menuType="user">{page}</SidebarLayout>;
 };
 
 export default ComplaintCreatePage;

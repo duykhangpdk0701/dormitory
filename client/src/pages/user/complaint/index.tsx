@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { NextPageWithLayout } from "../_app";
+import { NextPageWithLayout } from "@/pages/_app";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import PageHead from "@/components/PageHead";
 import ComplaintList from "@/components/App/Complaint/List";
@@ -15,7 +15,7 @@ const ComplaintListPage: NextPageWithLayout = () => {
 };
 
 ComplaintListPage.getLayout = function getLayout(page: ReactElement) {
-  return <SidebarLayout>{page}</SidebarLayout>;
+  return <SidebarLayout menuType="user">{page}</SidebarLayout>;
 };
 
 export default ComplaintListPage;
