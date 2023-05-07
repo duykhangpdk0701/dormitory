@@ -130,12 +130,11 @@ const ComplaintTable: FC<IComplaintTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
-                <TableCell>Tên</TableCell>
-                <TableCell>Mô tả</TableCell>
 
-                <TableCell>Giá(VND)</TableCell>
-                <TableCell align="right">Hành động</TableCell>
+                <TableCell>Tên</TableCell>
+                <TableCell>Tên cư nhân</TableCell>
+                <TableCell>MSSV</TableCell>
+                <TableCell>Mô tả</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 
 import BulkActions from "./BulkActions";
-import JobTableItem from "./TableItem";
+import TaskTableItem from "./TableItem";
 
 import { ITaskParams } from "@/pages/admin/task";
 import {
@@ -144,7 +144,7 @@ const TaskTable: FC<ITaskTableProps> = (props) => {
                 );
                 return (
                   <Fragment key={task._id}>
-                    <JobTableItem
+                    <TaskTableItem
                       isSelected={isCryptoOrderSelected}
                       data={task}
                       handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}

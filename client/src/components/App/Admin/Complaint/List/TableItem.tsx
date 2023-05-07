@@ -1,16 +1,13 @@
 import React, { ChangeEvent, FC } from "react";
 
 import {
-  Tooltip,
   Checkbox,
-  IconButton,
   TableCell,
   TableRow,
   Typography,
   useTheme,
 } from "@mui/material";
 
-import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import Link from "next/link";
 import IComplaint from "@/interfaces/Complaint";
 
@@ -36,40 +33,28 @@ const ComplaintTableItem: FC<IComplaintTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
+      <Link href={`/admin/complaint/${data._id}`}>
+        <TableCell>
+          <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+            {data.title}
+          </Typography>
+        </TableCell>
+      </Link>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
+          {data.civilian.account.lastname} {data.civilian.account.firstname}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.civilian.studentId}
         </Typography>
       </TableCell>
 
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.title}
-        </Typography>
-      </TableCell>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
           {data.description}
         </Typography>
-      </TableCell>
-
-      <TableCell align="right">
-        <Tooltip title="Chỉnh sửa" arrow>
-          <IconButton
-            sx={{
-              "&:hover": {
-                background: theme.colors.primary.lighter,
-              },
-              color: theme.palette.primary.main,
-            }}
-            color="inherit"
-            size="small"
-            LinkComponent={Link}
-            href={`/admin/service/${data._id}`}
-          >
-            <EditTwoToneIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
       </TableCell>
     </TableRow>
   );

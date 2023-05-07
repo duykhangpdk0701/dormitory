@@ -21,7 +21,7 @@ interface ITaskTableItemProps {
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 
-const JobTableItem: FC<ITaskTableItemProps> = (props) => {
+const TaskTableItem: FC<ITaskTableItemProps> = (props) => {
   const { isSelected, data, handleSelectOneCryptoOrder } = props;
   const theme = useTheme();
 
@@ -71,4 +71,4 @@ const JobTableItem: FC<ITaskTableItemProps> = (props) => {
   );
 };
 
-export default JobTableItem;
+export default TaskTableItem;

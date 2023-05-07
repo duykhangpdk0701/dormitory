@@ -130,10 +130,8 @@ const ServiceTable: FC<IServiceTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Mô tả</TableCell>
-
                 <TableCell>Giá(VND)</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
