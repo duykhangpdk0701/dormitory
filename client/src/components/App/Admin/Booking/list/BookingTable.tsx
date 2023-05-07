@@ -157,7 +157,6 @@ const BookingTable: FC<IBookingTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>MSSV</TableCell>
                 <TableCell>Email</TableCell>

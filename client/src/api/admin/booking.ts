@@ -16,6 +16,12 @@ const adminBooking = {
     const res = await axiosClient.get(searchUrl);
     return res.data;
   },
+
+  getById: async (id: string): Promise<IBooking> => {
+    const url = `/booking/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 
 export default adminBooking;

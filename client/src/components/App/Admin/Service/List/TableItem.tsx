@@ -36,17 +36,14 @@ const ServiceTableItem: FC<IJobTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
-        </Typography>
-      </TableCell>
 
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.name}
-        </Typography>
-      </TableCell>
+      <Link href={`/admin/service/${data._id}`}>
+        <TableCell>
+          <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+            {data.name}
+          </Typography>
+        </TableCell>
+      </Link>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
           {data.description}
@@ -70,7 +67,7 @@ const ServiceTableItem: FC<IJobTableItemProps> = (props) => {
             color="inherit"
             size="small"
             LinkComponent={Link}
-            href={`/admin/service/${data._id}`}
+            href={`/admin/service/${data._id}/edit`}
           >
             <EditTwoToneIcon fontSize="small" />
           </IconButton>

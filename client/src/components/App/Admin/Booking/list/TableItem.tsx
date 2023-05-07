@@ -19,6 +19,7 @@ import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import IBooking from "@/interfaces/Booking";
+import Link from "next/link";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -79,29 +80,20 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
-      </TableCell>
 
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.lastname + " " + data.firstname}
-        </Typography>
-      </TableCell>
+      <Link href={`/admin/booking/${data._id}`}>
+        <TableCell>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {data.lastname + " " + data.firstname}
+          </Typography>
+        </TableCell>
+      </Link>
       <TableCell>
         <Typography
           variant="body1"

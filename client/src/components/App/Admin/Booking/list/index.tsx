@@ -17,9 +17,7 @@ const Booking: FC<IBooking> = (props) => {
         <PageHeader
           title="Danh sách sinh viên được duyệt"
           desc="Dưới đây là danh sách các sinh viên đã được duyệt"
-          isHaveNavigateButton={true}
-          navigationName="Trở về d"
-          link="/admin/room"
+          isHaveNavigateButton={false}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

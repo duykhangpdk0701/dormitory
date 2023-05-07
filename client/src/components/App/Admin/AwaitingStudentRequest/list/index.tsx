@@ -16,9 +16,7 @@ const AwaitingStudentRequest: FC<IAwaitingStudentRequest> = (props) => {
         <PageHeader
           title=" Danh sách sinh viên đợi duyệt"
           desc=" Đây là danh sách sinh viên đã đăng ký và chưa được duyệt"
-          isHaveNavigateButton={true}
-          navigationName="Thêm sinh viên đợi duyệt"
-          link="/admin/awaiting-student/create"
+          isHaveNavigateButton={false}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

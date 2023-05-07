@@ -36,27 +36,13 @@ const StaffTableItem: FC<IStaffTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
-        </Typography>
-      </TableCell>
-
-      {/* <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.name}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.description}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.price}
-        </Typography>
-      </TableCell> */}
+      <Link href={`/admin/staff/${data._id}`}>
+        <TableCell>
+          <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+            {`${data.account.lastname} ${data.account.firstname}`}
+          </Typography>
+        </TableCell>
+      </Link>
 
       <TableCell align="right">
         <Tooltip title="Chỉnh sửa" arrow>

@@ -1,6 +1,9 @@
+import IAccount from "./Account";
+
 interface IStaff {
   _id: string;
   accountId: string;
+  account: IAccount;
   job: string;
   address: string;
   salary: number;

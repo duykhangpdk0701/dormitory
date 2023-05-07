@@ -18,6 +18,7 @@ import { useMutation } from "react-query";
 import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
+import Link from "next/link";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -39,7 +40,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
   };
 
   const acceptRequestMutation = useMutation({
-    mutationKey: ["awating-student-request"],
+    mutationKey: ["awaiting-student-request"],
     mutationFn: () => adminBookingRequest.accepted(data._id),
     onSuccess: () => {
       dispatch(
@@ -62,7 +63,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
   });
 
   const denyRequestMutation = useMutation({
-    mutationKey: ["awating-student-request"],
+    mutationKey: ["awaiting-student-request"],
     mutationFn: () => adminBookingRequest.cancel(data._id),
     onSuccess: () => {
       dispatch(
@@ -96,29 +97,20 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
-      </TableCell>
 
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.lastname + " " + data.firstname}
-        </Typography>
-      </TableCell>
+      <Link href={`/admin/awaiting-student/${data._id}`}>
+        <TableCell>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {data.lastname + " " + data.firstname}
+          </Typography>
+        </TableCell>
+      </Link>
       <TableCell>
         <Typography
           variant="body1"

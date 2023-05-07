@@ -18,6 +18,12 @@ const adminPriority = {
     return res.data;
   },
 
+  getById: async (id: string): Promise<IPriority> => {
+    const url = `/priority/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
+
   create: async (name: string, score: string): Promise<IPriority> => {
     const url = "/priority";
     const res = await axiosClient.post(url, { name, score });

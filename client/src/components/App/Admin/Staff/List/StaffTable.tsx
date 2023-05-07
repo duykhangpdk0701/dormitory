@@ -130,7 +130,6 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Mô tả</TableCell>
 

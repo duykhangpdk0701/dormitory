@@ -13,6 +13,7 @@ import getStatusLabel from "@/components/StatusLabel";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import IRoomType from "@/interfaces/RoomTypet";
+import Link from "next/link";
 
 interface IRoomTypeTableItem {
   data: IRoomType;
@@ -73,6 +74,8 @@ const RoomTypeTableItem: FC<IRoomTypeTableItem> = (props) => {
       <TableCell align="right">
         <Tooltip title="Chỉnh sửa" arrow>
           <IconButton
+            LinkComponent={Link}
+            href={`/admin/room-type/${data._id}/edit`}
             sx={{
               "&:hover": {
                 background: theme.colors.primary.lighter,

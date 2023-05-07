@@ -1,3 +1,5 @@
+import IPriority from "./Priority";
+
 interface IBookingRequest {
   _id: string;
   firstname: string;
@@ -5,8 +7,10 @@ interface IBookingRequest {
   studentId: string;
   email: string;
   phone: string;
+  gender: string;
   images: string[];
   dateOfBirth: string;
+  priority: IPriority;
   isAccepted: boolean;
   createdAt: string;
   updatedAt: string;

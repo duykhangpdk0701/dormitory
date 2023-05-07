@@ -13,6 +13,7 @@ import IRoom from "@/interfaces/Room";
 import getStatusLabel from "@/components/StatusLabel";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import Link from "next/link";
 
 interface IRoomTableItem {
   data: IRoom;
@@ -36,28 +37,19 @@ const RoomTableItem: FC<IRoomTableItem> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.name}
-        </Typography>
-      </TableCell>
+      <Link href={`/admin/room/${data._id}`}>
+        <TableCell>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {data.name}
+          </Typography>
+        </TableCell>
+      </Link>
       <TableCell>
         <Typography
           variant="body1"
@@ -90,6 +82,8 @@ const RoomTableItem: FC<IRoomTableItem> = (props) => {
       <TableCell align="right">
         <Tooltip title="Chỉnh sửa" arrow>
           <IconButton
+            LinkComponent={Link}
+            href={`/admin/room/${data._id}/edit`}
             sx={{
               "&:hover": {
                 background: theme.colors.primary.lighter,

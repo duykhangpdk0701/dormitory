@@ -17,6 +17,18 @@ const adminRoomTypeAPI = {
 
     return res.data;
   },
+
+  getById: async (id: string): Promise<IRoomType> => {
+    const url = `/roomtType/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
+
+  create: async (name: string, desc: string): Promise<IRoomType> => {
+    const url = `/roomType/store`;
+    const res = await axiosClient.post(url, { name, description: desc });
+    return res.data;
+  },
 };
 
 export default adminRoomTypeAPI;
