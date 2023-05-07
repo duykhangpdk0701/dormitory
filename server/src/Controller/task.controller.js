@@ -47,6 +47,13 @@ class TaskController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.status) {
+                    aggregate.push(
+                        {
+                            $match: { status: filter.status }
+                        }
+                    )
+                }
                 if (filter.search) {
                     aggregate.push(
                         {

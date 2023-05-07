@@ -83,6 +83,20 @@ class ContractController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.civilianId) {
+                    aggregate.push(
+                        {
+                            $match: { 'civilian._id': new mongoose.Types.ObjectId(filter.civilianId) }
+                        }
+                    )
+                }
+                // if (filter.date) {
+                //     aggregate.push(
+                //         {
+                //             $match: { createdAt: filter.date }
+                //         }
+                //     )
+                // }
                 if (filter.page) {
                     aggregate.push(
                         {

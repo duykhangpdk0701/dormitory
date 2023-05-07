@@ -4,7 +4,6 @@ const path = require('path');
 const app = express()
 const db = require('./src/Service/db.service');
 const Route = require('./src/Route');
-const paypal = require('paypal-rest-sdk');
 
 db.connect()
 
