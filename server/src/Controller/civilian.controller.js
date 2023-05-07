@@ -37,6 +37,24 @@ class CivilianController {
                         as: "violations"
                     }
                 },
+                {
+                    $lookup: {
+                        from: "occupancies",
+                        localField: "_id",
+                        foreignField: "civilianId",
+                        as: "occupancy"
+                    }
+                },
+                { $unwind: '$occupancy' },
+                {
+                    $lookup: {
+                        from: "rooms",
+                        localField: "occupancy.roomId",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
@@ -110,6 +128,32 @@ class CivilianController {
                     }
                 },
                 { $unwind: '$address' },
+                {
+                    $lookup: {
+                        from: "violations",
+                        localField: "_id",
+                        foreignField: "civilianId",
+                        as: "violations"
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "occupancies",
+                        localField: "_id",
+                        foreignField: "civilianId",
+                        as: "occupancy"
+                    }
+                },
+                { $unwind: '$occupancy' },
+                {
+                    $lookup: {
+                        from: "rooms",
+                        localField: "occupancy.roomId",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
                 { $sort: { createdAt: -1 } }
             ]
             let civilian = await Civilian.aggregate(aggregate)
