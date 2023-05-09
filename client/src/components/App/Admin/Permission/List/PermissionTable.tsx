@@ -33,10 +33,11 @@ import BulkActions from "./BulkActions";
 
 import PermissionTableItem from "./TableItem";
 import { IPermissionParams } from "@/pages/admin/permission";
+import IPermission from "@/interfaces/Permission";
 
 interface IPermissionTableProps {
   className?: string;
-  data?: ICivilian[];
+  data?: IPermission[];
   control: Control<IPermissionParams, any>;
   handleSubmit: UseFormHandleSubmit<IPermissionParams>;
   onSubmit: SubmitHandler<IPermissionParams>;
@@ -133,8 +134,9 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
+
                 <TableCell>Tên</TableCell>
+                <TableCell>Mô tả</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>

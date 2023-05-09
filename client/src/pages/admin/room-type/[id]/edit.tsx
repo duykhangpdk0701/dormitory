@@ -28,7 +28,7 @@ const RoomTypeEditPage: NextPageWithLayout = () => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { control, handleSubmit, setValue } = useForm<IRoomTypeEditParams>({
+  const { control, handleSubmit } = useForm<IRoomTypeEditParams>({
     resolver: yupResolver(roomTypeEditSchema),
   });
 
@@ -36,13 +36,8 @@ const RoomTypeEditPage: NextPageWithLayout = () => {
     queryKey: ["room-type-detail", id],
     queryFn: () => {
       if (id && typeof id !== "object") {
-        return adminRoomTypeAPI.getById(id);
+        return adminRoomTypeAPI.getById;
       }
-      return undefined;
-    },
-    onSuccess: (data) => {
-      data?.name && setValue("name", data.name);
-      data?.description && setValue("desc", data.description);
     },
   });
 

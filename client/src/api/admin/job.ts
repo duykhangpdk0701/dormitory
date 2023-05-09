@@ -28,6 +28,12 @@ const adminJobAPI = {
     const res = await axiosClient.post(url, { name, description: desc });
     return res.data;
   },
+
+  update: async (id: string, name: string, desc: string): Promise<IJob> => {
+    const url = `/job/${id}`;
+    const res = await axiosClient.put(url, { name, description: desc });
+    return res.data;
+  },
 };
 
 export default adminJobAPI;

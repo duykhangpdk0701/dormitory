@@ -136,7 +136,6 @@ const PriorityTable: FC<IPriorityTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Điểm</TableCell>
                 <TableCell align="right">Hành động</TableCell>

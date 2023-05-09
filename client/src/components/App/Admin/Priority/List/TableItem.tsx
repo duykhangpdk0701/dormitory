@@ -78,17 +78,6 @@ const PriorityTableItem: FC<IPriorityTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
-      </TableCell>
 
       <TableCell>
         <Typography

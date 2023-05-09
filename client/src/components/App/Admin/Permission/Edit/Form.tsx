@@ -1,4 +1,4 @@
-import { ICreatePriorityParams } from "@/pages/admin/priority/create";
+import { ICreatePermissionParams } from "@/pages/admin/permission/create";
 import React, { FC } from "react";
 import {
   Control,
@@ -8,19 +8,19 @@ import {
 } from "react-hook-form";
 
 import { Grid, Paper, TextField, Box, FormHelperText } from "@mui/material";
-
 import { LoadingButton } from "@mui/lab";
+import { IUpdatePermissionFormParams } from "@/pages/admin/permission/[id]/edit";
 
-interface IPriorityFormAdd {
-  control: Control<ICreatePriorityParams, any>;
-  handleSubmit: UseFormHandleSubmit<ICreatePriorityParams>;
-  onSubmit: SubmitHandler<ICreatePriorityParams>;
+interface PermissionFormEdit {
+  control: Control<IUpdatePermissionFormParams, any>;
+  handleSubmit: UseFormHandleSubmit<IUpdatePermissionFormParams>;
+  onSubmit: SubmitHandler<IUpdatePermissionFormParams>;
 
   isLoading: boolean;
   errorResMessage: string;
 }
 
-const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
+const PermissionFormEdit: FC<PermissionFormEdit> = (props) => {
   const { control, handleSubmit, onSubmit, isLoading, errorResMessage } = props;
 
   return (
@@ -34,11 +34,11 @@ const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
               render={({ field, fieldState: { invalid, error } }) => (
                 <>
                   <TextField
-                    InputLabelProps={{ shrink: true }}
                     error={invalid}
                     {...field}
                     label="Tên"
                     fullWidth
+                    InputLabelProps={{ shrink: true }}
                   />
                   <FormHelperText error={invalid}>
                     {error?.message}
@@ -52,17 +52,16 @@ const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
           <Paper className="p-6">
             <Box>
               <Controller
-                name="score"
+                name="desc"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Điểm"
-                      InputLabelProps={{ shrink: true }}
+                      label="Mô tả"
                       fullWidth
-                      type="number"
+                      InputLabelProps={{ shrink: true }}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -88,4 +87,4 @@ const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
   );
 };
 
-export default PriorityFormEdit;
+export default PermissionFormEdit;

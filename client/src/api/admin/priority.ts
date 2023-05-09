@@ -24,9 +24,19 @@ const adminPriority = {
     return res.data;
   },
 
-  create: async (name: string, score: string): Promise<IPriority> => {
+  create: async (name: string, score: number): Promise<IPriority> => {
     const url = "/priority";
     const res = await axiosClient.post(url, { name, score });
+    return res.data;
+  },
+
+  update: async (
+    id: string,
+    name: string,
+    score: number
+  ): Promise<IPriority> => {
+    const url = "/priority";
+    const res = await axiosClient.put(url, { id, name, score });
     return res.data;
   },
 };

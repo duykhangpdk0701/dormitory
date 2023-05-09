@@ -16,10 +16,11 @@ import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import Link from "next/link";
+import IPermission from "@/interfaces/Permission";
 
 interface IPermissionTableItemProps {
   isSelected: boolean;
-  data: ICivilian;
+  data: IPermission;
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 
@@ -27,42 +28,6 @@ const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
   const { isSelected, data, handleSelectOneCryptoOrder } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
-
-  const handleAccept = async () => {
-    await acceptRequestMutation.mutateAsync();
-  };
-
-  const handleDeny = async () => {
-    await denyRequestMutation.mutateAsync();
-  };
-
-  const acceptRequestMutation = useMutation({
-    mutationKey: ["awating-student-request"],
-    mutationFn: () => adminBookingRequest.accepted(data._id),
-    onSuccess: () => {
-      dispatch(
-        setSnackbar({
-          snackbarOpen: true,
-          snackbarType: "success",
-          snackbarMessage: "Chấp nhận thành công",
-        })
-      );
-    },
-  });
-
-  const denyRequestMutation = useMutation({
-    mutationKey: ["awating-student-request"],
-    mutationFn: () => adminBookingRequest.cancel(data._id),
-    onSuccess: () => {
-      dispatch(
-        setSnackbar({
-          snackbarOpen: true,
-          snackbarType: "success",
-          snackbarMessage: "Từ chối thành công",
-        })
-      );
-    },
-  });
 
   return (
     <TableRow hover key={data._id} selected={isSelected}>
@@ -76,16 +41,19 @@ const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
+
       <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
+        <Link href={`/admin/permission/${data._id}`}>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {data.name}
+          </Typography>
+        </Link>
       </TableCell>
 
       <TableCell>
@@ -96,7 +64,7 @@ const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
           gutterBottom
           noWrap
         >
-          {data.name}
+          {data.description}
         </Typography>
       </TableCell>
 
@@ -112,7 +80,7 @@ const PermissionTableItem: FC<IPermissionTableItemProps> = (props) => {
             color="inherit"
             size="small"
             LinkComponent={Link}
-            href={`/admin/permission/${data._id}`}
+            href={`/admin/permission/${data._id}/edit`}
           >
             <EditTwoToneIcon fontSize="small" />
           </IconButton>

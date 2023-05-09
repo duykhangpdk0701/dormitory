@@ -8,17 +8,17 @@ import {
 } from "react-hook-form";
 import { Grid, Paper, TextField, Box, FormHelperText } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IServiceFormEditParams } from "@/pages/admin/service/[id]/edit";
+import { IJobEditFormParmas } from "@/pages/admin/job/[id]/edit";
 
-interface IServiceFormEdit {
-  control: Control<IServiceFormEditParams, any>;
-  handleSubmit: UseFormHandleSubmit<IServiceFormEditParams>;
-  onSubmit: SubmitHandler<IServiceFormEditParams>;
+interface IJobFormEdit {
+  control: Control<IJobEditFormParmas, any>;
+  handleSubmit: UseFormHandleSubmit<IJobEditFormParmas>;
+  onSubmit: SubmitHandler<IJobEditFormParmas>;
   isLoading: boolean;
   errorResMessage: string;
 }
 
-const ServiceFormEdit: FC<IServiceFormEdit> = (props) => {
+const JobFormEdit: FC<IJobFormEdit> = (props) => {
   const { control, handleSubmit, onSubmit, isLoading, errorResMessage } = props;
 
   return (
@@ -35,27 +35,7 @@ const ServiceFormEdit: FC<IServiceFormEdit> = (props) => {
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Tên"
-                      fullWidth
-                      InputLabelProps={{ shrink: true }}
-                    />
-                    <FormHelperText error={invalid}>
-                      {error?.message}
-                    </FormHelperText>
-                  </>
-                )}
-              />
-            </Box>
-            <Box className="mb-6">
-              <Controller
-                name="desc"
-                control={control}
-                render={({ field, fieldState: { invalid, error } }) => (
-                  <>
-                    <TextField
-                      error={invalid}
-                      {...field}
-                      label="Mô tả"
+                      label="Tên công việc"
                       fullWidth
                       InputLabelProps={{ shrink: true }}
                     />
@@ -72,15 +52,14 @@ const ServiceFormEdit: FC<IServiceFormEdit> = (props) => {
           <Paper className="p-6">
             <Box className="mb-6">
               <Controller
-                name="price"
+                name="desc"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Giá(VND)"
-                      type="number"
+                      label="Mô tả"
                       fullWidth
                       InputLabelProps={{ shrink: true }}
                     />
@@ -108,4 +87,4 @@ const ServiceFormEdit: FC<IServiceFormEdit> = (props) => {
   );
 };
 
-export default ServiceFormEdit;
+export default JobFormEdit;

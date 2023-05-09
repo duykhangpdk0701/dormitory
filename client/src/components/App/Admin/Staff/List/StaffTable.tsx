@@ -131,9 +131,9 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                   />
                 </TableCell>
                 <TableCell>Tên</TableCell>
-                <TableCell>Mô tả</TableCell>
+                <TableCell>email</TableCell>
 
-                <TableCell>Giá(VND)</TableCell>
+                <TableCell>Đang làm việc</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
