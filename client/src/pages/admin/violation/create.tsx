@@ -12,7 +12,7 @@ import SidebarLayout from "@/layouts/SidebarLayout";
 import PageHead from "@/components/PageHead";
 import ViolationCreate from "@/components/App/Admin/Violation/Create";
 import ViolationFormCreate from "@/components/App/Admin/Violation/Create/Form";
-import adminCivilian from "@/api/admin/civilian";
+import adminCivilianAPI from "@/api/admin/civilian";
 
 export interface IViolationCreateParmas {
   title: string;
@@ -34,7 +34,7 @@ const CreateViolationPage: NextPageWithLayout = () => {
 
   const civilianListQuery = useQuery({
     queryKey: ["civilian"],
-    queryFn: () => adminCivilian.getList(),
+    queryFn: () => adminCivilianAPI.getList(),
   });
 
   const jobCreateMutation = useMutation({

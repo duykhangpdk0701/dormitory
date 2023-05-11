@@ -1,4 +1,4 @@
-import adminCivilian from "@/api/admin/civilian";
+import adminCivilianAPI from "@/api/admin/civilian";
 import adminComplaintAPI from "@/api/admin/complaint";
 import CivilianDetail from "@/components/App/Admin/Civilian/detail";
 import CivilianDetailContent from "@/components/App/Admin/Civilian/detail/DetailContent";

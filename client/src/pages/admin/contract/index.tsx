@@ -1,6 +1,6 @@
-import adminCivilianAPI from "@/api/admin/civilian";
-import Civilian from "@/components/App/Admin/Civilian/List";
-import CivilianTable from "@/components/App/Admin/Civilian/List/CivilianTable";
+import adminJobAPI from "@/api/admin/job";
+import Job from "@/components/App/Admin/Job/List";
+import JobTable from "@/components/App/Admin/Job/List/JobTable";
 import PageHead from "@/components/PageHead";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { NextPageWithLayout } from "@/pages/_app";
@@ -9,29 +9,32 @@ import { useQuery } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import queryString from "query-string";
+import adminContractAPI from "@/api/admin/contract";
+import Contract from "@/components/App/Admin/Contract/List";
+import ContractTable from "@/components/App/Admin/Contract/List/ContractTable";
 
-export interface ICivilianParams {
+export interface IContractParams {
   search: string;
   rowPerPage: number;
   page: number;
 }
 
-const CivilianPage: NextPageWithLayout = () => {
+const ContractPage: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const { control, handleSubmit, watch } = useForm<ICivilianParams>({
+  const { control, handleSubmit, watch } = useForm<IContractParams>({
     defaultValues: {
       page: 0,
       rowPerPage: 5,
     },
   });
 
-  const onSubmit: SubmitHandler<ICivilianParams> = (data) => {
+  const onSubmit: SubmitHandler<IContractParams> = (data) => {
     console.log(data);
   };
 
-  const civilianListQuery = useQuery({
-    queryKey: ["civilian", router.isReady, router.query],
+  const contractListQuery = useQuery({
+    queryKey: ["contract", router.isReady, router.query],
     queryFn: () => {
       if (router.isReady) {
         const searchUrl = router.query;
@@ -40,7 +43,7 @@ const CivilianPage: NextPageWithLayout = () => {
         const page = searchUrl.page
           ? parseInt(searchUrl.page as string)
           : undefined;
-        return adminCivilianAPI.getList(search, limit, page);
+        return adminContractAPI.getList(search, limit, page);
       }
       return undefined;
     },
@@ -62,15 +65,15 @@ const CivilianPage: NextPageWithLayout = () => {
   return (
     <>
       <PageHead title="Danh sách cư dân ký túc xá | SGU domitory" />
-      <Civilian
+      <Contract
         table={
-          <CivilianTable
-            data={civilianListQuery.data}
+          <ContractTable
+            data={contractListQuery.data}
             control={control}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             watch={watch}
-            isLoading={civilianListQuery.isLoading}
+            isLoading={contractListQuery.isLoading}
           />
         }
       />
@@ -78,8 +81,8 @@ const CivilianPage: NextPageWithLayout = () => {
   );
 };
 
-CivilianPage.getLayout = function getLayout(page: ReactElement) {
+ContractPage.getLayout = function getLayout(page: ReactElement) {
   return <SidebarLayout>{page}</SidebarLayout>;
 };
 
-export default CivilianPage;
+export default ContractPage;

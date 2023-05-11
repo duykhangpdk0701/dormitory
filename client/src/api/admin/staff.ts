@@ -5,12 +5,12 @@ import queryString from "query-string";
 const adminStaffAPI = {
   getList: async (
     search?: string,
-    limit: number = 5,
-    page: number = 0
+    limit?: number,
+    page?: number
   ): Promise<IStaff[]> => {
     const url = "/staff";
     const searchUrl = queryString.stringifyUrl(
-      { url, query: { search, limit, page: page + 1 } },
+      { url, query: { search, limit, page: page ? page + 1 : undefined } },
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);
