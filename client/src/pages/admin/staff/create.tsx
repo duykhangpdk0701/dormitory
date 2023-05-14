@@ -1,7 +1,9 @@
 import adminJobAPI from "@/api/admin/job";
+import adminStaffAPI from "@/api/admin/staff";
 import StaffCreate from "@/components/App/Admin/Staff/Create";
 import StaffFormCreate from "@/components/App/Admin/Staff/Create/Form";
 import PageHead from "@/components/PageHead";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import { useAppDispatch } from "@/hooks/redux";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { NextPageWithLayout } from "@/pages/_app";
@@ -9,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import React, { ReactElement, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import * as yup from "yup";
 
 export interface IStaffCreateParams {
@@ -55,8 +57,60 @@ const StaffCreatePage: NextPageWithLayout = () => {
     resolver: yupResolver(staffCreateSchema),
   });
 
+  const staffCreateMutation = useMutation({
+    mutationKey: ["staff"],
+    mutationFn: ({
+      dateStart,
+      street,
+      district,
+      province,
+      salary,
+      firstname,
+      lastname,
+      dateOfBirth,
+      email,
+      phone,
+      job,
+    }: IStaffCreateParams) =>
+      adminStaffAPI.create(
+        dateStart,
+        street,
+        district,
+        province,
+        salary,
+        firstname,
+        lastname,
+        dateOfBirth,
+        email,
+        phone,
+        job
+      ),
+    onSuccess: async () => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Tạo nhân viên thành công",
+        })
+      );
+      await router.push("/admin/staff");
+      setLoading(false);
+    },
+    onError: (error: any) => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+      setLoading(false);
+    },
+  });
+
   const onSubmit: SubmitHandler<IStaffCreateParams> = async (data) => {
-    console.log(data);
+    setLoading(true);
+    staffCreateMutation.mutate({ ...data });
   };
 
   return (

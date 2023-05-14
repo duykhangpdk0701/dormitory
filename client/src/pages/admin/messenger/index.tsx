@@ -1,16 +1,27 @@
+import chatAPI from "@/api/chat";
 import Messenger from "@/components/App/Messenger";
+import SidebarContent from "@/components/App/Messenger/SidebarContent";
+import PageHead from "@/components/PageHead";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import Head from "next/head";
 import React, { ReactElement } from "react";
+import { useQuery } from "react-query";
 
 const MessengerPage: NextPageWithLayout = () => {
+  const conversationQuery = useQuery({
+    queryKey: ["conversation"],
+    queryFn: () => {
+      return chatAPI.getConversationByUserId("64520cf564d7a8e71492cbad");
+    },
+  });
+
   return (
     <>
-      <Head>
-        <title>Messenger - Applications</title>
-      </Head>
-      <Messenger />
+      <PageHead title="Tin nhắn | SGU domitory" />
+      <Messenger
+        conversation={conversationQuery.data}
+        sidebarContent={<SidebarContent data={conversationQuery.data} />}
+      />
     </>
   );
 };

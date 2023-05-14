@@ -145,9 +145,8 @@ const adminMenu = [
   },
 ];
 
-
 export const staffMenu = [
-    {
+  {
     subheader: "Trang chủ",
     child: [
       {
@@ -157,19 +156,19 @@ export const staffMenu = [
       },
 
       {
-        link: "/user/task",
+        link: "/staff/task",
         starIcon: MmsTwoToneIcon,
         title: "Công việc",
       },
 
       {
-        link: "/user/room",
+        link: "/staff/bill",
         starIcon: MmsTwoToneIcon,
-        title: "Thông tin phòng",
+        title: "Ghi Hoá đơn",
       },
     ],
   },
-]
+];
 
 export const userMenu = [
   {
