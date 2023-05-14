@@ -8,6 +8,12 @@ const roomTypeAPI = {
 
     return res.data;
   },
+
+  getById: async (id: string): Promise<IRoomType> => {
+    const url = `/roomType/${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 
 export default roomTypeAPI;

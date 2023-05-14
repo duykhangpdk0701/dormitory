@@ -109,18 +109,17 @@ const DeviceEditPage: NextPageWithLayout = () => {
 
   const onSubmit: SubmitHandler<IDeviceEditFormParams> = async (data) => {
     const { name, desc, roomId, dateAdd, price } = data;
-    // setLoading(true);
-    console.log(data);
-    // if (id && typeof id !== "object") {
-    //   await deviceEditMutation.mutateAsync({
-    //     id,
-    //     name,
-    //     desc,
-    //     roomId,
-    //     dateAdd: dateAdd,
-    //     price,
-    //   });
-    // }
+    setLoading(true);
+    if (id && typeof id !== "object") {
+      await deviceEditMutation.mutateAsync({
+        id,
+        name,
+        desc,
+        roomId,
+        dateAdd: moment(dateAdd).toDate(),
+        price,
+      });
+    }
   };
 
   return (

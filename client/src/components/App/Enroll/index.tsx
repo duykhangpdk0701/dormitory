@@ -5,6 +5,10 @@ import {
   TextField,
   FormHelperText,
   FormLabel,
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { IEnrollParams } from "@/pages/enroll";
@@ -18,6 +22,7 @@ import { LoadingButton } from "@mui/lab";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import enrollImg from "@/assets/enroll/enroll.jpg";
 import Dropzone from "@/components/Dropzone";
+import IRoomType from "@/interfaces/RoomTypet";
 
 interface IEnroll {
   control: Control<IEnrollParams, any>;
@@ -25,10 +30,20 @@ interface IEnroll {
   onSubmit: SubmitHandler<IEnrollParams>;
   isLoading: boolean;
   errorResMessage: string;
+  roomTypeList?: IRoomType[];
+  isLoadingRoomTypeList: boolean;
 }
 
 const Enroll: FC<IEnroll> = (props) => {
-  const { control, handleSubmit, onSubmit, isLoading, errorResMessage } = props;
+  const {
+    control,
+    handleSubmit,
+    onSubmit,
+    isLoading,
+    errorResMessage,
+    roomTypeList,
+    isLoadingRoomTypeList,
+  } = props;
 
   return (
     <div className="pt-4">
@@ -166,6 +181,35 @@ const Enroll: FC<IEnroll> = (props) => {
                     )}
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="roomTypeId"
+                    control={control}
+                    render={({ field, fieldState: { invalid, error } }) => (
+                      <>
+                        <FormControl fullWidth>
+                          <InputLabel id="roomt-type">Loại phòng</InputLabel>
+                          <Select
+                            {...field}
+                            id="roomt-type"
+                            fullWidth
+                            error={invalid}
+                            disabled={isLoadingRoomTypeList}
+                            label="Loại phòng"
+                          >
+                            {roomTypeList?.map((item) => (
+                              <MenuItem value={item._id}>{item.name}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
                 <Grid item xs={12}>
                   <Controller
                     name="images"

@@ -18,6 +18,9 @@ const MainNav = () => {
               <Link href="/">Giới thiệu </Link>
             </li>
             <li>
+              <Link href="/room-type">Phòng ở</Link>
+            </li>
+            <li>
               <Link href="/enroll">Đăng ký </Link>
             </li>
             <li>

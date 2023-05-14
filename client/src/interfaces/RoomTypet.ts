@@ -4,6 +4,8 @@ interface IRoomType {
   description: string;
   createdAt: Date;
   updatedAt: Date;
+  price: number;
+  images: string[];
   __v: number;
 }
 
