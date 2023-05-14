@@ -35,7 +35,7 @@ class ConversationController {
                     { $sort : { createdAt: -1 } }
                 ])
             }
-            res.json({ success: true, conversations})
+            res.json({ success: true, data : conversations})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -68,7 +68,7 @@ class ConversationController {
             let conversation = await Conversation.aggregate(aggregate)
             conversation = conversation[0]
             if (!conversation) return res.json({ success: false, messages: 'Invalid conversation' })
-            res.json({ success: true, conversation })
+            res.json({ success: true, data: conversation })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }

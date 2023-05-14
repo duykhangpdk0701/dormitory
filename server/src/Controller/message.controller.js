@@ -37,7 +37,7 @@ class MessageController {
                 // ])
                 messages = await Message.find({})
             }
-            res.json({ success: true, messages })
+            res.json({ success: true, data: messages })
         } catch (error) {
             res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
@@ -49,7 +49,7 @@ class MessageController {
         try {
             const message = await Message.findById(id)
             if (!message) return res.json({ success: false, messages: 'Invalid message' })
-            res.json({ success: true, message })
+            res.json({ success: true, data : message })
         } catch (error) {
             res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }

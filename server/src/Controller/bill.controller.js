@@ -208,6 +208,10 @@ class BillController {
             res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
+
+    async sendBill(req, res) {
+
+    }
 }
 
 module.exports = new BillController()

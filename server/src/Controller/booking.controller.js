@@ -4,7 +4,6 @@ const paypal = require('paypal-rest-sdk');
 var sendMail = require('../Service/mail.service');
 const Room = require('../Model/room.model');
 const Booking = require('../Model/booking.model');
-const Occupancy = require('../Model/occupancy.model');
 const Civilian = require('../Model/civilian.model');
 const Account = require('../Model/user.model');
 const Permission = require('../Model/permission.model');
@@ -211,8 +210,8 @@ class BookingController {
             await account.save()
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
             await civilian.save()
-            const occupancy = new Occupancy({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
-            await occupancy.save()
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            await contract.save()
 
             res.send('Success (Đặt cọc thành công)');
             sendMail(booking.email, depositBooking(booking));
@@ -241,8 +240,8 @@ class BookingController {
             await account.save()
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
             await civilian.save()
-            const occupancy = new Occupancy({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
-            await occupancy.save()
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            await contract.save()
 
             res.json({ success: true, messages: 'deposit' })
             sendMail(booking.email, depositBooking(booking));
@@ -357,7 +356,7 @@ class BookingController {
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
             booking = await Booking.findOne({ _id: id});
             const civilian = await Civilian.findOne({ studentId: booking.studentId })
-            await Occupancy.deleteOne({ civilianId: civilian._id })
+            await contract.deleteOne({ civilianId: civilian._id })
             await Account.deleteOne({ _id: civilian.accountId})
             await Civilian.deleteOne({ studentId: booking.studentId })
             res.json({ success: true, messages: 'cancel'})

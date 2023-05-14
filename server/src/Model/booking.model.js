@@ -44,6 +44,9 @@ const Booking = new Schema(
         dateStart: {
             type: Date,
         },
+        dateEnd: {
+            type: Date,
+        },
         priceDeposit: {
             type: Number,
         },

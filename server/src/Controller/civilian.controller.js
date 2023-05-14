@@ -39,17 +39,17 @@ class CivilianController {
                 },
                 {
                     $lookup: {
-                        from: "occupancies",
+                        from: "contracts",
                         localField: "_id",
                         foreignField: "civilianId",
-                        as: "occupancy"
+                        as: "contract"
                     }
                 },
-                { $unwind: '$occupancy' },
+                { $unwind: '$contract' },
                 {
                     $lookup: {
                         from: "rooms",
-                        localField: "occupancy.roomId",
+                        localField: "contract.roomId",
                         foreignField: "_id",
                         as: "room"
                     }
@@ -138,17 +138,17 @@ class CivilianController {
                 },
                 {
                     $lookup: {
-                        from: "occupancies",
+                        from: "contracts",
                         localField: "_id",
                         foreignField: "civilianId",
-                        as: "occupancy"
+                        as: "contract"
                     }
                 },
-                { $unwind: '$occupancy' },
+                { $unwind: '$contract' },
                 {
                     $lookup: {
                         from: "rooms",
-                        localField: "occupancy.roomId",
+                        localField: "contract.roomId",
                         foreignField: "_id",
                         as: "room"
                     }
