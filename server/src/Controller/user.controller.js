@@ -34,11 +34,11 @@ class UserController {
                         }
                     },
                     { $unwind: '$address' },
-                    { $sort: { "priority.score": -1, createdAt: -1 } }
+                    { $sort: { createdAt: -1 } }
                 ]
                 const civilian = await Civilian.aggregate(aggregate)
                 user.infor = civilian[0]
-            }else if(user.permission.name == 'staff'){
+            }else if(user.permission.name == 'staff' || user.permission.name == 'admin'){
                 const aggregate = [
                     { $match: { accountId : user._id } },
                     {
@@ -50,7 +50,7 @@ class UserController {
                         }
                     },
                     { $unwind: '$address' },
-                    { $sort: { "priority.score": -1, createdAt: -1 } }
+                    { $sort: { createdAt: -1 } }
                 ]
                 const staff = await Staff.aggregate(aggregate)
                 user.infor = staff[0]
@@ -110,7 +110,7 @@ class UserController {
                 ]
                 const civilian = await Civilian.aggregate(aggregate)
                 user.infor = civilian[0]
-            }else if(user.permission.name == 'staff'){
+            }else if(user.permission.name == 'staff' || user.permission.name == 'admin'){
                 const aggregate = [
                     { $match: { accountId : user._id } },
                     {
