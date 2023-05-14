@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { FC, useContext, useMemo } from "react";
 
 import {
   ListSubheader,
@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { SidebarContext } from "@/contexts/SidebarContext";
-import adminMenu from "./getListSidebarMenu";
+import adminMenu, { userMenu } from "./getListSidebarMenu";
 import getMenu from "./getListSidebarMenu";
 
 const MenuWrapper = styled(Box)(
@@ -156,20 +156,19 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
-function SidebarMenu() {
+interface ISidebarMenu {
+  menuType?: "user" | "staff";
+}
+
+const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
   const { closeSidebar } = useContext(SidebarContext);
 
-  const role = useMemo(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("role") || "";
-    }
-    return "user";
-  }, []);
+  const menu = menuType === "user" ? userMenu : adminMenu;
 
   return (
     <>
       <MenuWrapper>
-        {adminMenu.map((item) => (
+        {menu.map((item) => (
           <List
             component="div"
             subheader={
@@ -200,6 +199,6 @@ function SidebarMenu() {
       </MenuWrapper>
     </>
   );
-}
+};
 
 export default SidebarMenu;

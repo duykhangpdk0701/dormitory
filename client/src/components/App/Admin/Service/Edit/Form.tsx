@@ -8,12 +8,12 @@ import {
 } from "react-hook-form";
 import { Grid, Paper, TextField, Box, FormHelperText } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IServiceEditParams } from "@/pages/admin/service/[id]/edit";
+import { IServiceFormEditParams } from "@/pages/admin/service/[id]/edit";
 
 interface IServiceFormEdit {
-  control: Control<IServiceEditParams, any>;
-  handleSubmit: UseFormHandleSubmit<IServiceEditParams>;
-  onSubmit: SubmitHandler<IServiceEditParams>;
+  control: Control<IServiceFormEditParams, any>;
+  handleSubmit: UseFormHandleSubmit<IServiceFormEditParams>;
+  onSubmit: SubmitHandler<IServiceFormEditParams>;
   isLoading: boolean;
   errorResMessage: string;
 }
@@ -100,7 +100,7 @@ const ServiceFormEdit: FC<IServiceFormEdit> = (props) => {
             type="submit"
             loading={isLoading}
           >
-            Thêm
+            Cập nhật
           </LoadingButton>
         </Grid>
       </Grid>

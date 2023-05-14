@@ -140,7 +140,6 @@ const DeviceTable: FC<IDeviceTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Phòng</TableCell>
                 <TableCell>Mô tả</TableCell>

@@ -18,6 +18,7 @@ export interface IEnrollParams {
   email: string;
   phone: string;
   dateOfBirth: string;
+  images: File[];
 }
 
 const erollSchema = yup.object({

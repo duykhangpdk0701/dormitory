@@ -37,13 +37,13 @@ const ServiceTableItem: FC<IJobTableItemProps> = (props) => {
         />
       </TableCell>
 
-      <Link href={`/admin/service/${data._id}`}>
-        <TableCell>
+      <TableCell>
+        <Link href={`/admin/service/${data._id}`}>
           <Typography variant="body1" color="text.primary" gutterBottom noWrap>
             {data.name}
           </Typography>
-        </TableCell>
-      </Link>
+        </Link>
+      </TableCell>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
           {data.description}

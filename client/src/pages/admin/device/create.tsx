@@ -41,7 +41,7 @@ const DevicePage: NextPageWithLayout = () => {
     queryFn: () => adminRoomAPI.getList(),
   });
 
-  const jobCreateMutation = useMutation({
+  const deviceCreateMutation = useMutation({
     mutationKey: ["device"],
     mutationFn: async ({
       name,
@@ -81,7 +81,13 @@ const DevicePage: NextPageWithLayout = () => {
   const onSubmit: SubmitHandler<IDeviceCreateParams> = async (data) => {
     const { name, desc, roomId, dateAdd, price } = data;
     setLoading(true);
-    await jobCreateMutation.mutateAsync({ name, desc, roomId, dateAdd, price });
+    await deviceCreateMutation.mutateAsync({
+      name,
+      desc,
+      roomId,
+      dateAdd,
+      price,
+    });
   };
 
   return (

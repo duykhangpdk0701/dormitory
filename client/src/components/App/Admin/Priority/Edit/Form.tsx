@@ -62,6 +62,7 @@ const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
                       label="Điểm"
                       InputLabelProps={{ shrink: true }}
                       fullWidth
+                      type="number"
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -79,7 +80,7 @@ const PriorityFormEdit: FC<IPriorityFormAdd> = (props) => {
             type="submit"
             loading={isLoading}
           >
-            Tạo
+            Cập nhật
           </LoadingButton>
         </Grid>
       </Grid>

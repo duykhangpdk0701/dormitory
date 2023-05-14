@@ -1,6 +1,8 @@
+import adminServiceAPI from "@/api/admin/service";
 import ServiceCreate from "@/components/App/Admin/Service/Create";
 import ServiceFormCreate from "@/components/App/Admin/Service/Create/Form";
 import PageHead from "@/components/PageHead";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import { useAppDispatch } from "@/hooks/redux";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { NextPageWithLayout } from "@/pages/_app";
@@ -8,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import React, { ReactElement, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import * as yup from "yup";
 
 export interface IServiceCreateParams {
@@ -16,7 +19,7 @@ export interface IServiceCreateParams {
   price: number;
 }
 
-const jobCreateSchema = yup.object({
+const serviceCreateSchema = yup.object({
   name: yup.string().required(),
   desc: yup.string().required(),
   price: yup.number().required(),
@@ -28,11 +31,39 @@ const ServiceCreatePage: NextPageWithLayout = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { control, handleSubmit } = useForm<IServiceCreateParams>({
-    resolver: yupResolver(jobCreateSchema),
+    resolver: yupResolver(serviceCreateSchema),
+  });
+
+  const serviceCreateMutation = useMutation({
+    mutationKey: ["service"],
+    mutationFn: ({ name, desc, price }: IServiceCreateParams) =>
+      adminServiceAPI.create(name, desc, price),
+    onSuccess: async () => {
+      setLoading(false);
+      await router.push("/priority");
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Cập nhật dịch vụ thành công",
+        })
+      );
+    },
+    onError: (error: any) => {
+      setLoading(false);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+    },
   });
 
   const onSubmit: SubmitHandler<IServiceCreateParams> = async (data) => {
-    console.log(data);
+    setLoading(true);
+    serviceCreateMutation.mutate(data);
   };
 
   return (

@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
-import { useAppDispatch } from "@/hooks/redux";
 import Link from "next/link";
 import IJob from "@/interfaces/Job";
 
@@ -38,15 +37,11 @@ const JobTableItem: FC<IJobTableItemProps> = (props) => {
         />
       </TableCell>
       <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
-        </Typography>
-      </TableCell>
-
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.name}
-        </Typography>
+        <Link href={`/admin/job/${data._id}`}>
+          <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+            {data.name}
+          </Typography>
+        </Link>
       </TableCell>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
@@ -66,7 +61,7 @@ const JobTableItem: FC<IJobTableItemProps> = (props) => {
             color="inherit"
             size="small"
             LinkComponent={Link}
-            href={`/admin/job/${data._id}`}
+            href={`/admin/job/${data._id}/edit`}
           >
             <EditTwoToneIcon fontSize="small" />
           </IconButton>

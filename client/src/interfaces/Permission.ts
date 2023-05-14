@@ -1,4 +1,4 @@
-interface ICivilian {
+interface IPermission {
   _id: string;
   name: string;
   description: string;
@@ -6,3 +6,5 @@ interface ICivilian {
   updatedAt: string;
   __v: number;
 }
+
+export default IPermission;

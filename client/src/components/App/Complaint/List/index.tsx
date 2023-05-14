@@ -18,7 +18,7 @@ const ComplaintList: FC<IComplaintList> = (props) => {
           desc="Dưới đây là danh sách khiếu nại của bạn"
           isHaveNavigateButton={true}
           navigationName="Tạo khiếu nại"
-          link="/complaint/create"
+          link="/user/complaint/create"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">{list}</Container>

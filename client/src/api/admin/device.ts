@@ -40,6 +40,26 @@ const adminDeviceAPI = {
     });
     return res.data;
   },
+
+  update: async (
+    id: string,
+    name: string,
+    desc: string,
+    roomId: string,
+    dateAdd: Date,
+    price: number
+  ): Promise<IDevice> => {
+    const url = `/device/${id}`;
+    const res = await axiosClient.put(url, {
+      id,
+      name,
+      description: desc,
+      roomId,
+      dateAdd,
+      price,
+    });
+    return res.data;
+  },
 };
 
 export default adminDeviceAPI;

@@ -36,13 +36,25 @@ const StaffTableItem: FC<IStaffTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <Link href={`/admin/staff/${data._id}`}>
-        <TableCell>
+      <TableCell>
+        <Link href={`/admin/staff/${data._id}`}>
           <Typography variant="body1" color="text.primary" gutterBottom noWrap>
             {`${data.account.lastname} ${data.account.firstname}`}
           </Typography>
-        </TableCell>
-      </Link>
+        </Link>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.account.email}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.isWorking ? "Hoạt động" : "Vắng mặt"}
+        </Typography>
+      </TableCell>
 
       <TableCell align="right">
         <Tooltip title="Chỉnh sửa" arrow>
@@ -56,7 +68,7 @@ const StaffTableItem: FC<IStaffTableItemProps> = (props) => {
             color="inherit"
             size="small"
             LinkComponent={Link}
-            href={`/admin/service/${data._id}`}
+            href={`/admin/staff/${data._id}/edit`}
           >
             <EditTwoToneIcon fontSize="small" />
           </IconButton>

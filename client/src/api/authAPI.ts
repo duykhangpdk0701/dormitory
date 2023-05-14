@@ -17,6 +17,12 @@ const authAPI = {
     const res = await axiosClient.post(url, { username, password, permission });
     return res;
   },
+
+  load: async (): Promise<ILogin> => {
+    const url = "user/load";
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 
 export default authAPI;

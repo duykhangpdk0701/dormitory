@@ -32,6 +32,17 @@ const adminServiceAPI = {
     const res = await axiosClient.post(url, { name, desc, price });
     return res.data;
   },
+
+  update: async (
+    id: string,
+    name: string,
+    desc: string,
+    price: number
+  ): Promise<IService> => {
+    const url = `/service/${id}`;
+    const res = await axiosClient.put(url, { name, desc, price });
+    return res.data;
+  },
 };
 
 export default adminServiceAPI;

@@ -5,12 +5,12 @@ import queryString from "query-string";
 const adminStaffAPI = {
   getList: async (
     search?: string,
-    limit: number = 5,
-    page: number = 0
+    limit?: number,
+    page?: number
   ): Promise<IStaff[]> => {
     const url = "/staff";
     const searchUrl = queryString.stringifyUrl(
-      { url, query: { search, limit, page: page + 1 } },
+      { url, query: { search, limit, page: page ? page + 1 : undefined } },
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);
@@ -23,9 +23,64 @@ const adminStaffAPI = {
     return res.data;
   },
 
-  create: async (name: string, desc: string): Promise<IStaff> => {
+  create: async (
+    dataStart: Date,
+    street: string,
+    district: string,
+    province: string,
+    salary: number,
+    firstname: string,
+    lastname: string,
+    dateOfBirth: Date,
+    email: string,
+    phone: string,
+    job: string
+  ): Promise<IStaff> => {
     const url = "/staff/store";
-    const res = await axiosClient.post(url, { name, desc });
+    const res = await axiosClient.post(url, {
+      dataStart,
+      street,
+      district,
+      province,
+      salary,
+      firstname,
+      lastname,
+      dateOfBirth,
+      email,
+      phone,
+      job,
+    });
+    return res.data;
+  },
+
+  update: async (
+    id: string,
+    dataStart: Date,
+    street: string,
+    district: string,
+    province: string,
+    salary: number,
+    firstname: string,
+    lastname: string,
+    dateOfBirth: Date,
+    email: string,
+    phone: string,
+    job: string
+  ): Promise<IStaff> => {
+    const url = `/staff/${id}`;
+    const res = await axiosClient.put(url, {
+      dataStart,
+      street,
+      district,
+      province,
+      salary,
+      firstname,
+      lastname,
+      dateOfBirth,
+      email,
+      phone,
+      job,
+    });
     return res.data;
   },
 };

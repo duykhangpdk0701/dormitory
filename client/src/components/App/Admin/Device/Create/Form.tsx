@@ -59,7 +59,7 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Tên công việc"
+                      label="Tên thiết bị"
                       fullWidth
                     />
                     <FormHelperText error={invalid}>
@@ -98,14 +98,14 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <FormControl fullWidth>
-                      <InputLabel id="roomt-type">Loại phòng</InputLabel>
+                      <InputLabel id="room">Phòng</InputLabel>
                       <Select
                         {...field}
-                        id="roomt-type"
+                        id="room"
                         fullWidth
                         error={invalid}
                         disabled={isLoadingRoom}
-                        label="Loại phòng"
+                        label="Thuộc phòng"
                       >
                         {room?.map((item) => (
                           <MenuItem value={item._id}>{item.name}</MenuItem>

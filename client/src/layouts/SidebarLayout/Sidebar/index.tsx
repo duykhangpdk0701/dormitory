@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import Scrollbar from "@/components/Scrollbar";
 import { SidebarContext } from "@/contexts/SidebarContext";
 
@@ -30,7 +30,11 @@ const SidebarWrapper = styled(Box)(
 `
 );
 
-function Sidebar() {
+interface ISidebar {
+  menuType?: "user" | "staff";
+}
+
+const Sidebar: FC<ISidebar> = ({ menuType }) => {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const closeSidebar = () => toggleSidebar();
   const theme = useTheme();
@@ -79,7 +83,7 @@ function Sidebar() {
               background: theme.colors.alpha.trueWhite[10],
             }}
           />
-          <SidebarMenu />
+          <SidebarMenu menuType={menuType} />
         </Scrollbar>
       </SidebarWrapper>
       <Drawer
@@ -124,6 +128,6 @@ function Sidebar() {
       </Drawer>
     </>
   );
-}
+};
 
 export default Sidebar;

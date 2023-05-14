@@ -1,4 +1,4 @@
-import adminCivilian from "@/api/admin/civilian";
+import adminCivilianAPI from "@/api/admin/civilian";
 import Civilian from "@/components/App/Admin/Civilian/List";
 import CivilianTable from "@/components/App/Admin/Civilian/List/CivilianTable";
 import PageHead from "@/components/PageHead";
@@ -40,7 +40,7 @@ const CivilianPage: NextPageWithLayout = () => {
         const page = searchUrl.page
           ? parseInt(searchUrl.page as string)
           : undefined;
-        return adminCivilian.getList(search, limit, page);
+        return adminCivilianAPI.getList(search, limit, page);
       }
       return undefined;
     },
