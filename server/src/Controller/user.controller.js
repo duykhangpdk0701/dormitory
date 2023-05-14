@@ -84,11 +84,11 @@ class UserController {
             let user = await User.aggregate(aggregate)
             user = user[0]
             if(!user){
-                return res.status(400).json({success: false, messages:'Incorrect username or password'})
+                return res.status(400).json({success: false, messages:'Tài khoản hoặc mật khẩu không hợp lệ'})
             }
             const passowrdvalid = await argon2.verify(user.password,password)
             if(!passowrdvalid){ 
-                return res.status(500).json({success: false, messages: 'Invalid password'}) 
+                return res.status(500).json({success: false, messages: 'Mật khẩu không hợp lệ'}) 
             }
             const accessToken = jwt.sign(
                 { Id: user._id },
@@ -127,7 +127,7 @@ class UserController {
                 const staff = await Staff.aggregate(aggregate)
                 user.infor = staff[0]
             }
-            res.json({ success: true, messages: 'Login successfully', data: { accessToken, user }})
+            res.json({ success: true, messages: 'Đăng nhập thành công', data: { accessToken, user }})
         }
         catch(error){
             res.status(500).json({ success: false, message: error.message });
@@ -139,7 +139,7 @@ class UserController {
         try {
             const user = await User.findOne({ username });
             if(user){
-                return res.status(400).json({success: false,messages:'Username already taken'});
+                return res.status(400).json({success: false,messages:'Tên tài khoản đã tồn tại'});
             }
             const hashpassword = await argon2.hash(password);
             const newUser = new User({...req.body, password:hashpassword, avatar: "/images/avatar.png"})
@@ -149,7 +149,7 @@ class UserController {
                 { Id: newUser._id },
                 process.env.ACCESS_TOKEN_SECRET
             )
-            res.json({ success:true, messages:'Register successfully', data: { accessToken }})
+            res.json({ success:true, messages:'Đăng ký thành công', data: { accessToken }})
         } catch (error) {
             res.status(500).json({ success: false, message: req.body });
         }
@@ -161,16 +161,16 @@ class UserController {
         try {
             const user = await User.findOne({ username });
             if(!user){
-                return res.status(400).json({success: false,messages:'Username uncorrect'});
+                return res.status(400).json({success: false,messages:'Tên tài khoản không chính xác'});
             }
             const passowrdvalid = await argon2.verify(user.password,password)
             if(!passowrdvalid){ 
-                return res.status(500).json({success: false, messages: 'Invalid password'}) 
+                return res.status(500).json({success: false, messages: 'Mật khẩu không chính xác'}) 
             }
             const hashpassword = await argon2.hash(newPassword);
             await User.updateOne({ username },{ password:hashpassword })
 
-            res.json({ success:true, messages:'Change password successfully' })
+            res.json({ success:true, messages:'Thay đổi mật khẩu thành công' })
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }
@@ -178,15 +178,15 @@ class UserController {
 
     async changeInfor(req, res) {
         const { username } = req.body;
-        if(!username) return res.status(400).json({success: false, messages: 'Missing username'});
+        if(!username) return res.status(400).json({success: false, messages: 'Thiếu thông tin tài khoản'});
         try {
             const user = await User.findOne({ username });
             if(!user){
-                return res.status(400).json({success: false,messages:'Username uncorrect'});
+                return res.status(400).json({success: false,messages:'Tài khoản không hợp lệ'});
             }
             await User.updateOne({ username }, req.body)
 
-            res.json({ success:true, messages:'Change infor successfully' })
+            res.json({ success:true, messages:'Thay đổi thông tin thành công' })
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }
@@ -194,15 +194,15 @@ class UserController {
 
     async changeAvatar(req, res) {
         const { username } = req.body;
-        if(!username) return res.status(400).json({success: false, messages: 'Missing username'});
+        if(!username) return res.status(400).json({success: false, messages: 'Thiếu thông tin tài khoản'});
         try {
             const user = await User.findOne({ username });
             if(!user){
-                return res.status(400).json({success: false,messages:'Username uncorrect'});
+                return res.status(400).json({success: false,messages:'Tài khoản không hợp lệ'});
             }
             await User.updateOne({ username }, { avatar: "/images/"+ req.file.filename })
 
-            res.json({ success:true, messages:'Change avatar successfully' })
+            res.json({ success:true, messages:'Đổi avatar thành công' })
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }

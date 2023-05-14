@@ -67,7 +67,7 @@ class BookingRequestController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -106,7 +106,7 @@ class BookingRequestController {
             await address.save()
             const bookingRequest = new BookingRequest({...req.body,address: address._id, dateOfBirth: new Date(req.body.dateOfBirth), images: req.files ? req.files.map(file => "/images/"+file.filename) : ''})
             await bookingRequest.save()
-            res.json({ success: true, messages: 'Create successfully', data: bookingRequest })
+            res.json({ success: true, messages: 'Tạo thành công', data: bookingRequest })
             sendMail(bookingRequest.email, createBookingRequest());
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
@@ -115,7 +115,7 @@ class BookingRequestController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let bookingRequest
             if(req.files){
@@ -133,7 +133,7 @@ class BookingRequestController {
 
     async accepted(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let bookingRequest = await BookingRequest.updateOne({ _id: id }, {status: 'Accepted'}, { new: true })
             if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
@@ -183,7 +183,7 @@ class BookingRequestController {
 
     async cancel(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let bookingRequest = await BookingRequest.updateOne({ _id: id }, {status: "Cancel"}, { new: true })
             if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
@@ -197,13 +197,13 @@ class BookingRequestController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const bookingRequest = await BookingRequest.deleteOne({ _id: id })
             if (!bookingRequest) return res.status(401).json({ success: false, messages: 'Cant delete bookingRequest' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     } 
 }

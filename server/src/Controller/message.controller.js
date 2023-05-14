@@ -39,19 +39,19 @@ class MessageController {
             }
             res.json({ success: true, messages })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const message = await Message.findById(id)
             if (!message) return res.json({ success: false, messages: 'Invalid message' })
             res.json({ success: true, message })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 
@@ -61,17 +61,17 @@ class MessageController {
             await message.save()
             res.json({ success: true, messages: 'Store message successfully' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error'})
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống'})
         }
     }
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const message = await Message.updateOne({ _id: id }, req.body, { new: true })
             if (!message) return res.json({ success: false, messages: 'Cant update message' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -79,13 +79,13 @@ class MessageController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const message = await Message.deleteOne({ _id: id })
             if (!message) return res.status(401).json({ success: false, messages: 'Cant delete message' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }
