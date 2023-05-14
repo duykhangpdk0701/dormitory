@@ -130,9 +130,9 @@ class RoomController {
 
     async store(req, res) {
         try {
-            const room = new Room(req.body)
+            const room = new Room({...req.body, images: req.files ? req.files.map(file => "/images/"+file.filename) : ''})
             await room.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Create successfully', data: room })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -142,7 +142,7 @@ class RoomController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const room = await Room.updateOne({ _id: id }, req.body, { new: true })
+            const room = await Room.updateOne({ _id: id }, req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : req.body, { new: true })
             if (!room) return res.json({ success: false, messages: 'Cant update room' })
             res.json({ success: true, messages: 'Update successfully ' })
         } catch (error) {
@@ -161,6 +161,7 @@ class RoomController {
             res.status(500).json({ success: false, messages: 'Interval server error' })
         }
     }
+
 }
 
 module.exports = new RoomController()

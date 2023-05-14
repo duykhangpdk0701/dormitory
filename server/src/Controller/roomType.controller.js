@@ -54,9 +54,9 @@ class RoomTypeController {
 
     async store(req, res) {
         try {
-            const roomType = new RoomType(req.body)
+            const roomType = new RoomType({...req.body, images: req.files ? req.files.map(file => "/images/"+file.filename) : ''})
             await roomType.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Create successfully', data: roomType })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -66,7 +66,7 @@ class RoomTypeController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
         try {
-            const roomType = await RoomType.updateOne({ _id: id }, req.body, { new: true })
+            const roomType = await RoomType.updateOne({ _id: id }, req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : req.body, { new: true })
             if (!roomType) return res.json({ success: false, messages: 'Cant update roomType' })
             res.json({ success: true, messages: 'Update successfully ' })
         } catch (error) {

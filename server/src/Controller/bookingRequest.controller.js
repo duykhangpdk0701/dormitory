@@ -119,7 +119,7 @@ class BookingRequestController {
         try {
             let bookingRequest
             if(req.files){
-                bookingRequest = await BookingRequest.updateOne({ _id: id }, {...req.body, images: req.files.map(file => "/images/"+file.filename)}, { new: true })
+                bookingRequest = await BookingRequest.updateOne({ _id: id },  req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : req.body, { new: true })
                 if (!bookingRequest) return res.json({ success: false, messages: 'Cant update bookingRequest' })
             } else{
                 bookingRequest = await BookingRequest.updateOne({ _id: id }, req.body, { new: true })
@@ -141,6 +141,7 @@ class BookingRequestController {
             bookingRequest = await BookingRequest.findOne({ _id: id});
             delete bookingRequest._doc._id
             const aggregate = [
+                { $match: { roomType: new mongoose.Types.ObjectId(bookingRequest.roomType) } },
                 {
                     $lookup: {
                         from: "occupancies",

@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const BookingRequest = new Schema(
     {
+        roomType: {
+            type: Schema.Types.ObjectId,
+            ref: "roomTypes",
+            require: true,
+        },
         firstname: {
             type: String,
             require: true,

@@ -11,6 +11,13 @@ const RoomType = new Schema(
         description: {
             type: String,
         },
+        price: {
+            type: Number,
+            required: true,
+        },
+        images: {
+            type: [String],
+        },
     },
     {
         timestamps: true,
