@@ -36,7 +36,11 @@ const ContractDetailContent: FC<IContractDetailContent> = (props) => {
 
           <Grid item xs={12}>
             <p className="text-base font-bold">Hợp đồng: </p>
-            <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+            <iframe
+              className="w-full"
+              src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            />
+
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
               <div className="h-[900px]">
                 <Viewer

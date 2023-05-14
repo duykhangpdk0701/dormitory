@@ -131,6 +131,16 @@ const adminMenu = [
         starIcon: BrightnessLowTwoToneIcon,
         title: "Khiếu nại",
       },
+      {
+        link: "/admin/contract",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hợp đồng",
+      },
+      {
+        link: "/admin/device",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Thiết bị",
+      },
     ],
   },
 ];

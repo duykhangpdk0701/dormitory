@@ -1,4 +1,3 @@
-import { IJobCreateParmas } from "@/pages/admin/job/create";
 import React, { FC } from "react";
 import {
   Control,
@@ -18,23 +17,23 @@ import {
   MenuItem,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IDeviceCreateParams } from "@/pages/admin/device/create";
 import { DatePicker } from "@mui/x-date-pickers";
 import IRoom from "@/interfaces/Room";
 import dynamic from "next/dynamic";
+import { IDeviceEditFormParams } from "@/pages/admin/device/[id]/edit";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-interface IDeviceFormCreate {
-  control: Control<IDeviceCreateParams, any>;
-  handleSubmit: UseFormHandleSubmit<IDeviceCreateParams>;
-  onSubmit: SubmitHandler<IDeviceCreateParams>;
+interface IDeviceFormEdit {
+  control: Control<IDeviceEditFormParams, any>;
+  handleSubmit: UseFormHandleSubmit<IDeviceEditFormParams>;
+  onSubmit: SubmitHandler<IDeviceEditFormParams>;
   isLoading: boolean;
   errorResMessage: string;
   room?: IRoom[];
   isLoadingRoom: boolean;
 }
 
-const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
+const DeviceFormEdit: FC<IDeviceFormEdit> = (props) => {
   const {
     control,
     handleSubmit,
@@ -61,6 +60,7 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
                       {...field}
                       label="Tên thiết bị"
                       fullWidth
+                      InputLabelProps={{ shrink: true }}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -108,7 +108,9 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
                         label="Thuộc phòng"
                       >
                         {room?.map((item) => (
-                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                          <MenuItem value={item._id} key={item._id}>
+                            {item.name}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -124,10 +126,14 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
               <Controller
                 name="dateAdd"
                 control={control}
-                render={({ field, fieldState: { error, invalid } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error, invalid },
+                }) => (
                   <>
                     <DatePicker
-                      {...field}
+                      value={value}
+                      onChange={(newValue) => onChange(newValue)}
                       label="Ngày thêm"
                       slotProps={{ textField: { fullWidth: true } }}
                     />
@@ -150,6 +156,7 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
                       label="Giá(VND)"
                       type="number"
                       fullWidth
+                      InputLabelProps={{ shrink: true }}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -175,4 +182,4 @@ const DeviceFormCreate: FC<IDeviceFormCreate> = (props) => {
   );
 };
 
-export default DeviceFormCreate;
+export default DeviceFormEdit;

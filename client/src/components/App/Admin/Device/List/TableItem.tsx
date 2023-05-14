@@ -36,16 +36,13 @@ const JobTableItem: FC<IJobTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
-        </Typography>
-      </TableCell>
 
       <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.name}
-        </Typography>
+        <Link href={`/admin/device/${data._id}`}>
+          <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+            {data.name}
+          </Typography>
+        </Link>
       </TableCell>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
@@ -70,7 +67,7 @@ const JobTableItem: FC<IJobTableItemProps> = (props) => {
             color="inherit"
             size="small"
             LinkComponent={Link}
-            href={`/admin/job/${data._id}`}
+            href={`/admin/device/${data._id}/edit`}
           >
             <EditTwoToneIcon fontSize="small" />
           </IconButton>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC } from "react";
 
 import {
   Tooltip,
@@ -98,8 +98,8 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
         />
       </TableCell>
 
-      <Link href={`/admin/awaiting-student/${data._id}`}>
-        <TableCell>
+      <TableCell>
+        <Link href={`/admin/awaiting-student/${data._id}`}>
           <Typography
             variant="body1"
             fontWeight="bold"
@@ -109,8 +109,8 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           >
             {data.lastname + " " + data.firstname}
           </Typography>
-        </TableCell>
-      </Link>
+        </Link>
+      </TableCell>
       <TableCell>
         <Typography
           variant="body1"
