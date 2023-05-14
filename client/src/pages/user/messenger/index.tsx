@@ -8,7 +8,7 @@ const MessengerPage: NextPageWithLayout = () => {
   return (
     <>
       <PageHead title="Chat | SGU dormitory" />
-      <Messenger />
+      {/* <Messenger /> */}
     </>
   );
 };
