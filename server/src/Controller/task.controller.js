@@ -54,6 +54,20 @@ class TaskController {
                         }
                     )
                 }
+                if (filter.accountId) {
+                    aggregate.push(
+                        {
+                            $match: { 'staff.accountId': new mongoose.Types.ObjectId(filter.accountId) }
+                        }
+                    )
+                }
+                if (filter.staffId) {
+                    aggregate.push(
+                        {
+                            $match: { 'staff._id': new mongoose.Types.ObjectId(filter.staffId) }
+                        }
+                    )
+                }
                 if (filter.search) {
                     aggregate.push(
                         {
