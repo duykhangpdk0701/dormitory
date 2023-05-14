@@ -4,7 +4,6 @@ const paypal = require('paypal-rest-sdk');
 var sendMail = require('../Service/mail.service');
 const Room = require('../Model/room.model');
 const Booking = require('../Model/booking.model');
-const Occupancy = require('../Model/occupancy.model');
 const Civilian = require('../Model/civilian.model');
 const Account = require('../Model/user.model');
 const Permission = require('../Model/permission.model');
@@ -72,7 +71,7 @@ class BookingController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -106,7 +105,7 @@ class BookingController {
                 { $sort: { createdAt: -1 } }
             ]
             const booking = await Booking.aggregate(aggregate)
-            if (!booking) return res.json({ success: false, messages: 'Invalid booking' })
+            if (!booking) return res.status(500).json({ success: false, messages: 'Không tìm thấy thông tin đặt phòng' })
             res.json({ success: true, data: booking })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
@@ -117,7 +116,7 @@ class BookingController {
         try {
             const booking = new Booking({...req.body, dateOfBirth: new Date(req.body.dateOfBirth), images: req.files ? req.files.map(file => "/images/"+file.filename) : 'default'})
             await booking.save()
-            res.json({ success: true, messages: 'Create successfully', data: booking })
+            res.json({ success: true, messages: 'Tạo thành công', data: booking })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -125,11 +124,11 @@ class BookingController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const booking = await Booking.updateOne({ _id: id }, req.body, { new: true })
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -137,7 +136,7 @@ class BookingController {
 
     async depositPaypal(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const booking = await Booking.findOne({ _id: id});
             const room = await Room.findOne({ _id: booking.room});
@@ -193,7 +192,7 @@ class BookingController {
 
     async depositPaypalDone(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Deposit"}, { new: true })
             if (!booking) return res.send('Lỗi không thể cập nhật thông tin');
@@ -211,8 +210,8 @@ class BookingController {
             await account.save()
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
             await civilian.save()
-            const occupancy = new Occupancy({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
-            await occupancy.save()
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            await contract.save()
 
             res.send('Success (Đặt cọc thành công)');
             sendMail(booking.email, depositBooking(booking));
@@ -223,7 +222,7 @@ class BookingController {
 
     async deposit(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Deposit"}, { new: true })
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
@@ -241,8 +240,8 @@ class BookingController {
             await account.save()
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
             await civilian.save()
-            const occupancy = new Occupancy({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
-            await occupancy.save()
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            await contract.save()
 
             res.json({ success: true, messages: 'deposit' })
             sendMail(booking.email, depositBooking(booking));
@@ -253,7 +252,7 @@ class BookingController {
 
     async paidPaypal(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const booking = await Booking.findOne({ _id: id});
             const room = await Room.findOne({ _id: booking.room});
@@ -309,7 +308,7 @@ class BookingController {
 
     async paidPaypalDone(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.findOne({ _id: id});
             if(booking.status == "Paid")  res.send('Lỗi, bạn đã thanh toán rồi');
@@ -330,10 +329,10 @@ class BookingController {
 
     async paid(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.findOne({ _id: id});
-            if(booking.status == "Paid")  return res.json({ success: false, messages: 'Cant paid because have paid before' })
+            if(booking.status == "Paid")  return res.json({ success: false, messages: 'Lỗi, đã thanh toán rồi'})
 
             let bookingUpdate = await Booking.updateOne({ _id: id }, {status: "Paid"}, { new: true })
             if (!bookingUpdate) return res.json({ success: false, messages: 'Cant update booking' })
@@ -351,13 +350,13 @@ class BookingController {
 
     async cancel(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Cancel"}, { new: true })
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
             booking = await Booking.findOne({ _id: id});
             const civilian = await Civilian.findOne({ studentId: booking.studentId })
-            await Occupancy.deleteOne({ civilianId: civilian._id })
+            await contract.deleteOne({ civilianId: civilian._id })
             await Account.deleteOne({ _id: civilian.accountId})
             await Civilian.deleteOne({ studentId: booking.studentId })
             res.json({ success: true, messages: 'cancel'})
@@ -369,13 +368,13 @@ class BookingController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const booking = await Booking.deleteOne({ _id: id })
             if (!booking) return res.status(401).json({ success: false, messages: 'Cant delete booking' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

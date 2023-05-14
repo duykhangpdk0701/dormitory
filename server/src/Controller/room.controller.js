@@ -97,7 +97,7 @@ class RoomController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id : new mongoose.Types.ObjectId(id) } },
@@ -132,7 +132,7 @@ class RoomController {
         try {
             const room = new Room({...req.body, images: req.files ? req.files.map(file => "/images/"+file.filename) : ''})
             await room.save()
-            res.json({ success: true, messages: 'Create successfully', data: room })
+            res.json({ success: true, messages: 'Tạo thành công', data: room })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -140,11 +140,11 @@ class RoomController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const room = await Room.updateOne({ _id: id }, req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : req.body, { new: true })
             if (!room) return res.json({ success: false, messages: 'Cant update room' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -152,13 +152,13 @@ class RoomController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const room = await Room.deleteOne({ _id: id })
             if (!room) return res.status(401).json({ success: false, messages: 'Cant delete room' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 

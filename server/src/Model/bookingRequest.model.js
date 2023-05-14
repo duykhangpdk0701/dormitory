@@ -52,6 +52,9 @@ const BookingRequest = new Schema(
         dateStart: {
             type: Date,
         },
+        dateEnd: {
+            type: Date,
+        },
         status: { 
             type: String, 
             enum: ['Pending', 'Accepted','Cancel'],

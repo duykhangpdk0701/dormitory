@@ -42,7 +42,7 @@ class ServiceController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const service = await Service.findById(id)
             if (!service) return res.json({ success: false, messages: 'Invalid service' })
@@ -56,7 +56,7 @@ class ServiceController {
         try {
             const service = new Service(req.body)
             await service.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -64,11 +64,11 @@ class ServiceController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const service = await Service.updateOne({ _id: id }, req.body, { new: true })
             if (!service) return res.json({ success: false, messages: 'Cant update service' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -76,13 +76,13 @@ class ServiceController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const service = await Service.deleteOne({ _id: id })
             if (!service) return res.status(401).json({ success: false, messages: 'Cant delete service' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

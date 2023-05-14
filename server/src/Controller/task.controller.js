@@ -54,6 +54,20 @@ class TaskController {
                         }
                     )
                 }
+                if (filter.accountId) {
+                    aggregate.push(
+                        {
+                            $match: { 'staff.accountId': new mongoose.Types.ObjectId(filter.accountId) }
+                        }
+                    )
+                }
+                if (filter.staffId) {
+                    aggregate.push(
+                        {
+                            $match: { 'staff._id': new mongoose.Types.ObjectId(filter.staffId) }
+                        }
+                    )
+                }
                 if (filter.search) {
                     aggregate.push(
                         {
@@ -90,7 +104,7 @@ class TaskController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -145,7 +159,7 @@ class TaskController {
         try {
             const task = new Task(req.body)
             await task.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -153,11 +167,11 @@ class TaskController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const task = await Task.updateOne({ _id: id }, req.body, { new: true })
             if (!task) return res.json({ success: false, messages: 'Cant update task' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -165,7 +179,7 @@ class TaskController {
 
     async start(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const task = await Task.updateOne({ _id: id }, {status: "Working"}, { new: true })
             if (!task) return res.json({ success: false, messages: 'Cant update task' })
@@ -177,7 +191,7 @@ class TaskController {
 
     async done(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const task = await Task.updateOne({ _id: id }, {status: "Done"}, { new: true })
             if (!task) return res.json({ success: false, messages: 'Cant update task' })
@@ -189,7 +203,7 @@ class TaskController {
 
     async cancel(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const task = await Task.updateOne({ _id: id }, {status: "Cancel"}, { new: true })
             if (!task) return res.json({ success: false, messages: 'Cant update task' })
@@ -201,13 +215,13 @@ class TaskController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const task = await Task.deleteOne({ _id: id })
             if (!task) return res.status(401).json({ success: false, messages: 'Cant delete task' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

@@ -62,7 +62,7 @@ class FeedbackController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -108,7 +108,7 @@ class FeedbackController {
         try {
             const feedback = new Feedback(req.body)
             await feedback.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -116,11 +116,11 @@ class FeedbackController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const feedback = await Feedback.updateOne({ _id: id }, req.body, { new: true })
             if (!feedback) return res.json({ success: false, messages: 'Cant update feedback' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -128,13 +128,13 @@ class FeedbackController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const feedback = await Feedback.deleteOne({ _id: id })
             if (!feedback) return res.status(401).json({ success: false, messages: 'Cant delete feedback' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

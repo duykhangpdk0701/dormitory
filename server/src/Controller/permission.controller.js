@@ -42,7 +42,7 @@ class PermissionController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const permission = await Permission.findById(id)
             if (!permission) return res.json({ success: false, messages: 'Invalid permission' })
@@ -56,7 +56,7 @@ class PermissionController {
         try {
             const permission = new Permission(req.body)
             await permission.save()
-            res.json({ success: true, messages: 'Create successfully', data: req.body })
+            res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -64,11 +64,11 @@ class PermissionController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const permission = await Permission.updateOne({ _id: id }, req.body, { new: true })
             if (!permission) return res.json({ success: false, messages: 'Cant update permission' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -76,13 +76,13 @@ class PermissionController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const permission = await Permission.deleteOne({ _id: id })
             if (!permission) return res.status(401).json({ success: false, messages: 'Cant delete permission' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

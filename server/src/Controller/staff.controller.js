@@ -22,6 +22,15 @@ class StaffController {
                 { $unwind: '$account' },
                 {
                     $lookup: {
+                        from: "jobs",
+                        localField: "job",
+                        foreignField: "_id",
+                        as: "job"
+                    }
+                },
+                { $unwind: '$job' },
+                {
+                    $lookup: {
                         from: "addresses",
                         localField: "address",
                         foreignField: "_id",
@@ -57,7 +66,7 @@ class StaffController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -70,6 +79,15 @@ class StaffController {
                     }
                 },
                 { $unwind: '$account' },
+                {
+                    $lookup: {
+                        from: "jobs",
+                        localField: "job",
+                        foreignField: "_id",
+                        as: "job"
+                    }
+                },
+                { $unwind: '$job' },
                 {
                     $lookup: {
                         from: "addresses",
@@ -101,7 +119,7 @@ class StaffController {
             await address.save()
             const staff = new Staff({ accountId: account._id, address: address._id, ...req.body})
             await staff.save()
-            res.json({ success: true, messages: 'Create successfully', data: staff })
+            res.json({ success: true, messages: 'Tạo thành công', data: staff })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -109,11 +127,11 @@ class StaffController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const staff = await Staff.updateOne({ _id: id }, req.body, { new: true })
             if (!staff) return res.json({ success: false, messages: 'Cant update staff' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -121,13 +139,13 @@ class StaffController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const staff = await Staff.deleteOne({ _id: id })
             if (!staff) return res.status(401).json({ success: false, messages: 'Cant delete staff' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }

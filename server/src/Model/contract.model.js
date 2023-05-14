@@ -8,15 +8,16 @@ const Contract = new Schema(
             required: true,
             ref: "rooms"
         },
-        staffId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: "staffs"
-        },
         civilianId: {
             type: Schema.Types.ObjectId,
             required: true,
             ref: "civilians"
+        },
+        checkInDate: {
+            type: Date,
+        },
+        checkOutDate: {
+            type: Date,
         },
         images: {
             type: [String],

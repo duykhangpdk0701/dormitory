@@ -78,7 +78,7 @@ class ViolationController {
 
     async show(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const aggregate = [
                 { $match: { _id: new mongoose.Types.ObjectId(id) } },
@@ -124,7 +124,7 @@ class ViolationController {
         try {
             const violation = new Violation(req.body)
             await violation.save()
-            res.json({ success: true, messages: 'Create successfully', data: violation })
+            res.json({ success: true, messages: 'Tạo thành công', data: violation })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
         }
@@ -132,11 +132,11 @@ class ViolationController {
 
     async update(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const violation = await Violation.updateOne({ _id: id }, req.body, { new: true })
             if (!violation) return res.json({ success: false, messages: 'Cant update violation' })
-            res.json({ success: true, messages: 'Update successfully ' })
+            res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
         }
@@ -144,13 +144,13 @@ class ViolationController {
 
     async delete(req, res) {
         const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Missing id' })
+        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             const violation = await Violation.deleteOne({ _id: id })
             if (!violation) return res.status(401).json({ success: false, messages: 'Cant delete violation' })
-            res.json({ success: true, messages: 'Delete successfully' })
+            res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
-            res.status(500).json({ success: false, messages: 'Interval server error' })
+            res.status(500).json({ success: false, messages: 'Lỗi hệ thống' })
         }
     }
 }
