@@ -10,7 +10,7 @@ class MessageController {
                 messages = await Message.aggregate([
                     {
                         $match: {
-                            conversation: mongoose.Types.ObjectId(filter.conversationId)
+                            conversation: new mongoose.Types.ObjectId(filter.conversationId)
                         }
                     },
                     {

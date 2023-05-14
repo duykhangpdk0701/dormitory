@@ -70,10 +70,10 @@ class BillController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
-                if (filter.accountId) {
+                if (filter.civilianId) {
                     aggregate.push(
                         {
-                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                            $match: { civilianId: new mongoose.Types.ObjectId(filter.civilianId) }
                         }
                     )
                 }
