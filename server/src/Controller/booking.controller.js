@@ -332,7 +332,7 @@ class BookingController {
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.findOne({ _id: id});
-            if(booking.status == "Paid")  return res.json({ success: false, messages: 'Cant paid because have paid before' })
+            if(booking.status == "Paid")  return res.json({ success: false, messages: 'Lỗi, đã thanh toán rồi'})
 
             let bookingUpdate = await Booking.updateOne({ _id: id }, {status: "Paid"}, { new: true })
             if (!bookingUpdate) return res.json({ success: false, messages: 'Cant update booking' })

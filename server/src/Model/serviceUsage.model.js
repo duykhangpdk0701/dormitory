@@ -25,6 +25,10 @@ const ServiceUsage = new Schema(
         totalPrice: {
             type: Number,
         },
+        paid: { 
+            type: Boolean, 
+            default: false,
+        },
     },
     {
         timestamps: true,
