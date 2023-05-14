@@ -70,6 +70,13 @@ class BillController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.accountId) {
+                    aggregate.push(
+                        {
+                            $skip: (filter.page - 1) * (filter.limit ? parseInt(filter.limit) : 0)
+                        }
+                    )
+                }
                 if (filter.page) {
                     aggregate.push(
                         {
