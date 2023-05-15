@@ -7,7 +7,11 @@ const bookingRequestAPI = {
     studentId: string,
     email: string,
     phone: string,
-    dateOfBirth: string
+    dateOfBirth: string,
+    priority: string,
+    province: string,
+    district: string,
+    street: string
   ) => {
     const url = "/bookingRequest/store";
     const res = await axiosClient.post(url, {
@@ -17,6 +21,10 @@ const bookingRequestAPI = {
       email,
       phone,
       dateOfBirth,
+      priority,
+      province,
+      district,
+      street,
     });
     return res;
   },

@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "react-query";
 import bookingRequestAPI from "@/api/bookingRequest";
 import PageHead from "@/components/PageHead";
 import roomTypeAPI from "@/api/roomType";
+import adminPriorityAPI from "@/api/admin/priority";
 
 export interface IEnrollParams {
   firstName: string;
@@ -20,6 +21,10 @@ export interface IEnrollParams {
   phone: string;
   dateOfBirth: string;
   roomTypeId: string;
+  priority: string;
+  province: string;
+  district: string;
+  street: string;
   images: File[];
 }
 
@@ -29,6 +34,10 @@ const erollSchema = yup.object({
   studentId: yup.string().required("Vui lòng điền mã số viên"),
   email: yup.string().required("Vui lòng điền email"),
   phone: yup.string().required("Vui lòng điền số điện thoại"),
+
+  province: yup.string().required("Vui lòng điền tỉnh"),
+  district: yup.string().required("Vui lòng điền quận"),
+  street: yup.string().required("Vui lòng điền đường"),
   dateOfBirth: yup.string().required("Vui lòng chọn ngày sinh"),
   roomTypeId: yup.string().required("Vui lòng chọn loại phòng"),
 });
@@ -49,6 +58,11 @@ const EnrollPage: NextPageWithLayout = () => {
     onSuccess: () => {},
   });
 
+  const priorityQuery = useQuery({
+    queryKey: ["priority-detail"],
+    queryFn: () => adminPriorityAPI.getList(),
+  });
+
   useEffect(() => {
     const searchUrl = router.query;
     const roomTypeId = searchUrl.roomTypeId as string | undefined;
@@ -67,6 +81,10 @@ const EnrollPage: NextPageWithLayout = () => {
       email,
       phone,
       dateOfBirth,
+      priority,
+      province,
+      district,
+      street,
     }: IEnrollParams) => {
       setLoading(true);
       return bookingRequestAPI.create(
@@ -75,7 +93,11 @@ const EnrollPage: NextPageWithLayout = () => {
         studentId,
         email,
         phone,
-        dateOfBirth
+        dateOfBirth,
+        priority,
+        province,
+        district,
+        street
       );
     },
     onSuccess: async (data) => {
@@ -103,6 +125,8 @@ const EnrollPage: NextPageWithLayout = () => {
         onSubmit={onSubmit}
         roomTypeList={roomTypeQuery.data}
         isLoadingRoomTypeList={roomTypeQuery.isLoading}
+        priorityList={priorityQuery.data}
+        isLoadingPriority={priorityQuery.isLoading}
       />
     </>
   );

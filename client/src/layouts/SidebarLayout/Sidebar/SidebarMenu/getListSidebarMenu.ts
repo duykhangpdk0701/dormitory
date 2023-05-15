@@ -212,6 +212,11 @@ export const userMenu = [
         starIcon: BrightnessLowTwoToneIcon,
         title: "Hợp đồng",
       },
+      {
+        link: "/user/bill",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hoá đơn",
+      },
 
       {
         link: "/user/settings",

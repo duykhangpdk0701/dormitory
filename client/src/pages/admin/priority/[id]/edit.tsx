@@ -1,4 +1,4 @@
-import adminPriority from "@/api/admin/priority";
+import adminPriorityAPI from "@/api/admin/priority";
 import EditPriority from "@/components/App/Admin/Priority/Edit";
 import PriorityFormEdit from "@/components/App/Admin/Priority/Edit/Form";
 import PageHead from "@/components/PageHead";
@@ -44,7 +44,7 @@ const PriorityEditPage: NextPageWithLayout = () => {
     queryKey: ["room-detail", id],
     queryFn: () => {
       if (id && typeof id !== "object") {
-        return adminPriority.getById(id);
+        return adminPriorityAPI.getById(id);
       }
 
       return undefined;
@@ -58,7 +58,7 @@ const PriorityEditPage: NextPageWithLayout = () => {
   const priorityUpdateMutation = useMutation({
     mutationKey: ["priority"],
     mutationFn: ({ id, name, score }: IEditPriorityParams) =>
-      adminPriority.update(id, name, score),
+      adminPriorityAPI.update(id, name, score),
     onSuccess: async (data) => {
       setLoading(false);
       await router.push("/priority");

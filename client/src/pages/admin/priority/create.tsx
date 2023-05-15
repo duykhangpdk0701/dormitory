@@ -1,4 +1,4 @@
-import adminPriority from "@/api/admin/priority";
+import adminPriorityAPI from "@/api/admin/priority";
 import AddPriority from "@/components/App/Admin/Priority/Create";
 import PriorityFormAdd from "@/components/App/Admin/Priority/Create/Form";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
@@ -36,7 +36,7 @@ const PriorityCreatePage: NextPageWithLayout = () => {
   const prioirtyCreateMutation = useMutation({
     mutationKey: ["priority"],
     mutationFn: ({ name, score }: ICreatePriorityParams) =>
-      adminPriority.create(name, score),
+      adminPriorityAPI.create(name, score),
     onSuccess: (data) => {
       dispatch(
         setSnackbar({
