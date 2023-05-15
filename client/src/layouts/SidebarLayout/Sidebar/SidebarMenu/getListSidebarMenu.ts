@@ -141,6 +141,11 @@ const adminMenu = [
         starIcon: BrightnessLowTwoToneIcon,
         title: "Thiết bị",
       },
+      {
+        link: "/admin/bill",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hoá đơn",
+      },
     ],
   },
 ];
