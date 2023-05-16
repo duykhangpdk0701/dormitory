@@ -66,7 +66,7 @@ class RoomTypeController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const roomType = await RoomType.updateOne({ _id: id }, req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : req.body, { new: true })
+            const roomType = await RoomType.updateOne({ _id: id }, req.files ? {...req.body, images: req.files.map(file => "/images/"+file.filename)} : {...req.body}, { new: true })
             if (!roomType) return res.json({ success: false, messages: 'Cant update roomType' })
             res.json({ success: true, messages: 'Cập nhật thành công' })
         } catch (error) {
