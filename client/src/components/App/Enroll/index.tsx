@@ -23,6 +23,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import enrollImg from "@/assets/enroll/enroll.jpg";
 import Dropzone from "@/components/Dropzone";
 import IRoomType from "@/interfaces/RoomTypet";
+import IPriority from "@/interfaces/Priority";
 
 interface IEnroll {
   control: Control<IEnrollParams, any>;
@@ -32,6 +33,8 @@ interface IEnroll {
   errorResMessage: string;
   roomTypeList?: IRoomType[];
   isLoadingRoomTypeList: boolean;
+  priorityList?: IPriority[];
+  isLoadingPriority: boolean;
 }
 
 const Enroll: FC<IEnroll> = (props) => {
@@ -43,6 +46,8 @@ const Enroll: FC<IEnroll> = (props) => {
     errorResMessage,
     roomTypeList,
     isLoadingRoomTypeList,
+    priorityList,
+    isLoadingPriority,
   } = props;
 
   return (
@@ -181,6 +186,70 @@ const Enroll: FC<IEnroll> = (props) => {
                     )}
                   />
                 </Grid>
+
+                <Grid item xs={12}>
+                  <Controller
+                    name="province"
+                    control={control}
+                    render={({ field, fieldState: { error, invalid } }) => (
+                      <>
+                        <TextField
+                          {...field}
+                          error={invalid}
+                          fullWidth
+                          label="Tỉnh"
+                          placeholder="TP.Hồ Chí Minh"
+                        />
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Controller
+                    name="district"
+                    control={control}
+                    render={({ field, fieldState: { error, invalid } }) => (
+                      <>
+                        <TextField
+                          {...field}
+                          error={invalid}
+                          fullWidth
+                          label="Quận"
+                          placeholder="Tân Phú"
+                        />
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Controller
+                    name="street"
+                    control={control}
+                    render={({ field, fieldState: { error, invalid } }) => (
+                      <>
+                        <TextField
+                          {...field}
+                          error={invalid}
+                          fullWidth
+                          label="Đường"
+                          placeholder="99 Văn Cao"
+                        />
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
                 <Grid item xs={12}>
                   <Controller
                     name="roomTypeId"
@@ -198,6 +267,35 @@ const Enroll: FC<IEnroll> = (props) => {
                             label="Loại phòng"
                           >
                             {roomTypeList?.map((item) => (
+                              <MenuItem value={item._id}>{item.name}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Controller
+                    name="roomTypeId"
+                    control={control}
+                    render={({ field, fieldState: { invalid, error } }) => (
+                      <>
+                        <FormControl fullWidth>
+                          <InputLabel id="roomt-type">Ưu tiên</InputLabel>
+                          <Select
+                            {...field}
+                            id="roomt-type"
+                            fullWidth
+                            error={invalid}
+                            disabled={isLoadingPriority}
+                            label="Ưu tiên"
+                          >
+                            {priorityList?.map((item) => (
                               <MenuItem value={item._id}>{item.name}</MenuItem>
                             ))}
                           </Select>

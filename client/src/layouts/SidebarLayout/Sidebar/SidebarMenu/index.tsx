@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { SidebarContext } from "@/contexts/SidebarContext";
-import adminMenu, { userMenu } from "./getListSidebarMenu";
+import adminMenu, { staffMenu, userMenu } from "./getListSidebarMenu";
 import getMenu from "./getListSidebarMenu";
 
 const MenuWrapper = styled(Box)(
@@ -163,7 +163,12 @@ interface ISidebarMenu {
 const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
   const { closeSidebar } = useContext(SidebarContext);
 
-  const menu = menuType === "user" ? userMenu : adminMenu;
+  const menu =
+    menuType === "user"
+      ? userMenu
+      : menuType === "staff"
+      ? staffMenu
+      : adminMenu;
 
   return (
     <>

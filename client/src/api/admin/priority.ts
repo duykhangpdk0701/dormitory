@@ -2,16 +2,16 @@ import IPriority from "@/interfaces/Priority";
 import axiosClient from "../axiosClient";
 import queryString from "query-string";
 
-const adminPriority = {
+const adminPriorityAPI = {
   getList: async (
     search?: string,
-    limit: number = 5,
-    page: number = 0
+    limit?: number,
+    page?: number
   ): Promise<IPriority[]> => {
     const url = "/priority";
 
     const searchUrl = queryString.stringifyUrl(
-      { url, query: { search, limit, page: page + 1 } },
+      { url, query: { search, limit, page: page ? page + 1 : undefined } },
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);
@@ -41,4 +41,4 @@ const adminPriority = {
   },
 };
 
-export default adminPriority;
+export default adminPriorityAPI;

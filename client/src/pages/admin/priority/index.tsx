@@ -1,4 +1,4 @@
-import adminPriority from "@/api/admin/priority";
+import adminPriorityAPI from "@/api/admin/priority";
 import Priority from "@/components/App/Admin/Priority/List";
 import PriorityTable from "@/components/App/Admin/Priority/List/PriorityTable";
 import SidebarLayout from "@/layouts/SidebarLayout";
@@ -40,7 +40,7 @@ const PriorityPage: NextPageWithLayout = () => {
         const page = searchUrl.page
           ? parseInt(searchUrl.page as string)
           : undefined;
-        return adminPriority.getList(search, limit, page);
+        return adminPriorityAPI.getList(search, limit, page);
       }
       return undefined;
     },

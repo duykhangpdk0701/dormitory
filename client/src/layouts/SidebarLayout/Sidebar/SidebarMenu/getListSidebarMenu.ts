@@ -141,13 +141,17 @@ const adminMenu = [
         starIcon: BrightnessLowTwoToneIcon,
         title: "Thiết bị",
       },
+      {
+        link: "/admin/bill",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hoá đơn",
+      },
     ],
   },
 ];
 
-
 export const staffMenu = [
-    {
+  {
     subheader: "Trang chủ",
     child: [
       {
@@ -157,19 +161,19 @@ export const staffMenu = [
       },
 
       {
-        link: "/user/task",
+        link: "/staff/task",
         starIcon: MmsTwoToneIcon,
         title: "Công việc",
       },
 
       {
-        link: "/user/room",
+        link: "/staff/bill",
         starIcon: MmsTwoToneIcon,
-        title: "Thông tin phòng",
+        title: "Ghi Hoá đơn",
       },
     ],
   },
-]
+];
 
 export const userMenu = [
   {
@@ -207,6 +211,11 @@ export const userMenu = [
         link: "/user/contract",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Hợp đồng",
+      },
+      {
+        link: "/user/bill",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Hoá đơn",
       },
 
       {

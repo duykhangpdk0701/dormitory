@@ -1,4 +1,3 @@
-import { IJobCreateParmas } from "@/pages/admin/job/create";
 import React, { FC } from "react";
 import {
   Control,
@@ -65,7 +64,7 @@ const TaskFormCreate: FC<ITaskFormCreate> = (props) => {
                         label="Nhân viên"
                       >
                         {staff?.map((item) => (
-                          <MenuItem value={item._id}>{item.accountId}</MenuItem>
+                          <MenuItem value={item._id}>{item._id}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
