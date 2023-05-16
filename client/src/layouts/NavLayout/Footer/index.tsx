@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <footer className="bg-sky-800 text-white">
       <Container className="py-10">
-        <Grid container spacing={3}>
-          <Grid item md={4} xs={12}>
+        <Grid container spacing={6}>
+          <Grid item md={6} xs={12}>
             <h2 className="text-lg font-bold uppercase">Liên kết</h2>
             <Divider className="bg-gray-400 my-2" />
             <div>
@@ -16,63 +16,43 @@ const Footer = () => {
                   <Link href="/">Giới thiệu </Link>
                 </li>
                 <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
+                  <Link href="/room-type">Phòng ở</Link>
                 </li>
                 <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
+                  <Link href="/enroll">Đăng ký</Link>
                 </li>
                 <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
+                  <Link href="/notification">Thông báo</Link>
                 </li>
               </ul>
             </div>
           </Grid>
 
-          <Grid item md={4} xs={12}>
-            <h2 className="text-lg font-bold uppercase">Liên kết</h2>
-            <Divider className="bg-gray-400 my-2" />
-            <div>
-              <ul>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-                <li className="my-1">
-                  <Link href="/">Giới thiệu </Link>
-                </li>
-              </ul>
-            </div>
-          </Grid>
-
-          <Grid item md={4} xs={12}>
+          <Grid item md={6} xs={12}>
             <h2 className="text-lg font-bold uppercase">Ký túc xá</h2>
             <Divider className="bg-gray-400 my-2" />
             <div>
               <div>
                 <b>Đại học Sài Gòn</b>
                 <br />
-                <span>Số 1 An Dương Vương, Quận 5, Thành Phố Hồ Chí Minh</span>
+                <span>
+                  <Link
+                    href="https://goo.gl/maps/gxq2pJyYMKEVLnrd6"
+                    target="_blank"
+                  >
+                    Số 1 An Dương Vương, Quận 5, Thành Phố Hồ Chí Minh
+                  </Link>
+                </span>
                 <br />
-                <span>Số điện thoại: 0793607376</span>
+                <span>
+                  Số điện thoại:{" "}
+                  <Link href="tell:02838753588">(028)38753588.</Link>
+                </span>
                 <br />
-                <span>Email: ktx@sgu.edu.vn</span>
+                <span>
+                  Email:{" "}
+                  <Link href="mail:kytucxa@sgu.edu.vn">kytucxa@sgu.edu.vn</Link>
+                </span>
               </div>
             </div>
           </Grid>

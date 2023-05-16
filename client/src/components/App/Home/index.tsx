@@ -43,7 +43,7 @@ const Home: FC = (props) => {
             <Grid container spacing={5}>
               <Grid item xs={12} md={6} lg={3} className="flex items-center">
                 <Link
-                  href="#"
+                  href="https://goo.gl/maps/9o8J91VUWferQ2bCA"
                   target="_blank"
                   className="hover:opacity-70 transition-opacity flex"
                 >
@@ -57,7 +57,7 @@ const Home: FC = (props) => {
               </Grid>
               <Grid item xs={12} md={6} lg={3} className="flex items-center">
                 <Link
-                  href="#"
+                  href="tel:02838753588"
                   target="_blank"
                   className="hover:opacity-70 flex"
                 >
@@ -68,7 +68,7 @@ const Home: FC = (props) => {
               <Grid item xs={12} md={6} lg={3} className="flex items-center">
                 <Link
                   target="_blank"
-                  href="#"
+                  href="mailto:kytucxa@sgu.edu.vn"
                   className="hover:opacity-70 flex"
                 >
                   <LocationOnIcon color="primary" className="mr-2" />
@@ -260,7 +260,9 @@ const Home: FC = (props) => {
             >
               <span className="uppercase font-bold mb-5">Liên lạc</span>
 
-              <h2 className="text-4xl mb-7">Bạn muốn cư trú tại đây</h2>
+              <h2 className="text-4xl mb-7">
+                Bạn muốn biết thêm thông tin chi tiết
+              </h2>
 
               <Link href="tel:+" className="mb-10">
                 <h2 className="text-4xl">Gọi chúng tôi: (028)38753588.</h2>
