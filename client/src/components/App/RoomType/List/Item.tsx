@@ -4,6 +4,7 @@ import Link from "next/link";
 import cover from "@/assets/images/covers/cover_3.jpg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import IRoomType from "@/interfaces/RoomTypet";
+import priceFormat from "@/utils/formatPrice";
 
 interface IRoomTypeItem {
   data: IRoomType;
@@ -19,7 +20,7 @@ const RoomTypeItem: FC<IRoomTypeItem> = (props) => {
             {data.name}
           </Typography>
           <Typography variant="caption" className="text-gray-300">
-            {data.price}
+            {priceFormat(data.price)}
           </Typography>
           <div className="mt-6 flex justify-end">
             <Button

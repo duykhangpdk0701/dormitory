@@ -116,24 +116,9 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           {data.email}
         </Typography>
       </TableCell>
-      <TableCell align="right">{getStatusLabel("pending")}</TableCell>
+      <TableCell align="right">{getStatusLabel("completed")}</TableCell>
       <TableCell align="right">
-        <Tooltip title="Chấp nhận" arrow>
-          <IconButton
-            sx={{
-              "&:hover": {
-                background: theme.colors.primary.lighter,
-              },
-              color: theme.palette.primary.main,
-            }}
-            color="inherit"
-            size="small"
-            onClick={handleAccept}
-          >
-            <CheckIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Từ chối" arrow>
+        <Tooltip title="Huỷ" arrow>
           <IconButton
             sx={{
               "&:hover": { background: theme.colors.error.lighter },

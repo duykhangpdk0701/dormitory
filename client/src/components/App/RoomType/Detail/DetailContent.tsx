@@ -4,6 +4,7 @@ import { Card, CardHeader, Divider, Grid, Button } from "@mui/material";
 import IRoomType from "@/interfaces/RoomTypet";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Link from "next/link";
+import priceFormat from "@/utils/formatPrice";
 
 interface IRoomTypeContent {
   data?: IRoomType;
@@ -27,7 +28,9 @@ const RoomTypeDetailContent: FC<IRoomTypeContent> = (props) => {
           <Grid item xs={12} md={6}>
             <div className="mb-4">
               <span className="text-base font-bold">Giá</span>:{" "}
-              <span className="text-base">{data?.price}</span>
+              <span className="text-base">
+                {data?.price && priceFormat(data.price)}
+              </span>
             </div>
           </Grid>
 

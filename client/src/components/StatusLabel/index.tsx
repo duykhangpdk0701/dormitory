@@ -8,7 +8,7 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
       color: "error",
     },
     completed: {
-      text: "Completed",
+      text: "Đã duyệt",
       color: "success",
     },
     pending: {
