@@ -4,22 +4,19 @@ import {
   CardHeader,
   Divider,
   Grid,
-  IconButton,
   Tooltip,
   useTheme,
   Button,
 } from "@mui/material";
 import ITask from "@/interfaces/Task";
 import moment from "moment";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import IBill from "@/interfaces/Bill";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { useAppDispatch } from "@/hooks/redux";
 import { useMutation, useQuery } from "react-query";
 import adminBillAPI from "@/api/admin/bill";
 import billAPI from "@/api/bill";
+import Link from "next/link";
 
 interface IUserBillDetailContent {
   data?: IBill;
@@ -56,6 +53,11 @@ const UserBillDetailContent: FC<IUserBillDetailContent> = (props) => {
                     size="small"
                     startIcon={<CreditScoreIcon fontSize="small" />}
                     onClick={handlePaid}
+                    LinkComponent={Link}
+                    href={
+                      process.env.NEXT_PUBLIC_SERVER_URL +
+                      `/bill/${data?._id}/paypal`
+                    }
                   >
                     Thanh toán
                   </Button>
