@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import roomTypeAPI from "@/api/roomType";
 import RoomTypeList from "@/components/App/RoomType/List";
 import RoomTypeListList from "@/components/App/RoomType/List/List";
+import PageTitle from "@/components/PageTitle";
+import PageHead from "@/components/PageHead";
 
 const RoomTypePage: NextPageWithLayout = () => {
   const roomTypeQuery = useQuery({
@@ -12,7 +14,19 @@ const RoomTypePage: NextPageWithLayout = () => {
     queryFn: () => roomTypeAPI.getListOfRoom(),
   });
 
-  return <RoomTypeList list={<RoomTypeListList data={roomTypeQuery.data} />} />;
+  return (
+    <>
+      <PageHead title="Danh sách phòng | SGU dormitory" />
+      <RoomTypeList
+        list={
+          <RoomTypeListList
+            data={roomTypeQuery.data}
+            isLoading={roomTypeQuery.isLoading}
+          />
+        }
+      />
+    </>
+  );
 };
 
 RoomTypePage.getLayout = function getLayout(page: ReactElement) {
