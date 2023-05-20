@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import Link from "next/link";
-import cover from "@/assets/images/covers/cover_3.jpg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import IRoomType from "@/interfaces/RoomTypet";
 import priceFormat from "@/utils/formatPrice";
@@ -36,6 +35,7 @@ const RoomTypeItem: FC<IRoomTypeItem> = (props) => {
         <div className="top-0 w-full h-full absolute bg-black/40 z-[1]"></div>
         <div className="h-[360px] leading-[1] overflow-hidden">
           <LazyLoadImage
+            loading="eager"
             src={process.env.NEXT_PUBLIC_SERVER_URL + data.images[0]}
             alt="Yêu cầu sửa máy quạt"
             className="w-full h-full object-cover hover:scale-50"

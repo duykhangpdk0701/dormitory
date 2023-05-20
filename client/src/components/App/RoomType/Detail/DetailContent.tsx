@@ -40,6 +40,7 @@ const RoomTypeDetailContent: FC<IRoomTypeContent> = (props) => {
                 <Grid item xs={6} lg={3} md={4}>
                   <div className="w-full h-[200px]">
                     <LazyLoadImage
+                      loading="eager"
                       className="w-full h-full object-cover"
                       src={process.env.NEXT_PUBLIC_SERVER_URL + item}
                     />

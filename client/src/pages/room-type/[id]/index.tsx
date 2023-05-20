@@ -1,6 +1,7 @@
 import roomTypeAPI from "@/api/roomType";
 import RoomTypeDetail from "@/components/App/RoomType/Detail";
 import RoomTypeDetailContent from "@/components/App/RoomType/Detail/DetailContent";
+import RoomTypeDetailContentLoading from "@/components/App/RoomType/Detail/DetailContentLoading";
 import PageHead from "@/components/PageHead";
 import IRoomType from "@/interfaces/RoomTypet";
 import NavLayout from "@/layouts/NavLayout";
@@ -27,7 +28,13 @@ const RoomTypeDetailPage: NextPageWithLayout = () => {
     <>
       <PageHead title="Chi tiết phòng | SGU dormitory" />
       <RoomTypeDetail
-        detail={<RoomTypeDetailContent data={roomTypeQuery.data} />}
+        detail={
+          roomTypeQuery.isLoading ? (
+            <RoomTypeDetailContentLoading />
+          ) : (
+            <RoomTypeDetailContent data={roomTypeQuery.data} />
+          )
+        }
       />
     </>
   );
