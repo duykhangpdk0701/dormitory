@@ -13,6 +13,7 @@ import {
   InputLabel,
   FormControl,
   InputAdornment,
+  FormLabel,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -21,16 +22,16 @@ import {
   UseFormHandleSubmit,
   Controller,
 } from "react-hook-form";
-import { ICreateRoomParams } from "@/pages/admin/room/add";
+import { ICreateRoomParams } from "@/pages/admin/room/create";
 import dynamic from "next/dynamic";
 import IRoomType from "@/interfaces/RoomTypet";
+import Dropzone from "@/components/Dropzone";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface IRoomFormAdd {
   control: Control<ICreateRoomParams, any>;
   handleSubmit: UseFormHandleSubmit<ICreateRoomParams>;
   onSubmit: SubmitHandler<ICreateRoomParams>;
-
   isLoading: boolean;
   errorResMessage: string;
   roomTypes?: IRoomType[];
@@ -108,6 +109,31 @@ const RoomFormAdd: FC<IRoomFormAdd> = (props) => {
                     <ReactQuill
                       {...field}
                       placeholder="Viết vài mô tả về phòng..."
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box>
+              <Controller
+                name="images"
+                control={control}
+                render={({
+                  field: { onChange },
+                  fieldState: { invalid, error },
+                }) => (
+                  <>
+                    <FormLabel className="font-bold text-base mb-4 block">
+                      Hình ảnh:
+                    </FormLabel>
+                    <Dropzone
+                      onChange={onChange}
+                      multiple={true}
+                      error={invalid}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}

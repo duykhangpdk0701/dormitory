@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  CardHeader,
-  Divider,
-  Grid,
-  Skeleton,
-} from "@mui/material";
+import { Card, CardHeader, Divider, Grid, Skeleton } from "@mui/material";
 
 const RoomTypeDetailContentLoading = () => {
   return (

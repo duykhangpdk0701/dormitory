@@ -40,7 +40,7 @@ const RoomPage: NextPageWithLayout = () => {
         const page = searchUrl.page
           ? parseInt(searchUrl.page as string)
           : undefined;
-        return adminRoomAPI.getList(search, limit, page);
+        return adminRoomAPI.getList(search, limit || 5, page || 1);
       }
       return undefined;
     },

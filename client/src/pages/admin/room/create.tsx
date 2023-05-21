@@ -8,9 +8,12 @@ import React, { ReactElement, useState } from "react";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import roomTypeAPI from "@/api/roomType";
 import PageHead from "@/components/PageHead";
+import adminRoomAPI from "@/api/admin/room";
+import { useAppDispatch } from "@/hooks/redux";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 
 export interface ICreateRoomParams {
   name: string;
@@ -24,6 +27,7 @@ export interface ICreateRoomParams {
   floor: number;
   price: number;
   roomType: string;
+  images: File[];
 }
 
 const createRoomSchema = yup.object({
@@ -37,11 +41,13 @@ const createRoomSchema = yup.object({
   width: yup.number().required("Hãy nhập chiều rộng"),
   floor: yup.number().required("Hãy nhập số tầng"),
   price: yup.number().required("Hãy nhập giá tiền"),
+  images: yup.array().required(),
   roomType: yup.string().required(),
 });
 
 const AddRoomPage: NextPageWithLayout = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -57,9 +63,61 @@ const AddRoomPage: NextPageWithLayout = () => {
     queryFn: () => roomTypeAPI.getListOfRoom(),
   });
 
+  const roomMutation = useMutation({
+    mutationKey: ["room"],
+    mutationFn: ({
+      name,
+      description,
+      status,
+      numberOfPeople,
+      numberBed,
+      area,
+      length,
+      width,
+      floor,
+      price,
+      images,
+      roomType,
+    }: ICreateRoomParams) =>
+      adminRoomAPI.create(
+        name,
+        description,
+        status,
+        numberOfPeople,
+        numberBed,
+        area,
+        length,
+        width,
+        floor,
+        price,
+        images,
+        roomType
+      ),
+    onSuccess: async () => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Tạo phòng thành công",
+        })
+      );
+      await router.push("/admin/room");
+      setLoading(false);
+    },
+    onError: (error: any) => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+      setLoading(false);
+    },
+  });
+
   const onSubmit: SubmitHandler<ICreateRoomParams> = (data) => {
-    const { name, description, status, numberOfPeople } = data;
-    console.log(data);
+    roomMutation.mutate({ ...data });
   };
 
   return (

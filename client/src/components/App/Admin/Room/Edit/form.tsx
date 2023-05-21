@@ -21,7 +21,7 @@ import {
   UseFormHandleSubmit,
   Controller,
 } from "react-hook-form";
-import { ICreateRoomParams } from "@/pages/admin/room/add";
+import { ICreateRoomParams } from "@/pages/admin/room/create";
 import dynamic from "next/dynamic";
 import IRoomType from "@/interfaces/RoomTypet";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });

@@ -58,7 +58,7 @@ const PriorityCreatePage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<ICreatePriorityParams> = (data) => {
-    console.log(data);
+    prioirtyCreateMutation.mutate({ ...data });
   };
 
   return (
