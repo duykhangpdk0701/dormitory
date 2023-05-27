@@ -19,14 +19,40 @@ const adminRoomTypeAPI = {
   },
 
   getById: async (id: string): Promise<IRoomType> => {
-    const url = `/roomtType/${id}`;
+    const url = `/roomType/${id}`;
     const res = await axiosClient.get(url);
     return res.data;
   },
 
-  create: async (name: string, desc: string): Promise<IRoomType> => {
+  create: async (
+    name: string,
+    desc: string,
+    price: number,
+    images: File[]
+  ): Promise<IRoomType> => {
     const url = `/roomType/store`;
-    const res = await axiosClient.post(url, { name, description: desc });
+    const res = await axiosClient.post(url, {
+      name,
+      description: desc,
+      price,
+      images,
+    });
+    return res.data;
+  },
+  update: async (
+    id: string,
+    name: string,
+    desc: string,
+    price: number,
+    images: File[]
+  ): Promise<IRoomType> => {
+    const url = `/roomType/${id}`;
+    const res = await axiosClient.put(url, {
+      name,
+      description: desc,
+      price,
+      images,
+    });
     return res.data;
   },
 };

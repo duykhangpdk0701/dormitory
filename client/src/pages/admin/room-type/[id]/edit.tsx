@@ -9,17 +9,29 @@ import SidebarLayout from "@/layouts/SidebarLayout";
 import PageHead from "@/components/PageHead";
 import RoomTypeEdit from "@/components/App/Admin/RoomType/Edit";
 import RoomTypeEditForm from "@/components/App/Admin/RoomType/Edit/Form";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import adminRoomTypeAPI from "@/api/admin/roomType";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 
-export interface IRoomTypeEditParams {
+export interface IRoomTypeEditFormParams {
   name: string;
   desc: string;
+  price: number;
+  images: File[];
 }
 
+export interface IRoomTypeEditParams {
+  id: string;
+  name: string;
+  desc: string;
+  price: number;
+  images: File[];
+}
 const roomTypeEditSchema = yup.object({
   name: yup.string().required(),
   desc: yup.string().required(),
+  price: yup.string().required(),
+  images: yup.object().required(),
 });
 
 const RoomTypeEditPage: NextPageWithLayout = () => {
@@ -28,7 +40,7 @@ const RoomTypeEditPage: NextPageWithLayout = () => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { control, handleSubmit } = useForm<IRoomTypeEditParams>({
+  const { control, handleSubmit, setValue } = useForm<IRoomTypeEditFormParams>({
     resolver: yupResolver(roomTypeEditSchema),
   });
 
@@ -36,13 +48,52 @@ const RoomTypeEditPage: NextPageWithLayout = () => {
     queryKey: ["room-type-detail", id],
     queryFn: () => {
       if (id && typeof id !== "object") {
-        return adminRoomTypeAPI.getById;
+        return adminRoomTypeAPI.getById(id);
+      }
+    },
+    onSuccess: (data) => {
+      data?.name && setValue("name", data.name);
+      data?.description && setValue("desc", data.description);
+    },
+    onError: (error: any) => {
+      if (error.code === 500) {
+        router.replace("/404");
       }
     },
   });
 
-  const onSubmit: SubmitHandler<IRoomTypeEditParams> = async (data) => {
-    console.log(data);
+  const roomTypeEditMutation = useMutation({
+    mutationKey: ["room-type"],
+    mutationFn: ({ id, name, desc, price, images }: IRoomTypeEditParams) =>
+      adminRoomTypeAPI.update(id, name, desc, price, images),
+    onSuccess: async () => {
+      await router.push("/admin/room-type");
+      setLoading(false);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Tạo loại phòng thành công",
+        })
+      );
+    },
+    onError: (error: any) => {
+      setLoading(false);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
+    },
+  });
+
+  const onSubmit: SubmitHandler<IRoomTypeEditFormParams> = async (data) => {
+    if (id && typeof id !== "object") {
+      setLoading(true);
+      roomTypeEditMutation.mutate({ ...data, id });
+    }
   };
 
   return (

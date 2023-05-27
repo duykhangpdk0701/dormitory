@@ -13,6 +13,7 @@ import {
   InputLabel,
   FormControl,
   InputAdornment,
+  FormLabel,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -24,12 +25,14 @@ import {
 import { ICreateRoomParams } from "@/pages/admin/room/create";
 import dynamic from "next/dynamic";
 import IRoomType from "@/interfaces/RoomTypet";
+import { IEditRoomFormParams } from "@/pages/admin/room/[id]/edit";
+import Dropzone from "@/components/Dropzone";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface IRoomFormAdd {
-  control: Control<ICreateRoomParams, any>;
-  handleSubmit: UseFormHandleSubmit<ICreateRoomParams>;
-  onSubmit: SubmitHandler<ICreateRoomParams>;
+  control: Control<IEditRoomFormParams, any>;
+  handleSubmit: UseFormHandleSubmit<IEditRoomFormParams>;
+  onSubmit: SubmitHandler<IEditRoomFormParams>;
 
   isLoading: boolean;
   errorResMessage: string;
@@ -77,10 +80,13 @@ const RoomFormEdit: FC<IRoomFormAdd> = (props) => {
               <Controller
                 name="roomType"
                 control={control}
+                defaultValue=""
                 render={({ field, fieldState: { error, invalid } }) => (
                   <>
                     <FormControl fullWidth>
-                      <InputLabel id="roomt-type">Loại phòng</InputLabel>
+                      <InputLabel htmlFor="uncontrolled-native" id="roomt-type">
+                        Loại phòng
+                      </InputLabel>
                       <Select
                         {...field}
                         id="roomt-type"
@@ -90,10 +96,13 @@ const RoomFormEdit: FC<IRoomFormAdd> = (props) => {
                         label="Loại phòng"
                       >
                         {roomTypes?.map((item) => (
-                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                          <MenuItem key={item._id} value={item._id}>
+                            {item.name}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
+
                     <FormHelperText error={invalid}>
                       {error?.message}
                     </FormHelperText>
@@ -114,6 +123,31 @@ const RoomFormEdit: FC<IRoomFormAdd> = (props) => {
                     <ReactQuill
                       {...field}
                       placeholder="Viết vài mô tả về phòng..."
+                    />
+                    <FormHelperText error={invalid}>
+                      {error?.message}
+                    </FormHelperText>
+                  </>
+                )}
+              />
+            </Box>
+
+            <Box>
+              <Controller
+                name="images"
+                control={control}
+                render={({
+                  field: { onChange },
+                  fieldState: { invalid, error },
+                }) => (
+                  <>
+                    <FormLabel className="font-bold text-base mb-4 block">
+                      Hình ảnh:
+                    </FormLabel>
+                    <Dropzone
+                      onChange={onChange}
+                      multiple={true}
+                      error={invalid}
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}

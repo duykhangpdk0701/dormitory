@@ -1,3 +1,5 @@
+import IRoomType from "./RoomTypet";
+
 interface IRoom {
   _id: string;
   name: string;
@@ -9,7 +11,8 @@ interface IRoom {
   width: number;
   floor: number;
   price: number;
-  roomType: string;
+  roomType: IRoomType;
+  images: File[];
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

@@ -117,6 +117,7 @@ const AddRoomPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<ICreateRoomParams> = (data) => {
+    setLoading(true);
     roomMutation.mutate({ ...data });
   };
 

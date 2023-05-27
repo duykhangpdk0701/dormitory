@@ -23,7 +23,7 @@ const Dropzone: FC<IDropzone> = ({ multiple, onChange, error, ...rest }) => {
     if (onChange) {
       if (multiple) {
         setFile([...file, ...acceptedFiles]);
-        onChange(file as any);
+        onChange([...file, ...acceptedFiles] as any);
       } else {
         onChange(acceptedFiles?.[0] as any);
       }

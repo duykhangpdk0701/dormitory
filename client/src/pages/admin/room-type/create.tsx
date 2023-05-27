@@ -16,11 +16,15 @@ import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 export interface IRoomTypeCreateParams {
   name: string;
   desc: string;
+  price: number;
+  images: File[];
 }
 
 const roomTypeCreateSchema = yup.object({
   name: yup.string().required(),
   desc: yup.string().required(),
+  price: yup.number().required(),
+  images: yup.array().required(),
 });
 
 const RoomTypeCreatePage: NextPageWithLayout = () => {
@@ -34,8 +38,8 @@ const RoomTypeCreatePage: NextPageWithLayout = () => {
 
   const roomTypeMutation = useMutation({
     mutationKey: "room-type",
-    mutationFn: ({ name, desc }: IRoomTypeCreateParams) =>
-      adminRoomTypeAPI.create(name, desc),
+    mutationFn: ({ name, desc, price, images }: IRoomTypeCreateParams) =>
+      adminRoomTypeAPI.create(name, desc, price, images),
     onSuccess: async (data) => {
       await router.push("/admin/room-type");
       setLoading(false);
