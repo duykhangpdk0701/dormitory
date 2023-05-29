@@ -29,6 +29,7 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
+import BookingRequestTableItemLoading from "./TableItemLoading";
 
 interface IBookingRequestTableProps {
   className?: string;
@@ -138,20 +139,26 @@ const BookingRequestTable: FC<IBookingRequestTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((request) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  request._id
-                );
-                return (
-                  <Fragment key={request._id}>
-                    <BookingRequestTableItem
-                      isSelected={isCryptoOrderSelected}
-                      data={request}
-                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                    />
-                  </Fragment>
-                );
-              })}
+              {isLoading ? (
+                <Fragment>
+                  {Array(5).fill(<BookingRequestTableItemLoading />)}
+                </Fragment>
+              ) : (
+                data?.map((request) => {
+                  const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                    request._id
+                  );
+                  return (
+                    <Fragment key={request._id}>
+                      <BookingRequestTableItem
+                        isSelected={isCryptoOrderSelected}
+                        data={request}
+                        handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                      />
+                    </Fragment>
+                  );
+                })
+              )}
             </TableBody>
 
             {isNotFound && (

@@ -33,6 +33,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { IRoomParams } from "@/pages/admin/room";
+import RoomTableItemLoading from "./TableItemLoading";
 
 interface IRoomTable {
   className?: string;
@@ -144,18 +145,20 @@ const RoomTable: FC<IRoomTable> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder) => {
-                const isSelected = selectedCryptoOrders.includes(
-                  cryptoOrder._id
-                );
-                return (
-                  <RoomTableItem
-                    data={cryptoOrder}
-                    isSelected={isSelected}
-                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                  />
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<RoomTableItemLoading />)
+                : data?.map((cryptoOrder) => {
+                    const isSelected = selectedCryptoOrders.includes(
+                      cryptoOrder._id
+                    );
+                    return (
+                      <RoomTableItem
+                        data={cryptoOrder}
+                        isSelected={isSelected}
+                        handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                      />
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

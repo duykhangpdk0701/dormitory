@@ -29,6 +29,7 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
+import ServiceTableItemLoading from "./TableItemLoading";
 
 interface IServiceTableProps {
   className?: string;
@@ -137,20 +138,24 @@ const ServiceTable: FC<IServiceTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((service) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  service._id
-                );
-                return (
-                  <Fragment key={service._id}>
-                    <ServiceTableItem
-                      isSelected={isCryptoOrderSelected}
-                      data={service}
-                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                    />
-                  </Fragment>
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<ServiceTableItemLoading />)
+                : data?.map((service) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      service._id
+                    );
+                    return (
+                      <Fragment key={service._id}>
+                        <ServiceTableItem
+                          isSelected={isCryptoOrderSelected}
+                          data={service}
+                          handleSelectOneCryptoOrder={
+                            handleSelectOneCryptoOrder
+                          }
+                        />
+                      </Fragment>
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

@@ -34,6 +34,7 @@ import BulkActions from "./BulkActions";
 import PriorityTableItem from "./TableItem";
 import IPriority from "@/interfaces/Priority";
 import { IPriorityParams } from "@/pages/admin/priority";
+import PriorityTableItemLoading from "./TableItemLoading";
 
 interface IPriorityTableProps {
   className?: string;
@@ -142,18 +143,20 @@ const PriorityTable: FC<IPriorityTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  cryptoOrder._id
-                );
-                return (
-                  <PriorityTableItem
-                    isSelected={isCryptoOrderSelected}
-                    data={cryptoOrder}
-                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                  />
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<PriorityTableItemLoading />)
+                : data?.map((cryptoOrder) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      cryptoOrder._id
+                    );
+                    return (
+                      <PriorityTableItem
+                        isSelected={isCryptoOrderSelected}
+                        data={cryptoOrder}
+                        handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                      />
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

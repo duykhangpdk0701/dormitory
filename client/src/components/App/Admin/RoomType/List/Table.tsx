@@ -30,6 +30,7 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
+import RoomTypeTableItemLoading from "./TableItemLoading";
 
 interface IRoomTypeTableProps {
   className?: string;
@@ -139,16 +140,20 @@ const RoomTypeTable: FC<IRoomTypeTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((roomType) => {
-                const isSelected = selectedCryptoOrders.includes(roomType._id);
-                return (
-                  <RoomTypeTableItem
-                    data={roomType}
-                    isSelected={isSelected}
-                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                  />
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<RoomTypeTableItemLoading />)
+                : data?.map((roomType) => {
+                    const isSelected = selectedCryptoOrders.includes(
+                      roomType._id
+                    );
+                    return (
+                      <RoomTypeTableItem
+                        data={roomType}
+                        isSelected={isSelected}
+                        handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                      />
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

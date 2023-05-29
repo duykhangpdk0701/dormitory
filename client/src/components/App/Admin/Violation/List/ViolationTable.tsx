@@ -28,6 +28,7 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
+import ViolationTableItemLoading from "./TableItemLoading";
 
 interface IViolationTableProps {
   className?: string;
@@ -138,20 +139,24 @@ const ViolationTable: FC<IViolationTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((violation) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  violation._id
-                );
-                return (
-                  <Fragment key={violation._id}>
-                    <ViolationTableItem
-                      isSelected={isCryptoOrderSelected}
-                      data={violation}
-                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                    />
-                  </Fragment>
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<ViolationTableItemLoading />)
+                : data?.map((violation) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      violation._id
+                    );
+                    return (
+                      <Fragment key={violation._id}>
+                        <ViolationTableItem
+                          isSelected={isCryptoOrderSelected}
+                          data={violation}
+                          handleSelectOneCryptoOrder={
+                            handleSelectOneCryptoOrder
+                          }
+                        />
+                      </Fragment>
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

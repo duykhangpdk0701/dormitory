@@ -29,6 +29,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { IStaffParams } from "@/pages/admin/staff";
+import StaffTableItemLoading from "./TableItemLoading";
 
 interface IStaffTableProps {
   className?: string;
@@ -138,20 +139,24 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((staff) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  staff._id
-                );
-                return (
-                  <Fragment key={staff._id}>
-                    <StaffTableItem
-                      isSelected={isCryptoOrderSelected}
-                      data={staff}
-                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                    />
-                  </Fragment>
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<StaffTableItemLoading />)
+                : data?.map((staff) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      staff._id
+                    );
+                    return (
+                      <Fragment key={staff._id}>
+                        <StaffTableItem
+                          isSelected={isCryptoOrderSelected}
+                          data={staff}
+                          handleSelectOneCryptoOrder={
+                            handleSelectOneCryptoOrder
+                          }
+                        />
+                      </Fragment>
+                    );
+                  })}
             </TableBody>
           </Table>
         </TableContainer>

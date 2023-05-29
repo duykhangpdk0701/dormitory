@@ -29,6 +29,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { IComplaintParams } from "@/pages/admin/complaint";
+import ComplaintTableItemLoading from "./TableItemLoading";
 
 interface IComplaintTableProps {
   className?: string;
@@ -138,20 +139,24 @@ const ComplaintTable: FC<IComplaintTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((service) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  service._id
-                );
-                return (
-                  <Fragment key={service._id}>
-                    <ComplaintTableItem
-                      isSelected={isCryptoOrderSelected}
-                      data={service}
-                      handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                    />
-                  </Fragment>
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<ComplaintTableItemLoading />)
+                : data?.map((service) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      service._id
+                    );
+                    return (
+                      <Fragment key={service._id}>
+                        <ComplaintTableItem
+                          isSelected={isCryptoOrderSelected}
+                          data={service}
+                          handleSelectOneCryptoOrder={
+                            handleSelectOneCryptoOrder
+                          }
+                        />
+                      </Fragment>
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (

@@ -32,6 +32,7 @@ import {
   UseFormHandleSubmit,
   UseFormWatch,
 } from "react-hook-form";
+import CivilianTableItemLoading from "./TableItemLoading";
 
 interface IBookingTableProps {
   className?: string;
@@ -165,18 +166,20 @@ const BookingTable: FC<IBookingTableProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((booking) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  booking._id
-                );
-                return (
-                  <BookingRequestTableItem
-                    isSelected={isCryptoOrderSelected}
-                    data={booking}
-                    handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
-                  />
-                );
-              })}
+              {isLoading
+                ? Array(5).fill(<CivilianTableItemLoading />)
+                : data?.map((booking) => {
+                    const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                      booking._id
+                    );
+                    return (
+                      <BookingRequestTableItem
+                        isSelected={isCryptoOrderSelected}
+                        data={booking}
+                        handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}
+                      />
+                    );
+                  })}
             </TableBody>
 
             {isNotFound && (
