@@ -13,6 +13,8 @@ import Link from "next/link";
 import { SidebarContext } from "@/contexts/SidebarContext";
 import adminMenu, { staffMenu, userMenu } from "./getListSidebarMenu";
 import getMenu from "./getListSidebarMenu";
+import { useAppDispatch } from "@/hooks/redux";
+import { closeSidebarAction } from "@/contexts/slices/sidebarSlice";
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -161,7 +163,9 @@ interface ISidebarMenu {
 }
 
 const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
-  const { closeSidebar } = useContext(SidebarContext);
+  const dispatch = useAppDispatch();
+
+  const onCloseSibeBar = () => dispatch(closeSidebarAction());
 
   const menu =
     menuType === "user"
@@ -189,7 +193,7 @@ const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
                     <Button
                       disableRipple
                       component={Link}
-                      onClick={closeSidebar}
+                      onClick={onCloseSibeBar}
                       href={itemChild.link}
                       startIcon={<itemChild.starIcon />}
                     >

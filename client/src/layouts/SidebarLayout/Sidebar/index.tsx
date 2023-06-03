@@ -18,6 +18,8 @@ import Logo from "@/components/LogoSign";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { closeSidebarAction } from "@/contexts/slices/sidebarSlice";
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
@@ -35,9 +37,11 @@ interface ISidebar {
 }
 
 const Sidebar: FC<ISidebar> = ({ menuType }) => {
-  const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
-  const closeSidebar = () => toggleSidebar();
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+  const isSidebarOpenState = useAppSelector((state) => state.sidebar.open);
+
+  const onCloseSidebar = () => dispatch(closeSidebarAction());
 
   return (
     <>
@@ -91,8 +95,8 @@ const Sidebar: FC<ISidebar> = ({ menuType }) => {
           boxShadow: `${theme.sidebar.boxShadow}`,
         }}
         anchor={theme.direction === "rtl" ? "right" : "left"}
-        open={sidebarToggle}
-        onClose={closeSidebar}
+        open={isSidebarOpenState}
+        onClose={onCloseSidebar}
         variant="temporary"
         elevation={9}
       >

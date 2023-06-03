@@ -18,6 +18,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import SnackbarSliceReducer from "@/contexts/slices/snackbarSlice";
+import SidebarReduder from "@/contexts/slices/sidebarSlice";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   SnackBarSlice: SnackbarSliceReducer,
+  sidebar: SidebarReduder,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

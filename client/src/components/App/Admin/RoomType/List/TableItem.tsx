@@ -37,36 +37,22 @@ const RoomTypeTableItem: FC<IRoomTypeTableItem> = (props) => {
           value={isSelected}
         />
       </TableCell>
+
       <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data._id}
-        </Typography>
+        <Link href={`/admin/room-type/${data._id}`}>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {data.name}
+          </Typography>
+        </Link>
       </TableCell>
       <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.name}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
           {data.description}
         </Typography>
       </TableCell>

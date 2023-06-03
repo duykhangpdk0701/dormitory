@@ -18,6 +18,8 @@ import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import HeaderButtons from "./Buttons";
 import HeaderUserbox from "./Userbox";
 import HeaderMenu from "./Menu";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { toggleSidebarAciton } from "@/contexts/slices/sidebarSlice";
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -39,8 +41,13 @@ const HeaderWrapper = styled(Box)(
 );
 
 function Header() {
-  const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
+  const dispatch = useAppDispatch();
+  const isSidebarOpenState = useAppSelector((state) => state.sidebar.open);
   const theme = useTheme();
+
+  const onToggleSidebar = () => {
+    dispatch(toggleSidebarAciton());
+  };
 
   return (
     <HeaderWrapper
@@ -81,8 +88,8 @@ function Header() {
           }}
         >
           <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? (
+            <IconButton color="primary" onClick={onToggleSidebar}>
+              {!isSidebarOpenState ? (
                 <MenuTwoToneIcon fontSize="small" />
               ) : (
                 <CloseTwoToneIcon fontSize="small" />

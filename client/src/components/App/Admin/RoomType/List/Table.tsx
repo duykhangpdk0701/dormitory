@@ -133,7 +133,6 @@ const RoomTypeTable: FC<IRoomTypeTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Mô tả</TableCell>
                 <TableCell align="right">Hành động</TableCell>
