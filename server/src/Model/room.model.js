@@ -5,38 +5,30 @@ const Room = new Schema(
     {
         name: {
             type: String,
-            required: true,
-            unique: true,
         },
         description: {
             type: String,
         },
         numberPeople: {
             type: Number,
-            required: true,
         },
         numberBed: {
             type: Number,
-            required: true,
         },
         area: {
             type: Number,
-            required: true,
         },
         length: {
             type: Number,
-            required: true,
         },
         width: {
             type: Number,
-            required: true,
         },
         floor: {
-            type: Number,
+            type: Number, 
         },
         price: {
             type: Number,
-            required: true,
         },
         images: {
             type: [String],
