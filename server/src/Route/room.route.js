@@ -6,7 +6,7 @@ const { verifyRoleAdmin } = require('../Middleware/roleAuth');
 
 router.get("/", roomController.showAll);
 router.get("/:id", roomController.show);
-router.post("/store", verifyRoleAdmin, upload.array('images',10), roomController.store);
+router.post("/store", upload.array('images',10), roomController.store);
 router.put("/:id", verifyRoleAdmin, upload.array('images',10), roomController.update);
 router.delete("/:id", verifyRoleAdmin, roomController.delete);
 
