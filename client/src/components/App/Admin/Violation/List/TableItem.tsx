@@ -37,11 +37,6 @@ const ViolationTableItem: FC<IViolationTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
-        </Typography>
-      </TableCell>
 
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>

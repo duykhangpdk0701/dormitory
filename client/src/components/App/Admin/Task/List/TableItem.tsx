@@ -39,7 +39,7 @@ const TaskTableItem: FC<ITaskTableItemProps> = (props) => {
       </TableCell>
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data._id}
+          {data.staff.account.lastname} {data.staff.account.firstname}
         </Typography>
       </TableCell>
 

@@ -130,7 +130,7 @@ const AddRoomPage: NextPageWithLayout = () => {
             control={control}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
-            isLoading={false}
+            isLoading={loading}
             errorResMessage={error}
             roomTypes={roomTypeQuery.data}
             isLoadingRoomTypes={roomTypeQuery.isLoading}

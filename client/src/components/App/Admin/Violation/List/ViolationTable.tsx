@@ -130,7 +130,6 @@ const ViolationTable: FC<IViolationTableProps> = (props) => {
                     onChange={handleSelectAllCryptoOrders}
                   />
                 </TableCell>
-                <TableCell>ID</TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>Mô tả</TableCell>
                 <TableCell>Tên sinh viên</TableCell>
