@@ -198,21 +198,21 @@ class BookingController {
         try {
             let booking = await Booking.updateOne({ _id: id }, {status: "Deposit"}, { new: true })
             if (!booking) return res.send('Lỗi không thể cập nhật thông tin');
-
             booking = await Booking.findOne({ _id: id});
             if (!booking) return res.send('Lỗi không thể thấy booking phù hợp');
-
+            
             const checkAccount = await Account.findOne({ username: booking.studentId + "@dormitory" })
             if(checkAccount) res.send('Fail (Bạn đã đặt cọc rồi)');
-
+            
             const {firstname, lastname, dateOfBirth, email, phone, gender } = booking
             const permission = await Permission.findOne({name: 'civilian'})
             const hashpassword = await argon2.hash('123');
-            const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone, gender})
+            const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone, gender}) 
             await account.save()
-            const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
+            // return res.status(500).json({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address, roomId: booking.room})
+            const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address, roomId: booking.room})
             await civilian.save()
-            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart, totalPrice: booking.totalPrice})
             await contract.save()
 
             res.send('Success (Đặt cọc thành công)');

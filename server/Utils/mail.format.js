@@ -78,6 +78,10 @@ const depositBooking = (booking) => {
             <div>Đây là tài khoản của bạn để truy cập website</div>
             <div>username: ${booking.studentId + "@dormitory"}</div>
             <div>password: 123</div>
+            <div>Nhấn vào link dưới để thanh toán</div>
+            <div>
+                <a href="http://localhost:5000/booking/${booking._id}/paid/paypal" target="_blank">Thanh toán</a>
+            </div>
             <div>Website: <a href="https://sgu-dormitory.vercel.app/admin" target="_blank">Dormitory</a></div>
             <div>Vui lòng chuẩn bị tư trang vào ở đúng ngày</div>
             <div>Lưu ý nếu bạn không thanh toán khi tới ngày thì đặt phòng sẽ bị huỷ bỏ cũng như bạn sẽ mất tiền cọc</div>
