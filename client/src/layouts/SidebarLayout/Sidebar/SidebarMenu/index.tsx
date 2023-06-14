@@ -15,6 +15,7 @@ import adminMenu, { staffMenu, userMenu } from "./getListSidebarMenu";
 import getMenu from "./getListSidebarMenu";
 import { useAppDispatch } from "@/hooks/redux";
 import { closeSidebarAction } from "@/contexts/slices/sidebarSlice";
+import { useRouter } from "next/router";
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -164,6 +165,7 @@ interface ISidebarMenu {
 
 const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
   const dispatch = useAppDispatch();
+  const { asPath } = useRouter();
 
   const onCloseSibeBar = () => dispatch(closeSidebarAction());
 
@@ -189,7 +191,10 @@ const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
             <SubMenuWrapper>
               <List component="div">
                 {item.child.map((itemChild) => (
-                  <ListItem component="div">
+                  <ListItem
+                    component="div"
+                    selected={asPath === itemChild.link}
+                  >
                     <Button
                       disableRipple
                       component={Link}
