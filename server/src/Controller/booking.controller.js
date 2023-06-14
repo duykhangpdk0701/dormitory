@@ -25,24 +25,24 @@ class BookingController {
                     }
                 },
                 { $unwind: '$room' },
-                {
-                    $lookup: {
-                        from: "addresses",
-                        localField: "address",
-                        foreignField: "_id",
-                        as: "address"
-                    }
-                },
-                { $unwind: '$address' },
-                {
-                    $lookup: {
-                        from: "roomtypes",
-                        localField: "room.roomType",
-                        foreignField: "_id",
-                        as: "room.roomType"
-                    }
-                },
-                { $unwind: '$room.roomType' },
+                // {
+                //     $lookup: {
+                //         from: "addresses",
+                //         localField: "address",
+                //         foreignField: "_id",
+                //         as: "address"
+                //     }
+                // },
+                // { $unwind: '$address' },
+                // {
+                //     $lookup: {
+                //         from: "roomtypes",
+                //         localField: "room.roomType",
+                //         foreignField: "_id",
+                //         as: "room.roomType"
+                //     }
+                // },
+                // { $unwind: '$room.roomType' },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)

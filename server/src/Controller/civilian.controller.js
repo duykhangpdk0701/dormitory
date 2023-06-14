@@ -46,15 +46,15 @@ class CivilianController {
                     }
                 },
                 { $unwind: '$contract' },
-                {
-                    $lookup: {
-                        from: "rooms",
-                        localField: "contract.roomId",
-                        foreignField: "_id",
-                        as: "room"
-                    }
-                },
-                { $unwind: '$room' },
+                // {
+                //     $lookup: {
+                //         from: "rooms",
+                //         localField: "contract.roomId",
+                //         foreignField: "_id",
+                //         as: "room"
+                //     }
+                // },
+                // { $unwind: '$room' },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
