@@ -59,6 +59,7 @@ class BookingRequestController {
                 }
             }
             const bookingRequests = await BookingRequest.aggregate(aggregate)
+            // const bookingRequests = await BookingRequest.find({})
             res.json({ success: true, data: bookingRequests})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })
