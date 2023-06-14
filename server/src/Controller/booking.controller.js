@@ -25,24 +25,24 @@ class BookingController {
                     }
                 },
                 { $unwind: '$room' },
-                // {
-                //     $lookup: {
-                //         from: "addresses",
-                //         localField: "address",
-                //         foreignField: "_id",
-                //         as: "address"
-                //     }
-                // },
-                // { $unwind: '$address' },
-                // {
-                //     $lookup: {
-                //         from: "roomtypes",
-                //         localField: "room.roomType",
-                //         foreignField: "_id",
-                //         as: "room.roomType"
-                //     }
-                // },
-                // { $unwind: '$room.roomType' },
+                {
+                    $lookup: {
+                        from: "addresses",
+                        localField: "address",
+                        foreignField: "_id",
+                        as: "address"
+                    }
+                },
+                { $unwind: '$address' },
+                {
+                    $lookup: {
+                        from: "roomtypes",
+                        localField: "room.roomType",
+                        foreignField: "_id",
+                        as: "room.roomType"
+                    }
+                },
+                { $unwind: '$room.roomType' },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
@@ -63,6 +63,7 @@ class BookingController {
                 }
             }
             const bookings = await Booking.aggregate(aggregate)
+            // const bookings = await Booking.find({})
             res.json({ success: true, data: bookings})
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message })

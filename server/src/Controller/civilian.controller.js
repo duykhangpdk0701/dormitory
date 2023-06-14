@@ -39,26 +39,24 @@ class CivilianController {
                 },
                 {
                     $lookup: {
-                        from: "contracts",
-                        localField: "_id",
-                        foreignField: "civilianId",
-                        as: "contract"
+                        from: "rooms",
+                        localField: "roomId",
+                        foreignField: "_id",
+                        as: "room"
                     }
                 },
-                { $unwind: '$contract' },
-                // {
-                //     $lookup: {
-                //         from: "rooms",
-                //         localField: "contract.roomId",
-                //         foreignField: "_id",
-                //         as: "room"
-                //     }
-                // },
-                // { $unwind: '$room' },
+                { $unwind: '$room' },
                 { $sort: { createdAt: -1 } }
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.room) {
+                    aggregate.push(
+                        {
+                            $match: {roomId : new mongoose.Types.ObjectId(filter.room)}
+                        }
+                    )
+                }
                 if (filter.onlyViolation) {
                     aggregate.push(
                         {

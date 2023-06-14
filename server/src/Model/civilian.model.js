@@ -8,6 +8,11 @@ const Civilian = new Schema(
             required: true,
             ref: "users"
         },
+        roomId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "rooms"
+        },
         address: {
             type: Schema.Types.ObjectId,
             required: true,
