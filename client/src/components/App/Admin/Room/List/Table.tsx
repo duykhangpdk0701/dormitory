@@ -135,11 +135,10 @@ const RoomTable: FC<IRoomTable> = (props) => {
                   />
                 </TableCell>
                 <TableCell>Tên</TableCell>
-                <TableCell>Mô tả</TableCell>
-                <TableCell>Sức chứa</TableCell>
-                <TableCell>Số giường</TableCell>
+                <TableCell align="center">Sức chứa</TableCell>
+                <TableCell align="center">Số giường</TableCell>
                 <TableCell align="right">Diện tích</TableCell>
-                <TableCell>Trạng thái</TableCell>
+                <TableCell align="right">Trạng thái</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
@@ -203,7 +202,7 @@ const RoomTable: FC<IRoomTable> = (props) => {
                     onRowsPerPageChange={(e) =>
                       rowPerPageOnChange(e.target.value)
                     }
-                    page={value}
+                    page={value - 1}
                     rowsPerPage={rowPerPageValue}
                     rowsPerPageOptions={[5, 10, 25, 30]}
                   />

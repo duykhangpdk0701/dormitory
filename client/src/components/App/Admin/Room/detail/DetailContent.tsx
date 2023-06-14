@@ -7,13 +7,16 @@ import product1 from "@/assets/images/products/product_1.jpg";
 import product2 from "@/assets/images/products/product_2.jpg";
 import product3 from "@/assets/images/products/product_3.jpg";
 import product4 from "@/assets/images/products/product_4.jpg";
+import ICivilian from "@/interfaces/Civilian";
+import Link from "next/link";
 
 interface IRoomDetailContent {
   data?: IRoom;
+  civilianData?: ICivilian[];
 }
 
 const RoomDetailContent: FC<IRoomDetailContent> = (props) => {
-  const { data } = props;
+  const { data, civilianData } = props;
   return (
     <>
       <div>
@@ -31,30 +34,6 @@ const RoomDetailContent: FC<IRoomDetailContent> = (props) => {
                     pagination
                     navigation
                   >
-                    <SwiperSlide className="h-full">
-                      <LazyLoadImage
-                        className="w-full object-cover h-full"
-                        src={product1.src}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <LazyLoadImage
-                        className="w-full object-cover h-full"
-                        src={product2.src}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <LazyLoadImage
-                        className="w-full object-cover h-full"
-                        src={product3.src}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <LazyLoadImage
-                        className="w-full object-cover h-full"
-                        src={product4.src}
-                      />
-                    </SwiperSlide>
                     {data?.images.map((item, index) => (
                       <SwiperSlide key={index}>
                         <LazyLoadImage
@@ -121,9 +100,39 @@ const RoomDetailContent: FC<IRoomDetailContent> = (props) => {
               </Grid>
             </Paper>
 
+            <Paper className="p-6 mb-6">
+              <div>
+                <span className="text-base font-bold block">
+                  Cư dân đang cư trú:
+                </span>
+
+                <div>
+                  {civilianData?.map((item) => (
+                    <Link href={`/admin/civilian/${item._id}`} key={item._id}>
+                      <span>
+                        {item.account.lastname} {item.account.lastname}
+                      </span>
+                      <span>{item.studentId}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </Paper>
+
             <Paper className="p-6">
               <div>
-                <span className="text-base font-bold">Cư dân đang cư trú</span>:{" "}
+                <span className="text-base font-bold block">Thiết bị:</span>
+
+                <div>
+                  {civilianData?.map((item) => (
+                    <Link href={`/admin/civilian/${item._id}`} key={item._id}>
+                      <span>
+                        {item.account.lastname} {item.account.lastname}
+                      </span>
+                      <span>{item.studentId}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </Paper>
           </Grid>

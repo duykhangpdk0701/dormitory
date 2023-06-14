@@ -17,7 +17,7 @@ const EditRoom: FC<IEditRoom> = (props) => {
           title="Sửa thông tin phòng"
           desc="Sửa thông tin phòng"
           isHaveNavigateButton={true}
-          type="edit"
+          type="back"
           navigationName="Trở về danh sách phòng"
           link="/admin/room"
         />

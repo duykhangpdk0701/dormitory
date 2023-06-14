@@ -21,7 +21,7 @@ const PriorityPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IPriorityParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

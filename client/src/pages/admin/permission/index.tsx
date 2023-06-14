@@ -22,7 +22,7 @@ const PermissionPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IPermissionParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });
@@ -41,7 +41,7 @@ const PermissionPage: NextPageWithLayout = () => {
         const page = searchUrl.page
           ? parseInt(searchUrl.page as string)
           : undefined;
-        return adminPermission.getList(search, limit, page);
+        return adminPermission.getList(search, limit || 5, page || 1);
       }
       return undefined;
     },

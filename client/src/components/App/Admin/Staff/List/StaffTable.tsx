@@ -131,6 +131,9 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                   />
                 </TableCell>
                 <TableCell>Tên</TableCell>
+
+                <TableCell>Chức vụ</TableCell>
+
                 <TableCell>email</TableCell>
 
                 <TableCell>Đang làm việc</TableCell>
@@ -177,7 +180,7 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                     onRowsPerPageChange={(e) =>
                       rowPerPageOnChange(e.target.value)
                     }
-                    page={value}
+                    page={value - 1}
                     rowsPerPage={rowPerPageValue}
                     rowsPerPageOptions={[5, 10, 25, 30]}
                   />

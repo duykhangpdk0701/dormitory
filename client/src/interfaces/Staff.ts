@@ -1,11 +1,12 @@
 import IAccount from "./Account";
 import IAddress from "./Address";
+import IJob from "./Job";
 
 interface IStaff {
   _id: string;
   accountId: string;
   account: IAccount;
-  job: string;
+  job: IJob;
   address: IAddress;
   salary: number;
   isWorking: boolean;

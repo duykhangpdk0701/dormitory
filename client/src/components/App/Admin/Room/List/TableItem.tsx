@@ -14,6 +14,7 @@ import getStatusLabel from "@/components/StatusLabel";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import Link from "next/link";
+import BookingStatus from "@/enum/BookingStatus";
 
 interface IRoomTableItem {
   data: IRoom;
@@ -48,17 +49,7 @@ const RoomTableItem: FC<IRoomTableItem> = (props) => {
           <Link href={`/admin/room/${data._id}`}>{data.name}</Link>
         </Typography>
       </TableCell>
-      <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
-          {data.description}
-        </Typography>
-      </TableCell>
+
       <TableCell align="center">
         <Typography
           variant="body1"
@@ -76,7 +67,11 @@ const RoomTableItem: FC<IRoomTableItem> = (props) => {
         </Typography>
       </TableCell>
       <TableCell align="center">{data.area}</TableCell>
-      <TableCell align="right">{getStatusLabel("completed")}</TableCell>
+      <TableCell align="right">
+        {data.isActive
+          ? getStatusLabel(BookingStatus.Active)
+          : getStatusLabel(BookingStatus.Unactive)}
+      </TableCell>
       <TableCell align="right">
         <Tooltip title="Chỉnh sửa" arrow>
           <IconButton

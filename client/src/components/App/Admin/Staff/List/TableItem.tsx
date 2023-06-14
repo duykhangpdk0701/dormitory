@@ -46,6 +46,12 @@ const StaffTableItem: FC<IStaffTableItemProps> = (props) => {
 
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.job.name}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
           {data.account.email}
         </Typography>
       </TableCell>

@@ -10,7 +10,7 @@ const adminRoomTypeAPI = {
   ): Promise<IRoomType[]> => {
     const url = "/roomType";
     const searchUrl = queryString.stringifyUrl(
-      { url, query: { search, limit, page: page + 1 } },
+      { url, query: { search, limit, page: page } },
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);

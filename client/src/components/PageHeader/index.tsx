@@ -22,11 +22,11 @@ const PageHeader: FC<IPageHeader> = (props) => {
   const getIcon = () => {
     switch (type) {
       case "add":
-        return <ArrowBackIcon fontSize="small" />;
+        return <AddTwoToneIcon fontSize="small" />;
       case "edit":
         return <EditIcon fontSize="small" />;
       default:
-        return <AddTwoToneIcon fontSize="small" />;
+        return <ArrowBackIcon fontSize="small" />;
     }
   };
 

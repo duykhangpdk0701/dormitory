@@ -72,7 +72,7 @@ const EditRoomPage: NextPageWithLayout = () => {
       name: "",
       status: true,
     },
-    // resolver: yupResolver(createRoomSchema),
+    resolver: yupResolver(createRoomSchema),
   });
 
   const roomTypeQuery = useQuery({

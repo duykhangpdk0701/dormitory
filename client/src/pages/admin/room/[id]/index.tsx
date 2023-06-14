@@ -1,3 +1,4 @@
+import adminCivilianAPI from "@/api/admin/civilian";
 import adminRoomAPI from "@/api/admin/room";
 import RoomDetail from "@/components/App/Admin/Room/detail";
 import RoomDetailContent from "@/components/App/Admin/Room/detail/DetailContent";
@@ -22,10 +23,27 @@ const RoomDetailPage: NextPageWithLayout = () => {
     },
   });
 
+  const civilian = useQuery({
+    queryKey: ["civilian", id],
+    queryFn: () => {
+      if (id && typeof id !== "object") {
+        return adminCivilianAPI.getByRoomId(id);
+      }
+      return undefined;
+    },
+  });
+
   return (
     <>
       <PageHead title="Phòng | SGU domitory" />
-      <RoomDetail detail={<RoomDetailContent data={roomDetailQuery.data} />} />
+      <RoomDetail
+        detail={
+          <RoomDetailContent
+            data={roomDetailQuery.data}
+            civilianData={civilian.data}
+          />
+        }
+      />
     </>
   );
 };

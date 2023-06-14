@@ -11,7 +11,7 @@ const adminPriorityAPI = {
     const url = "/priority";
 
     const searchUrl = queryString.stringifyUrl(
-      { url, query: { search, limit, page: page ? page + 1 : undefined } },
+      { url, query: { search, limit, page: page ? page : undefined } },
       { arrayFormat: "index" }
     );
     const res = await axiosClient.get(searchUrl);
