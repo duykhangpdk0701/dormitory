@@ -1,17 +1,18 @@
 import { CryptoOrderStatus } from "@/models/crypto_order";
 import Label from "../Label";
+import BookingStatus from "@/enum/BookingStatus";
 
-const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
   const map = {
-    failed: {
-      text: "Failed",
+    Cancel: {
+      text: "Bị từ chối",
       color: "error",
     },
-    completed: {
+    Accepted: {
       text: "Đã duyệt",
       color: "success",
     },
-    pending: {
+    Pending: {
       text: "Pending",
       color: "warning",
     },

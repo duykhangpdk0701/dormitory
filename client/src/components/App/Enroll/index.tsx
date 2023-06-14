@@ -254,12 +254,21 @@ const Enroll: FC<IEnroll> = (props) => {
                   <Controller
                     name="roomTypeId"
                     control={control}
-                    render={({ field, fieldState: { invalid, error } }) => (
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { invalid, error },
+                    }) => (
                       <>
                         <FormControl fullWidth>
-                          <InputLabel id="roomt-type">Loại phòng</InputLabel>
+                          <InputLabel
+                            htmlFor="uncontrolled-native"
+                            id="roomt-type"
+                          >
+                            Loại phòng
+                          </InputLabel>
                           <Select
-                            {...field}
+                            value={value}
+                            onChange={onChange}
                             id="roomt-type"
                             fullWidth
                             error={invalid}
@@ -267,7 +276,9 @@ const Enroll: FC<IEnroll> = (props) => {
                             label="Loại phòng"
                           >
                             {roomTypeList?.map((item) => (
-                              <MenuItem value={item._id}>{item.name}</MenuItem>
+                              <MenuItem key={item._id} value={item._id}>
+                                {item.name}
+                              </MenuItem>
                             ))}
                           </Select>
                         </FormControl>
@@ -281,22 +292,24 @@ const Enroll: FC<IEnroll> = (props) => {
 
                 <Grid item xs={12}>
                   <Controller
-                    name="roomTypeId"
+                    name="priority"
                     control={control}
                     render={({ field, fieldState: { invalid, error } }) => (
                       <>
                         <FormControl fullWidth>
-                          <InputLabel id="roomt-type">Ưu tiên</InputLabel>
+                          <InputLabel id="priority">Ưu tiên</InputLabel>
                           <Select
                             {...field}
-                            id="roomt-type"
+                            id="priority"
                             fullWidth
                             error={invalid}
                             disabled={isLoadingPriority}
                             label="Ưu tiên"
                           >
                             {priorityList?.map((item) => (
-                              <MenuItem value={item._id}>{item.name}</MenuItem>
+                              <MenuItem key={item._id} value={item._id}>
+                                {item.name}
+                              </MenuItem>
                             ))}
                           </Select>
                         </FormControl>

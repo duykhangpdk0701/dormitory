@@ -22,5 +22,11 @@ const adminCivilianAPI = {
     const res = await axiosClient.get(url);
     return res.data;
   },
+
+  getByRoomId: async (id: string): Promise<ICivilian> => {
+    const url = `/civilian/?room=${id}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 export default adminCivilianAPI;

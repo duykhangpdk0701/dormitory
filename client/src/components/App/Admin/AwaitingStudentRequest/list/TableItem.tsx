@@ -19,6 +19,7 @@ import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import Link from "next/link";
+import BookingStatus from "@/enum/BookingStatus";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -133,7 +134,9 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           {data.email}
         </Typography>
       </TableCell>
-      <TableCell align="right">{getStatusLabel("pending")}</TableCell>
+      <TableCell align="right">
+        {getStatusLabel(data.status as BookingStatus)}
+      </TableCell>
       <TableCell align="right">
         <Tooltip title="Chấp nhận" arrow>
           <IconButton

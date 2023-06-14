@@ -48,29 +48,35 @@ const EnrollPage: NextPageWithLayout = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { control, handleSubmit, setValue } = useForm<IEnrollParams>({
-    resolver: yupResolver(erollSchema),
-  });
+  const { control, handleSubmit, setValue, getValues } = useForm<IEnrollParams>(
+    {
+      resolver: yupResolver(erollSchema),
+      defaultValues: {
+        roomTypeId: "",
+        priority: "",
+      },
+    }
+  );
 
   const roomTypeQuery = useQuery({
     queryKey: ["room-type-detail"],
     queryFn: () => roomTypeAPI.getListOfRoom(),
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      const searchUrl = router.query;
+      const roomTypeId = searchUrl["room-type"] as string | undefined;
+
+      if (roomTypeId) {
+        const index = data.map((item) => item._id).indexOf(roomTypeId);
+        setValue("roomTypeId", data[index]._id);
+      }
+    },
+    enabled: router.isReady,
   });
 
   const priorityQuery = useQuery({
     queryKey: ["priority-detail"],
     queryFn: () => adminPriorityAPI.getList(),
   });
-
-  useEffect(() => {
-    const searchUrl = router.query;
-    const roomTypeId = searchUrl.roomTypeId as string | undefined;
-    console.log(roomTypeId);
-    if (roomTypeId && roomTypeQuery.isFetched) {
-      setValue("roomTypeId", roomTypeId);
-    }
-  }, [roomTypeQuery.isFetched]);
 
   const enrollMutation = useMutation({
     mutationKey: ["enroll"],
@@ -111,7 +117,8 @@ const EnrollPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<IEnrollParams> = (data) => {
-    enrollMutation.mutate({ ...data });
+    // enrollMutation.mutate({ ...data });
+    console.log(data);
   };
 
   return (

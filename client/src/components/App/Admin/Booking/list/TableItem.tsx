@@ -20,6 +20,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import IBooking from "@/interfaces/Booking";
 import Link from "next/link";
+import BookingStatus from "@/enum/BookingStatus";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -116,7 +117,9 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           {data.email}
         </Typography>
       </TableCell>
-      <TableCell align="right">{getStatusLabel("completed")}</TableCell>
+      <TableCell align="right">
+        {getStatusLabel(data.status as BookingStatus)}
+      </TableCell>
       <TableCell align="right">
         <Tooltip title="Huỷ" arrow>
           <IconButton
