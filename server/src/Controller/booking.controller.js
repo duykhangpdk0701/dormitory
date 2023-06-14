@@ -105,7 +105,7 @@ class BookingController {
                 { $unwind: '$room.roomType' },
                 { $sort: { createdAt: -1 } }
             ]
-            const booking = await Booking.aggregate(aggregate)
+            let booking = await Booking.aggregate(aggregate)
             booking = booking[0]
             if (!booking) return res.status(500).json({ success: false, messages: 'Không tìm thấy thông tin đặt phòng' })
             res.json({ success: true, data: booking })
