@@ -118,7 +118,6 @@ const PermissionTable: FC<IPermissionTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

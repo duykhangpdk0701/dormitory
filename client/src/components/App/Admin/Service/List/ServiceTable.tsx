@@ -115,7 +115,6 @@ const ServiceTable: FC<IServiceTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

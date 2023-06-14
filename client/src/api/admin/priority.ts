@@ -25,7 +25,7 @@ const adminPriorityAPI = {
   },
 
   create: async (name: string, score: number): Promise<IPriority> => {
-    const url = "/priority";
+    const url = "/priority/store";
     const res = await axiosClient.post(url, { name, score });
     return res.data;
   },

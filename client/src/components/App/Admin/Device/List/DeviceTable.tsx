@@ -124,7 +124,6 @@ const DeviceTable: FC<IDeviceTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

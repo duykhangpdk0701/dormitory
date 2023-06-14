@@ -16,24 +16,13 @@ const RoomDetail: FC<IRoomDetail> = (props) => {
         <PageHeader
           title="Chi tiết Phòng"
           desc=" Đây là chi tiết phòng"
-          isHaveNavigateButton={false}
+          isHaveNavigateButton={true}
+          type="back"
           navigationName="Trở về danh sách phòng"
           link="/admin/room"
         />
       </PageTitleWrapper>
-      <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={3}
-        >
-          <Grid item xs={12}>
-            <Card>{detail}</Card>
-          </Grid>
-        </Grid>
-      </Container>
+      <Container maxWidth="lg">{detail}</Container>
       <Footer />
     </>
   );

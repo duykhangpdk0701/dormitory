@@ -115,7 +115,6 @@ const ContractTable: FC<IContractTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

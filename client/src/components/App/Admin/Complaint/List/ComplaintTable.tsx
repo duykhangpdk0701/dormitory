@@ -115,7 +115,6 @@ const ComplaintTable: FC<IComplaintTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

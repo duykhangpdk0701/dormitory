@@ -81,8 +81,8 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
         />
       </TableCell>
 
-      <Link href={`/admin/booking/${data._id}`}>
-        <TableCell>
+      <TableCell>
+        <Link href={`/admin/booking/${data._id}`}>
           <Typography
             variant="body1"
             fontWeight="bold"
@@ -92,8 +92,8 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           >
             {data.lastname + " " + data.firstname}
           </Typography>
-        </TableCell>
-      </Link>
+        </Link>
+      </TableCell>
       <TableCell>
         <Typography
           variant="body1"

@@ -1,7 +1,7 @@
 import { Skeleton, TableCell, TableRow } from "@mui/material";
 import React from "react";
 
-const ServiceTableItemLoading = () => {
+const StaffTableItemLoading = () => {
   return (
     <TableRow hover>
       <TableCell className="px-auto">
@@ -35,4 +35,4 @@ const ServiceTableItemLoading = () => {
   );
 };
 
-export default ServiceTableItemLoading;
+export default StaffTableItemLoading;

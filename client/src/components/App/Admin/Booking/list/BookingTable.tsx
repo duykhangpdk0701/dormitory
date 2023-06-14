@@ -142,7 +142,6 @@ const BookingTable: FC<IBookingTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

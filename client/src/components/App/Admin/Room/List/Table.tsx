@@ -119,7 +119,6 @@ const RoomTable: FC<IRoomTable> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

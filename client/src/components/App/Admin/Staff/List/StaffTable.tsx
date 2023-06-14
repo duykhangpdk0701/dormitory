@@ -115,7 +115,6 @@ const StaffTable: FC<IStaffTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

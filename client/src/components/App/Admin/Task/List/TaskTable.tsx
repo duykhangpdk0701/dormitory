@@ -115,7 +115,6 @@ const TaskTable: FC<ITaskTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

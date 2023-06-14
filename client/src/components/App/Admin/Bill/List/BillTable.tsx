@@ -116,7 +116,6 @@ const BillTable: FC<IBillTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

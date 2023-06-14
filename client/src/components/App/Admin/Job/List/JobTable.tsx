@@ -114,7 +114,6 @@ const JobTable: FC<IJobTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

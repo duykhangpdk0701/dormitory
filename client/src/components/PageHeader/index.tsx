@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Typography, Button, Grid } from "@mui/material";
 
 import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditIcon from "@mui/icons-material/Edit";
 import Link from "next/link";
 
 interface IPageHeader {
@@ -10,10 +12,23 @@ interface IPageHeader {
   isHaveNavigateButton: boolean;
   navigationName?: string;
   link?: string;
+  type?: "add" | "back" | "edit";
 }
 
 const PageHeader: FC<IPageHeader> = (props) => {
-  const { title, desc, isHaveNavigateButton, link, navigationName } = props;
+  const { title, desc, isHaveNavigateButton, link, navigationName, type } =
+    props;
+
+  const getIcon = () => {
+    switch (type) {
+      case "add":
+        return <ArrowBackIcon fontSize="small" />;
+      case "edit":
+        return <EditIcon fontSize="small" />;
+      default:
+        return <AddTwoToneIcon fontSize="small" />;
+    }
+  };
 
   return (
     <Grid container justifyContent="space-between" alignItems="center">
@@ -30,7 +45,7 @@ const PageHeader: FC<IPageHeader> = (props) => {
             href={link}
             sx={{ mt: { xs: 2, md: 0 } }}
             variant="contained"
-            startIcon={<AddTwoToneIcon fontSize="small" />}
+            startIcon={getIcon()}
           >
             {navigationName}
           </Button>

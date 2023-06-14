@@ -114,7 +114,6 @@ const ViolationTable: FC<IViolationTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

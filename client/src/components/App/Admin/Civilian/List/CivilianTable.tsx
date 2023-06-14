@@ -116,7 +116,6 @@ const CivilianTable: FC<ICivilianTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

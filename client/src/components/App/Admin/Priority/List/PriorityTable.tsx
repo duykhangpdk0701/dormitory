@@ -121,7 +121,6 @@ const PriorityTable: FC<IPriorityTableProps> = (props) => {
                 />
               </Box>
             }
-            title="Recent Orders"
           />
         )}
         <Divider />

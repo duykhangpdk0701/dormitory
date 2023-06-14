@@ -37,19 +37,17 @@ const RoomTableItem: FC<IRoomTableItem> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <Link href={`/admin/room/${data._id}`}>
-        <TableCell>
-          <Typography
-            variant="body1"
-            fontWeight="bold"
-            color="text.primary"
-            gutterBottom
-            noWrap
-          >
-            {data.name}
-          </Typography>
-        </TableCell>
-      </Link>
+      <TableCell>
+        <Typography
+          variant="body1"
+          fontWeight="bold"
+          color="text.primary"
+          gutterBottom
+          noWrap
+        >
+          <Link href={`/admin/room/${data._id}`}>{data.name}</Link>
+        </Typography>
+      </TableCell>
       <TableCell>
         <Typography
           variant="body1"

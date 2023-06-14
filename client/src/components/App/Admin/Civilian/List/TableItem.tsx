@@ -102,25 +102,6 @@ const CivilianTableItem: FC<ICivilianTableItemProps> = (props) => {
           {data.studentId}
         </Typography>
       </TableCell>
-
-      <TableCell align="right">
-        <Tooltip title="Chỉnh sửa" arrow>
-          <IconButton
-            sx={{
-              "&:hover": {
-                background: theme.colors.primary.lighter,
-              },
-              color: theme.palette.primary.main,
-            }}
-            color="inherit"
-            size="small"
-            LinkComponent={Link}
-            href={`/admin/permission/${data._id}`}
-          >
-            <EditTwoToneIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </TableCell>
     </TableRow>
   );
 };
