@@ -179,8 +179,9 @@ const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
   return (
     <>
       <MenuWrapper>
-        {menu.map((item) => (
+        {menu.map((item, index) => (
           <List
+            key={index}
             component="div"
             subheader={
               <ListSubheader component="div" disableSticky>
@@ -190,8 +191,9 @@ const SidebarMenu: FC<ISidebarMenu> = ({ menuType }) => {
           >
             <SubMenuWrapper>
               <List component="div">
-                {item.child.map((itemChild) => (
+                {item.child.map((itemChild, indexChilde) => (
                   <ListItem
+                    key={indexChilde}
                     component="div"
                     selected={asPath === itemChild.link}
                   >
