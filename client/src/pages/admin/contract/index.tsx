@@ -24,7 +24,7 @@ const ContractPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IContractParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

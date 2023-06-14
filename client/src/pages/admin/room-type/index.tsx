@@ -22,7 +22,7 @@ const RoomTypePage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IRoomTypeParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

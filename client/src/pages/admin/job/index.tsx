@@ -21,7 +21,7 @@ const JobPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IJobParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

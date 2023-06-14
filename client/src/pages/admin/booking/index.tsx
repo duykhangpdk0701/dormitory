@@ -21,7 +21,7 @@ const BookingPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IBookingParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

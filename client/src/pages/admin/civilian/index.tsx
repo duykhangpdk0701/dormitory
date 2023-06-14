@@ -21,7 +21,7 @@ const CivilianPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<ICivilianParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

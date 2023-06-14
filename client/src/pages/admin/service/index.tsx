@@ -21,7 +21,7 @@ const ServicePage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IServiceParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

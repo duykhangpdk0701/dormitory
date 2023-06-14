@@ -21,7 +21,7 @@ const StaffPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IStaffParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

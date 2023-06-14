@@ -21,7 +21,7 @@ const BillPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IBillParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

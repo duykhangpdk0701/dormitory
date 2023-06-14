@@ -21,7 +21,7 @@ const TaskPage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<ITaskParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });

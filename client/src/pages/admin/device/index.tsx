@@ -21,7 +21,7 @@ const DevicePage: NextPageWithLayout = () => {
 
   const { control, handleSubmit, watch } = useForm<IDeviceParams>({
     defaultValues: {
-      page: 0,
+      page: 1,
       rowPerPage: 5,
     },
   });
