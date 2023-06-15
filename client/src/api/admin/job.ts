@@ -6,7 +6,7 @@ const adminJobAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IJob[]> => {
     const url = "/job";
     const searchUrl = queryString.stringifyUrl(

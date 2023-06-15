@@ -16,9 +16,10 @@ const ProfileEdit: FC<IProfileUpdate> = (props) => {
         <PageHeader
           title="Chỉnh sửa trang cá nhân"
           desc=" Đây là chi tiết thông tin cá nhân"
-          isHaveNavigateButton={false}
-          navigationName="Trở về danh sách phòng"
-          link="/admin/room"
+          isHaveNavigateButton={true}
+          type="back"
+          navigationName="Trở về thông tin cá nhân"
+          link="/profile"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

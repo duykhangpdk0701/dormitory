@@ -6,7 +6,7 @@ const adminViolationAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IViolation[]> => {
     const url = "/violation";
     const searchUrl = queryString.stringifyUrl(

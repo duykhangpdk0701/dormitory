@@ -25,11 +25,28 @@ const CivilianDetailPage: NextPageWithLayout = () => {
     },
   });
 
+  const civilianGetByRoomId = useQuery({
+    queryKey: ["civilian-detail"],
+    queryFn: () => {
+      const roomId = civilianDetailQuery.data?.room._id;
+      if (roomId) {
+        return adminCivilianAPI.getByRoomId(roomId);
+      }
+      return undefined;
+    },
+    enabled: civilianDetailQuery.isFetched,
+  });
+
   return (
     <>
       <PageHead title="Cư dân | SGU domitory" />
       <CivilianDetail
-        detail={<CivilianDetailContent data={civilianDetailQuery.data} />}
+        detail={
+          <CivilianDetailContent
+            data={civilianDetailQuery.data}
+            civilianByRoom={civilianGetByRoomId.data}
+          />
+        }
       />
     </>
   );

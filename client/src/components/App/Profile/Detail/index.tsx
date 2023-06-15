@@ -1,26 +1,25 @@
+import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
+import { Container, Grid } from "@mui/material";
 import React, { FC, ReactNode } from "react";
-import { Container, Grid, Card } from "@mui/material";
-import Footer from "@/components/Footer";
 
-interface ICivlian {
-  table: ReactNode;
+interface IProfileDetail {
+  detail: ReactNode;
 }
 
-const Civilian: FC<ICivlian> = (props) => {
-  const { table } = props;
-
+const ProfileDetail: FC<IProfileDetail> = (props) => {
+  const { detail } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Danh sách Cư dân"
-          desc="Dưới đây là danh sách các trong hệ thống"
-          isHaveNavigateButton={false}
-          type="add"
-          navigationName="Thêm cư dân"
-          link="/admin/civilian/create"
+          title="Thông tin cá nhân"
+          desc=" Đây là chi tiết thông tin cá nhân"
+          isHaveNavigateButton={true}
+          type="edit"
+          navigationName="Chỉnh sửa"
+          link="/profile/edit"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -32,7 +31,7 @@ const Civilian: FC<ICivlian> = (props) => {
           spacing={3}
         >
           <Grid item xs={12}>
-            <Card>{table}</Card>
+            {detail}
           </Grid>
         </Grid>
       </Container>
@@ -41,4 +40,4 @@ const Civilian: FC<ICivlian> = (props) => {
   );
 };
 
-export default Civilian;
+export default ProfileDetail;

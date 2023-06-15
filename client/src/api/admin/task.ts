@@ -6,7 +6,7 @@ const adminTaskAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<ITask[]> => {
     const url = "/task";
     const searchUrl = queryString.stringifyUrl(

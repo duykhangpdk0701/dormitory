@@ -6,7 +6,7 @@ const adminPermissionAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IPermission[]> => {
     const url = "/permission";
     const searchUrl = queryString.stringifyUrl(

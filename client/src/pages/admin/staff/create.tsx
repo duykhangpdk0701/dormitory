@@ -55,6 +55,9 @@ const StaffCreatePage: NextPageWithLayout = () => {
 
   const { control, handleSubmit } = useForm<IStaffCreateParams>({
     resolver: yupResolver(staffCreateSchema),
+    defaultValues: {
+      job: "",
+    },
   });
 
   const staffCreateMutation = useMutation({

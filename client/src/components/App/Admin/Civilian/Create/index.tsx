@@ -18,6 +18,7 @@ const CivilianCreate: FC<ICivilianCreate> = (props) => {
           title="Thêm cư dân"
           desc="Tạo cư dân mới"
           isHaveNavigateButton={true}
+          type="add"
           navigationName="Trở về danh sách cư dân"
           link="/admin/civilian"
         />

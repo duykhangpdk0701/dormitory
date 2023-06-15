@@ -14,9 +14,12 @@ const CivilianDetail: FC<ICivilianDetail> = (props) => {
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Chi tiết sinh viên đã duyệt"
-          desc=" Đây là chi tiết sinh viên đã được duyệt"
-          isHaveNavigateButton={false}
+          title="Chi tiết Cư dân"
+          desc=" Đây là chi tiết Cư dân"
+          isHaveNavigateButton
+          type="back"
+          navigationName="Về trang danh sách"
+          link="/admin/civilian"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -28,7 +31,7 @@ const CivilianDetail: FC<ICivilianDetail> = (props) => {
           spacing={3}
         >
           <Grid item xs={12}>
-            <Card>{detail}</Card>
+            {detail}
           </Grid>
         </Grid>
       </Container>

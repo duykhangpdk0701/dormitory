@@ -60,7 +60,7 @@ const adminMenu = [
     subheader: "Cá nhân",
     child: [
       {
-        link: "/profile/edit",
+        link: "/profile",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Trang cá nhân",
       },

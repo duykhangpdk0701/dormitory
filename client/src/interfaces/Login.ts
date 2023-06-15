@@ -5,9 +5,14 @@ interface ILogin {
   messages: string;
   accessToken: string;
   user: {
+    avatar: string;
     _id: string;
     username: string;
     password: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone: string;
     permission: {
       _id: string;
       name: string;

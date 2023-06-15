@@ -16,8 +16,8 @@ export interface ILoginParams {
 
 const loginSchema = yup
   .object({
-    username: yup.string().required(),
-    password: yup.string().required(),
+    username: yup.string().required("Vui lòng nhập tên đăng nhập!"),
+    password: yup.string().required("Vui lòng nhập mật khẩu!"),
   })
   .required();
 

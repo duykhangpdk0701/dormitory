@@ -77,8 +77,8 @@ const CivilianTableItem: FC<ICivilianTableItemProps> = (props) => {
           value={isSelected}
         />
       </TableCell>
-      <Link href={`/admin/civilian/${data._id}`}>
-        <TableCell>
+      <TableCell>
+        <Link href={`/admin/civilian/${data._id}`}>
           <Typography
             variant="body1"
             fontWeight="bold"
@@ -88,18 +88,24 @@ const CivilianTableItem: FC<ICivilianTableItemProps> = (props) => {
           >
             {`${data.account.lastname} ${data.account.firstname}`}
           </Typography>
-        </TableCell>
-      </Link>
+        </Link>
+      </TableCell>
 
       <TableCell>
-        <Typography
-          variant="body1"
-          fontWeight="bold"
-          color="text.primary"
-          gutterBottom
-          noWrap
-        >
+        <Typography color="text.primary" gutterBottom noWrap>
           {data.studentId}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.account.phone}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
+          {data.account.email}
         </Typography>
       </TableCell>
     </TableRow>

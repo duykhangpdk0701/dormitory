@@ -6,7 +6,7 @@ const adminDeviceAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IDevice[]> => {
     const url = "/device";
     const searchUrl = queryString.stringifyUrl(

@@ -6,7 +6,7 @@ const adminBookingRequest = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<any[]> => {
     const url = "/bookingRequest";
     const searchUrl = queryString.stringifyUrl(

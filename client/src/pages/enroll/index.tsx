@@ -91,6 +91,7 @@ const EnrollPage: NextPageWithLayout = () => {
       province,
       district,
       street,
+      images,
     }: IEnrollParams) => {
       setLoading(true);
       return bookingRequestAPI.create(
@@ -103,7 +104,8 @@ const EnrollPage: NextPageWithLayout = () => {
         priority,
         province,
         district,
-        street
+        street,
+        images
       );
     },
     onSuccess: async (data) => {
@@ -117,8 +119,7 @@ const EnrollPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<IEnrollParams> = (data) => {
-    // enrollMutation.mutate({ ...data });
-    console.log(data);
+    enrollMutation.mutate({ ...data });
   };
 
   return (

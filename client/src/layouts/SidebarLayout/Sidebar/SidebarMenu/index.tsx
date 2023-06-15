@@ -1,4 +1,4 @@
-import { FC, useContext, useMemo } from "react";
+import { FC } from "react";
 
 import {
   ListSubheader,
@@ -10,9 +10,7 @@ import {
   ListItem,
 } from "@mui/material";
 import Link from "next/link";
-import { SidebarContext } from "@/contexts/SidebarContext";
 import adminMenu, { staffMenu, userMenu } from "./getListSidebarMenu";
-import getMenu from "./getListSidebarMenu";
 import { useAppDispatch } from "@/hooks/redux";
 import { closeSidebarAction } from "@/contexts/slices/sidebarSlice";
 import { useRouter } from "next/router";

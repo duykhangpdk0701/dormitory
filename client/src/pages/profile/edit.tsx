@@ -35,7 +35,6 @@ const EditPage: NextPageWithLayout = () => {
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<IUpdateUserParams>({ resolver: yupResolver(updateBrandSchema) });
 

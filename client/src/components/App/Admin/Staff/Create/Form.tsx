@@ -33,15 +33,8 @@ interface IStaffFormCreate {
 }
 
 const StaffFormCreate: FC<IStaffFormCreate> = (props) => {
-  const {
-    control,
-    handleSubmit,
-    onSubmit,
-    isLoading,
-    errorResMessage,
-    job,
-    isLoadingJob,
-  } = props;
+  const { control, handleSubmit, onSubmit, isLoading, job, isLoadingJob } =
+    props;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -128,7 +121,9 @@ const StaffFormCreate: FC<IStaffFormCreate> = (props) => {
                         label="Loại phòng"
                       >
                         {job?.map((item) => (
-                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                          <MenuItem key={item._id} value={item._id}>
+                            {item.name}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>

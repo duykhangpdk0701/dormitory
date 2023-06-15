@@ -40,7 +40,6 @@ const adminRoomAPI = {
     const data = new FormData();
     data.append("name", name);
     data.append("description", desc);
-
     data.append("isActive", isActive ? "1" : "0");
     data.append("numberPeople", numberPeople.toString());
     data.append("numberBed", numberBed.toString());
@@ -87,7 +86,7 @@ const adminRoomAPI = {
     data.append("floor", floor.toString());
     data.append("price", price.toString());
     images.forEach((value) => {
-      data.append("images[]", value);
+      // data.append("images[]", value);
     });
     data.append("roomType", roomType);
     const url = `/room/${id}`;

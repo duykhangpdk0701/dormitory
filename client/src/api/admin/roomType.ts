@@ -6,7 +6,7 @@ const adminRoomTypeAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IRoomType[]> => {
     const url = "/roomType";
     const searchUrl = queryString.stringifyUrl(

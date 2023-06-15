@@ -35,7 +35,7 @@ const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
 
     Paid: {
       text: "Đã thanh toán",
-      color: "success",
+      color: "info",
     },
   };
 

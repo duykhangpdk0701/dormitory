@@ -1,5 +1,6 @@
 import IAddress from "./Address";
 import IAccount from "./Account";
+import IRoom from "./Room";
 
 interface ICivilian {
   _id: string;
@@ -11,6 +12,7 @@ interface ICivilian {
   createdAt: string;
   updatedAt: string;
   account: IAccount;
+  room: IRoom;
 }
 
 export default ICivilian;

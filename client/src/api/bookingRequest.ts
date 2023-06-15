@@ -11,22 +11,27 @@ const bookingRequestAPI = {
     priority: string,
     province: string,
     district: string,
-    street: string
+    street: string,
+    images: File[]
   ) => {
-    const url = "/bookingRequest/store";
-    const res = await axiosClient.post(url, {
-      firstname,
-      lastname,
-      studentId,
-      email,
-      phone,
-      dateOfBirth,
-      priority,
-      province,
-      district,
-      street,
+    const data = new FormData();
+    data.append("firstname", firstname);
+    data.append("lastname", lastname);
+    data.append("studentId", studentId);
+    data.append("email", email);
+    data.append("phone", phone);
+    data.append("dateOfBirth", dateOfBirth);
+    data.append("priority", priority);
+    data.append("province", province);
+    data.append("district", district);
+    data.append("street", street);
+    images.forEach((value) => {
+      data.append("image[]", value);
     });
-    return res;
+    const url = "/bookingRequest/store";
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const res = await axiosClient.post(url, data, config);
+    return res.data;
   },
 };
 

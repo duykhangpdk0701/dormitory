@@ -133,6 +133,8 @@ const CivilianTable: FC<ICivilianTableProps> = (props) => {
                 </TableCell>
                 <TableCell>Tên</TableCell>
                 <TableCell>MSSV</TableCell>
+                <TableCell>Điện thoại</TableCell>
+                <TableCell>Email</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>

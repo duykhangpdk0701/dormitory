@@ -6,7 +6,7 @@ const adminComplaintAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IComplaint[]> => {
     const url = "/complaint";
     const searchUrl = queryString.stringifyUrl(
