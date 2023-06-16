@@ -50,6 +50,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
     mutationKey: ["awaiting-student-request"],
     mutationFn: () => adminBookingRequest.accepted(data._id),
     onSuccess: async () => {
+      await queryClient.refetchQueries(["awating-student-request"]);
       dispatch(
         setSnackbar({
           snackbarOpen: true,
@@ -57,7 +58,6 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Chấp nhận thành công",
         })
       );
-      await queryClient.refetchQueries(["awating-student-request"]);
       setIsLoading(false);
     },
     onError: (error: any) => {
@@ -76,6 +76,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
     mutationKey: ["awaiting-student-request"],
     mutationFn: () => adminBookingRequest.cancel(data._id),
     onSuccess: async () => {
+      await queryClient.refetchQueries(["awating-student-request"]);
       dispatch(
         setSnackbar({
           snackbarOpen: true,
@@ -83,7 +84,6 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Từ chối thành công",
         })
       );
-      await queryClient.refetchQueries(["awating-student-request"]);
       setIsLoading(false);
     },
     onError: (error: any) => {
@@ -183,7 +183,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
       </TableRow>
       <Backdrop
         className="z-[1000]"
-        open={acceptRequestMutation.isLoading || denyRequestMutation.isLoading}
+        open={isLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

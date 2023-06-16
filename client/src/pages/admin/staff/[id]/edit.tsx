@@ -91,7 +91,7 @@ const StaffUpdatePage: NextPageWithLayout = () => {
       data?.account.dateOfBirth &&
         setValue("dateOfBirth", new Date(data.account.dateOfBirth));
       data?.account.email && setValue("email", data.account.email);
-      data?.job && setValue("job", data.job);
+      data?.job && setValue("job", data.job.name);
       data?.account.phone && setValue("phone", data.account.phone);
     },
   });

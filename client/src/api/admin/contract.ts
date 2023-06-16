@@ -6,7 +6,7 @@ const adminContractAPI = {
   getList: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IContract[]> => {
     const url = "/contract";
     const searchUrl = queryString.stringifyUrl(

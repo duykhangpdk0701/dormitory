@@ -15,9 +15,7 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import getStatusLabel from "@/components/StatusLabel";
-import IBookingRequest from "@/interfaces/BookingRequest";
 import { useMutation, useQueryClient } from "react-query";
-import adminBookingRequest from "@/api/admin/bookingRequest";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import IBooking from "@/interfaces/Booking";
@@ -25,7 +23,6 @@ import Link from "next/link";
 import BookingStatus from "@/enum/BookingStatus";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import adminBooking from "@/api/admin/booking";
-import { error } from "console";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
