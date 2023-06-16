@@ -115,6 +115,17 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Thay đôi thành công thành công",
         })
       );
+      setIsLoading(false);
+    },
+    onError: () => {
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: "Xin vui lòng thử lại sau",
+        })
+      );
+      setIsLoading(false);
     },
   });
 
