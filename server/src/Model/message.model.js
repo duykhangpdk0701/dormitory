@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const Message = new Schema(
     {
@@ -22,5 +23,9 @@ const Message = new Schema(
         timestamps: true,
     }
 )
+
+Message.plugin(mongoose_delete, {
+    deletedAt: true
+})
 
 module.exports = mongoose.model('Message', Message);

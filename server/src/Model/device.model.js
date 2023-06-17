@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const Device = new Schema(
     {
@@ -30,5 +31,9 @@ const Device = new Schema(
         timestamps: true,
     }
 )
+
+Device.plugin(mongoose_delete, {
+    deletedAt: true
+})
 
 module.exports = mongoose.model('device', Device)

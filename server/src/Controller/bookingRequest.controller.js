@@ -15,6 +15,11 @@ class BookingRequestController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "priorities",
                         localField: "priority",
@@ -145,24 +150,24 @@ class BookingRequestController {
                 { $match: { roomType: new mongoose.Types.ObjectId(bookingRequest.roomType) } },
                 {
                     $lookup: {
-                        from: "occupancies",
+                        from: "contracts",
                         localField: "_id",
                         foreignField: "roomId",
-                        as: "occupancies"
+                        as: "contracts"
                     }
                 },
             ]
             const rooms = await Room.aggregate(aggregate)
             let room = ''
             for(var i = 0; i < rooms.length; i++){
-                if(rooms[i].numberPeople > rooms[i].occupancies.length && rooms[i].occupancies.length > 0){
-                    const civilian = await Civilian.findById(rooms[i].occupancies[0].civilianId)
+                if(rooms[i].numberPeople > rooms[i].contracts.length && rooms[i].contracts.length > 0){
+                    const civilian = await Civilian.findById(rooms[i].contracts[0].civilianId)
                     const account = await Account.findById(civilian.accountId)
                     if(account.gender && account.gender == bookingRequest._doc.gender){
                         room = rooms[i]
                         break
                     }
-                }else if(rooms[i].occupancies.length == 0){
+                }else if(rooms[i].contracts.length == 0){
                     room = rooms[i]
                     break
                 }

@@ -11,6 +11,11 @@ class BillController {
             let aggregate = [];
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "rooms",
                         localField: "roomId",

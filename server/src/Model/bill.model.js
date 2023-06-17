@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const Bill = new Schema(
     {
@@ -33,5 +34,9 @@ const Bill = new Schema(
         timestamps: true,
     }
 )
+
+Bill.plugin(mongoose_delete, {
+    deletedAt: true
+})
 
 module.exports = mongoose.model('bill', Bill)

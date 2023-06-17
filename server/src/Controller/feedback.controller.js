@@ -8,6 +8,11 @@ class FeedbackController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "civilians",
                         localField: "civilianId",
