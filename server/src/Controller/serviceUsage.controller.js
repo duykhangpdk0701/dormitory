@@ -8,6 +8,11 @@ class ServiceUsageController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "services",
                         localField: "serviceId",

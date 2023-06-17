@@ -4,7 +4,13 @@ class RoomTypeController {
     async showAll(req, res) {
         try {
             const filter = req.query || null
-            let aggregate = []
+            let aggregate = [
+                {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+            ]
             if (filter) {
                 if (filter.search) {
                     aggregate.push(

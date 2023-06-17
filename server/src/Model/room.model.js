@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const Room = new Schema(
     {
@@ -47,5 +48,9 @@ const Room = new Schema(
         timestamps: true,
     }
 )
+
+Room.plugin(mongoose_delete, {
+    deletedAt: true
+})
 
 module.exports = mongoose.model('room', Room)

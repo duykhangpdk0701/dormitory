@@ -25,6 +25,11 @@ class ContractController {
             let aggregate = [];
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "rooms",
                         localField: "roomId",
@@ -33,42 +38,6 @@ class ContractController {
                     },
                 },
                 { $unwind: "$room" },
-                {
-                    $lookup: {
-                        from: "staffs",
-                        localField: "staffId",
-                        foreignField: "_id",
-                        as: "staff",
-                    },
-                },
-                { $unwind: "$staff" },
-                {
-                    $lookup: {
-                        from: "users",
-                        localField: "staff.accountId",
-                        foreignField: "_id",
-                        as: "staff.account",
-                    },
-                },
-                { $unwind: "$staff.account" },
-                {
-                    $lookup: {
-                        from: "addresses",
-                        localField: "staff.address",
-                        foreignField: "_id",
-                        as: "staff.address",
-                    },
-                },
-                { $unwind: "$staff.address" },
-                {
-                    $lookup: {
-                        from: "jobs",
-                        localField: "staff.job",
-                        foreignField: "_id",
-                        as: "staff.job",
-                    },
-                },
-                { $unwind: "$staff.job" },
                 {
                     $lookup: {
                         from: "civilians",
@@ -109,13 +78,6 @@ class ContractController {
                         },
                     });
                 }
-                // if (filter.date) {
-                //     aggregate.push(
-                //         {
-                //             $match: { createdAt: filter.date }
-                //         }
-                //     )
-                // }
                 if (filter.page) {
                     aggregate.push({
                         $skip:

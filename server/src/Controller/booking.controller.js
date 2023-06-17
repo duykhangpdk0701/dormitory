@@ -17,6 +17,11 @@ class BookingController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "rooms",
                         localField: "room",
@@ -209,7 +214,6 @@ class BookingController {
             const hashpassword = await argon2.hash('123');
             const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone, gender}) 
             await account.save()
-            // return res.status(500).json({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address, roomId: booking.room})
             const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address, roomId: booking.room})
             await civilian.save()
             const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart, totalPrice: booking.totalPrice})
@@ -231,8 +235,7 @@ class BookingController {
 
             booking = await Booking.findOne({ _id: id});
             if (!booking) return res.json({ success: false, messages: 'Cant update booking' })
-
-            const checkAccount = Account({ username: booking.studentId + "@dormitory" })
+            const checkAccount = await Account.findOne({ username: booking.studentId + "@dormitory" })
             if(checkAccount) return res.json({ success: false, messages: 'Cant deposit because have deposited before' })
 
             const {firstname, lastname, dateOfBirth, email, phone, gender } = booking
@@ -240,9 +243,9 @@ class BookingController {
             const hashpassword = await argon2.hash('123');
             const account = new Account({ username: booking.studentId + "@dormitory", password: hashpassword, permission: permission._id, firstname, lastname, dateOfBirth, email, phone, gender})
             await account.save()
-            const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address})
+            const civilian = new Civilian({ accountId: account._id, ...booking, studentId: booking.studentId, address: booking.address, roomId: booking.room})
             await civilian.save()
-            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart})
+            const contract = new Contract({ roomId: booking.room, civilianId: civilian._id, accountId: account._id, ...booking, checkInDate: booking.dateStart, totalPrice: booking.totalPrice})
             await contract.save()
 
             res.json({ success: true, messages: 'deposit' })

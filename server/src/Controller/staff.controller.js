@@ -12,6 +12,11 @@ class StaffController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "users",
                         localField: "accountId",

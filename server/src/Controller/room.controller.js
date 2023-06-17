@@ -8,6 +8,11 @@ class RoomController {
             let aggregate = []
             const deFault = [
                 {
+                    $match: {
+                        deleted: { $ne: true }
+                    }
+                },
+                {
                     $lookup: {
                         from: "roomtypes",
                         localField: "roomType",

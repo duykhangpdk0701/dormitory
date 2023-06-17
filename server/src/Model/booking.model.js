@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const Booking = new Schema(
     {
-        room: {
+        roomType: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "rooms"
+            ref: "roomTypes"
         },
         firstname: {
             type: String,
@@ -63,5 +64,9 @@ const Booking = new Schema(
         timestamps: true,
     }
 )
+
+Booking.plugin(mongoose_delete, {
+    deletedAt: true
+})
 
 module.exports = mongoose.model('booking', Booking)
