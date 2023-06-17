@@ -30,7 +30,7 @@ export interface IRoomTypeEditParams {
 const roomTypeEditSchema = yup.object({
   name: yup.string().required(),
   desc: yup.string().required(),
-  price: yup.string().required(),
+  price: yup.number().required(),
   images: yup.object().required(),
 });
 
@@ -51,9 +51,10 @@ const RoomTypeEditPage: NextPageWithLayout = () => {
         return adminRoomTypeAPI.getById(id);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       data?.name && setValue("name", data.name);
       data?.description && setValue("desc", data.description);
+      data?.price && setValue("price", data.price);
     },
     onError: (error: any) => {
       if (error.code === 500) {

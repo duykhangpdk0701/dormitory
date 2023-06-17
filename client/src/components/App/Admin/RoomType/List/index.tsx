@@ -17,6 +17,7 @@ const RoomType: FC<IRooms> = (props) => {
           title="Danh sách loại phòng"
           desc="Dưới đây là danh sách các loại phòng trong hệ thống"
           isHaveNavigateButton={true}
+          type="add"
           navigationName="Thêm loại phòng"
           link="/admin/room-type/create"
         />

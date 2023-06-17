@@ -133,7 +133,7 @@ const RoomTypeTable: FC<IRoomTypeTableProps> = (props) => {
                   />
                 </TableCell>
                 <TableCell>Tên</TableCell>
-                <TableCell>Mô tả</TableCell>
+                <TableCell>Giá</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>
             </TableHead>
@@ -146,6 +146,7 @@ const RoomTypeTable: FC<IRoomTypeTableProps> = (props) => {
                     );
                     return (
                       <RoomTypeTableItem
+                        key={roomType._id}
                         data={roomType}
                         isSelected={isSelected}
                         handleSelectOneCryptoOrder={handleSelectOneCryptoOrder}

@@ -67,6 +67,7 @@ function HeaderUserbox() {
           : null,
       avatar:
         typeof window !== "undefined" ? sessionStorage.getItem("avatar") : null,
+
       jobtitle:
         typeof window !== "undefined" ? sessionStorage.getItem("role") : null,
     };
@@ -87,7 +88,11 @@ function HeaderUserbox() {
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
         {user.avatar ? (
-          <Avatar variant="rounded" alt={user.name || ""} src={user?.avatar} />
+          <Avatar
+            variant="rounded"
+            alt={user.name || ""}
+            src={process.env.NEXT_PUBLIC_SERVER_URL + user.avatar}
+          />
         ) : (
           <Avatar variant="rounded" />
         )}
@@ -122,7 +127,7 @@ function HeaderUserbox() {
             <Avatar
               variant="rounded"
               alt={user.name || ""}
-              src={user?.avatar}
+              src={process.env.NEXT_PUBLIC_SERVER_URL + user?.avatar}
             />
           ) : (
             <Avatar variant="rounded" />
@@ -136,7 +141,7 @@ function HeaderUserbox() {
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
-          <ListItem button href="/management/profile/details" component={Link}>
+          <ListItem button href="/profile" component={Link}>
             <AccountBoxTwoToneIcon fontSize="small" />
             <ListItemText primary="Thông tin cá nhân" />
           </ListItem>

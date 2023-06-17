@@ -6,7 +6,7 @@ const adminBillAPI = {
   getAll: async (
     search?: string,
     limit: number = 5,
-    page: number = 0
+    page: number = 1
   ): Promise<IBill[]> => {
     const url = "/bill";
     const searchUrl = queryString.stringifyUrl(

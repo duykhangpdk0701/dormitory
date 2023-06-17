@@ -18,6 +18,7 @@ const Priority: FC<IPriority> = (props) => {
           title="Danh sách quyền"
           desc="Dưới đây là danh sách các quền truy cập vào hệ thống"
           isHaveNavigateButton={true}
+          type="add"
           navigationName="Tạo mới quyền truy cập"
           link="/admin/priority/create"
         />

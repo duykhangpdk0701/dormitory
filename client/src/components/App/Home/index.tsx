@@ -17,6 +17,7 @@ import service7Img from "@/assets/home/service/service7.png";
 import service8Img from "@/assets/home/service/service8.png";
 import contactImg from "@/assets/home/contact/contact.jpeg";
 import entertainment from "@/assets/home/entertainment.jpg";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const Home: FC = (props) => {
   return (
@@ -28,14 +29,18 @@ const Home: FC = (props) => {
         />
 
         <div className="absolute left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4">
-          <div className="bg-white/70 py-12 px-20 text-center shadow-2xl">
-            <span className="uppercase font-bold">Đại học Sài Gòn</span>
-            <h1 className="text-5xl text-black leading-normal whitespace-nowrap">
-              Ký túc xá
-              <br />
-              Đại Học Sài Gòn
-            </h1>
-          </div>
+          <Fade>
+            <Slide direction="up" cascade>
+              <div className="bg-white/70 py-12 px-20 text-center shadow-2xl">
+                <span className="uppercase font-bold">Đại học Sài Gòn</span>
+                <h1 className="text-5xl text-black leading-normal whitespace-nowrap">
+                  Ký túc xá
+                  <br />
+                  Đại Học Sài Gòn
+                </h1>
+              </div>
+            </Slide>
+          </Fade>
         </div>
 
         <div className="absolute left-2/4 top-full -translate-y-2/4 -translate-x-2/4 max-w-[1000px] w-auto">
@@ -93,47 +98,59 @@ const Home: FC = (props) => {
       </div>
       <Container>
         <section className="mb-40">
-          <LazyLoadImage
-            className="w-full mb-40"
-            src={aboutImg.src}
-            alt="about"
-          />
+          <Fade>
+            <LazyLoadImage
+              className="w-full mb-40"
+              src={aboutImg.src}
+              alt="about"
+            />
+          </Fade>
 
-          <h2 className="text-center text-5xl mb-20">Về ký túc xá</h2>
+          <Slide cascade direction="left" className="overflow-y-hidden">
+            <div className="overflow-y-hidden mb-20">
+              <h2 className="text-center text-5xl">Về ký túc xá</h2>
+            </div>
+          </Slide>
 
           <Grid container spacing={6}>
             <Grid item xs={12} md={6}>
-              <p className="text-base mb-5">
-                Ký túc xá đại học là nơi lưu trú của sinh viên trong suốt thời
-                gian học tập tại đại học. Đây là một không gian sống chung, nơi
-                sinh viên có thể học hỏi, giao lưu và xây dựng mối quan hệ với
-                nhau. Ký túc xá đại học thường được trang bị đầy đủ các tiện
-                nghi như phòng tập gym, khu vực tiếp khách và các hoạt động
-                ngoại khóa. Nơi đây còn giúp sinh viên tiết kiệm chi phí và tiết
-                chế thời gian đi lại. Ký túc xá đại học là nơi mà sinh viên có
-                thể trải nghiệm một môi trường sống thực tế, giúp họ phát triển
-                kỹ năng xã hội và tạo ra mối quan hệ lâu dài với những người bạn
-                cùng phòng.
-              </p>
-              <p className="text-base">
-                Ký túc xá đại học là một phần không thể thiếu trong trải nghiệm
-                học tập của sinh viên đại học. Nơi đây cung cấp cho sinh viên
-                một không gian sống tiện nghi, an toàn và thân thiện. Sinh viên
-                có thể tìm thấy nhiều người bạn mới và tạo ra một môi trường học
-                tập đa dạng, phong phú. Ký túc xá cũng giúp sinh viên tiết kiệm
-                chi phí cho việc tìm nhà trọ ngoài trường và tiết chế thời gian
-                di chuyển. Ngoài ra, ký túc xá đại học còn có nhiều hoạt động và
-                chương trình giúp sinh viên phát triển kỹ năng xã hội và trở
-                thành một người đàn ông, phụ nữ có trách nhiệm và tự tin trước
-                tương lai.
-              </p>
+              <Fade>
+                <Slide direction="left">
+                  <p className="text-base mb-5">
+                    Ký túc xá đại học là nơi lưu trú của sinh viên trong suốt
+                    thời gian học tập tại đại học. Đây là một không gian sống
+                    chung, nơi sinh viên có thể học hỏi, giao lưu và xây dựng
+                    mối quan hệ với nhau. Ký túc xá đại học thường được trang bị
+                    đầy đủ các tiện nghi như phòng tập gym, khu vực tiếp khách
+                    và các hoạt động ngoại khóa. Nơi đây còn giúp sinh viên tiết
+                    kiệm chi phí và tiết chế thời gian đi lại. Ký túc xá đại học
+                    là nơi mà sinh viên có thể trải nghiệm một môi trường sống
+                    thực tế, giúp họ phát triển kỹ năng xã hội và tạo ra mối
+                    quan hệ lâu dài với những người bạn cùng phòng.
+                  </p>
+                  <p className="text-base">
+                    Ký túc xá đại học là một phần không thể thiếu trong trải
+                    nghiệm học tập của sinh viên đại học. Nơi đây cung cấp cho
+                    sinh viên một không gian sống tiện nghi, an toàn và thân
+                    thiện. Sinh viên có thể tìm thấy nhiều người bạn mới và tạo
+                    ra một môi trường học tập đa dạng, phong phú. Ký túc xá cũng
+                    giúp sinh viên tiết kiệm chi phí cho việc tìm nhà trọ ngoài
+                    trường và tiết chế thời gian di chuyển. Ngoài ra, ký túc xá
+                    đại học còn có nhiều hoạt động và chương trình giúp sinh
+                    viên phát triển kỹ năng xã hội và trở thành một người đàn
+                    ông, phụ nữ có trách nhiệm và tự tin trước tương lai.
+                  </p>
+                </Slide>
+              </Fade>
             </Grid>
             <Grid item xs={12} md={6}>
-              <LazyLoadImage
-                className="w-full"
-                src={about2Img.src}
-                alt="about"
-              />
+              <Fade>
+                <LazyLoadImage
+                  className="w-full"
+                  src={about2Img.src}
+                  alt="about"
+                />
+              </Fade>
             </Grid>
           </Grid>
         </section>

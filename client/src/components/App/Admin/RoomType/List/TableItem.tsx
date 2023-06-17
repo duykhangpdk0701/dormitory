@@ -8,12 +8,14 @@ import {
   TableRow,
   Typography,
   useTheme,
+  Avatar,
 } from "@mui/material";
 import getStatusLabel from "@/components/StatusLabel";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import IRoomType from "@/interfaces/RoomTypet";
 import Link from "next/link";
+import priceFormat from "@/utils/formatPrice";
 
 interface IRoomTypeTableItem {
   data: IRoomType;
@@ -39,7 +41,14 @@ const RoomTypeTableItem: FC<IRoomTypeTableItem> = (props) => {
       </TableCell>
 
       <TableCell>
-        <Link href={`/admin/room-type/${data._id}`}>
+        <Link
+          href={`/admin/room-type/${data._id}`}
+          className="flex gap-1 items-center"
+        >
+          <Avatar
+            variant="square"
+            src={process.env.NEXT_PUBLIC_SERVER_URL + data.images[0]}
+          />
           <Typography
             variant="body1"
             fontWeight="bold"
@@ -51,9 +60,10 @@ const RoomTypeTableItem: FC<IRoomTypeTableItem> = (props) => {
           </Typography>
         </Link>
       </TableCell>
+
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.description}
+          {priceFormat(data.price)}
         </Typography>
       </TableCell>
 
