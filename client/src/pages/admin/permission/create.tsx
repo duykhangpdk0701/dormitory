@@ -42,7 +42,7 @@ const PermissionCreatePage: NextPageWithLayout = () => {
           snackbarMessage: "Tạo quyền thành công",
         })
       );
-      await router.push("admin/permission");
+      await router.push("/admin/permission");
       setLoading(false);
     },
     onError: (error: any) => {

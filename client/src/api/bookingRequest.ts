@@ -12,6 +12,8 @@ const bookingRequestAPI = {
     province: string,
     district: string,
     street: string,
+    roomtType: string,
+    gender: string,
     images: File[]
   ) => {
     const data = new FormData();
@@ -25,6 +27,8 @@ const bookingRequestAPI = {
     data.append("province", province);
     data.append("district", district);
     data.append("street", street);
+    data.append("roomType", roomtType);
+    data.append("gender", gender);
     images.forEach((value) => {
       data.append("image[]", value);
     });

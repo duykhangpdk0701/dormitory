@@ -12,6 +12,8 @@ import bookingRequestAPI from "@/api/bookingRequest";
 import PageHead from "@/components/PageHead";
 import roomTypeAPI from "@/api/roomType";
 import adminPriorityAPI from "@/api/admin/priority";
+import { useAppDispatch } from "@/hooks/redux";
+import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 
 export interface IEnrollParams {
   firstName: string;
@@ -25,6 +27,7 @@ export interface IEnrollParams {
   province: string;
   district: string;
   street: string;
+  gender: string;
   images: File[];
 }
 
@@ -39,12 +42,13 @@ const erollSchema = yup.object({
   district: yup.string().required("Vui lòng điền quận"),
   street: yup.string().required("Vui lòng điền đường"),
   dateOfBirth: yup.string().required("Vui lòng chọn ngày sinh"),
+  gender: yup.string().required("Vui lòng chọn giới tính"),
   roomTypeId: yup.string().required("Vui lòng chọn loại phòng"),
 });
 
 const EnrollPage: NextPageWithLayout = () => {
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -91,6 +95,8 @@ const EnrollPage: NextPageWithLayout = () => {
       province,
       district,
       street,
+      roomTypeId,
+      gender,
       images,
     }: IEnrollParams) => {
       setLoading(true);
@@ -105,15 +111,30 @@ const EnrollPage: NextPageWithLayout = () => {
         province,
         district,
         street,
+        roomTypeId,
+        gender,
         images
       );
     },
     onSuccess: async (data) => {
       await router.push("/");
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "success",
+          snackbarMessage: "Tạo yêu cầu thàng công thành công",
+        })
+      );
       setLoading(false);
     },
     onError: (error: any) => {
-      setError(error.message);
+      dispatch(
+        setSnackbar({
+          snackbarOpen: true,
+          snackbarType: "error",
+          snackbarMessage: error.message,
+        })
+      );
       setLoading(false);
     },
   });

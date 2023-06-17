@@ -1,28 +1,19 @@
 import IAddress from "./Address";
 
 interface IUser {
-  id: 19;
-  name: string;
+  _id: string;
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  dateOfBirth: string;
   email: string;
-  token: null;
-  roles: any[];
-  permissions: [];
-  role: string;
-  avatar: string;
-  reset_password_at: null | any;
-  profile: null | any;
-  multiple_address: IAddress[];
-  address_default: {
-    address: string;
-    city_id: number;
-    district_id: number;
-    id: number;
-    name: string;
-    parse_address_string: string;
-    status: number;
-    user_id: number;
-    ward_id: number;
-  };
+  phone: string;
+  gender: string;
+  permission: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default IUser;

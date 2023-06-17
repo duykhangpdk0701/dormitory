@@ -53,6 +53,11 @@ const adminMenu = [
         starIcon: MmsTwoToneIcon,
         title: "Loại phòng",
       },
+      {
+        link: "/admin/request-change-room",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Yêu cầu chuyển phòng",
+      },
     ],
   },
 
@@ -98,12 +103,12 @@ const adminMenu = [
       {
         link: "/admin/staff",
         starIcon: BrightnessLowTwoToneIcon,
-        title: "nhân viên",
+        title: "Nhân viên",
       },
       {
         link: "/admin/task",
         starIcon: BrightnessLowTwoToneIcon,
-        title: "nhiệm vụ",
+        title: "Nhiệm vụ",
       },
       {
         link: "/admin/violation",
@@ -200,6 +205,11 @@ export const userMenu = [
         link: "/user/bill",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Hoá đơn",
+      },
+      {
+        link: "/user/request-change-room",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Yêu cầu chuyển phòng",
       },
 
       {

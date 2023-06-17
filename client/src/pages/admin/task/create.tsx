@@ -66,6 +66,9 @@ const TaskCreatePage: NextPageWithLayout = () => {
 
   const { control, handleSubmit } = useForm<ITaskCreateParams>({
     resolver: yupResolver(taskCreateSchema),
+    defaultValues: {
+      staffId: "",
+    },
   });
 
   const onSubmit: SubmitHandler<ITaskCreateParams> = async (data) => {

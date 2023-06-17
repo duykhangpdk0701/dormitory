@@ -64,7 +64,9 @@ const TaskFormCreate: FC<ITaskFormCreate> = (props) => {
                         label="Nhân viên"
                       >
                         {staff?.map((item) => (
-                          <MenuItem value={item._id}>{item._id}</MenuItem>
+                          <MenuItem value={item._id} key={item._id}>
+                            {item.account.lastname} {item.account.firstname}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>

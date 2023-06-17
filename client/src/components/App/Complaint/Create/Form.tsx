@@ -7,12 +7,14 @@ import {
 } from "react-hook-form";
 import { Grid, Paper, TextField, Box, FormHelperText } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IComplaintCreateParams } from "@/pages/user/complaint/create";
+import { IComplaintCreateFormParams } from "@/pages/user/complaint/create";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface IComplaintFormCreate {
-  control: Control<IComplaintCreateParams, any>;
-  handleSubmit: UseFormHandleSubmit<IComplaintCreateParams>;
-  onSubmit: SubmitHandler<IComplaintCreateParams>;
+  control: Control<IComplaintCreateFormParams, any>;
+  handleSubmit: UseFormHandleSubmit<IComplaintCreateFormParams>;
+  onSubmit: SubmitHandler<IComplaintCreateFormParams>;
   isLoading: boolean;
   errorResMessage: string;
 }
@@ -23,7 +25,7 @@ const ComplaintFormCreate: FC<IComplaintFormCreate> = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Paper className="p-6">
             <Box className="mb-6">
               <Controller
@@ -34,7 +36,7 @@ const ComplaintFormCreate: FC<IComplaintFormCreate> = (props) => {
                     <TextField
                       error={invalid}
                       {...field}
-                      label="Tên"
+                      label="Tiêu đề"
                       fullWidth
                     />
                     <FormHelperText error={invalid}>
@@ -50,11 +52,9 @@ const ComplaintFormCreate: FC<IComplaintFormCreate> = (props) => {
                 control={control}
                 render={({ field, fieldState: { invalid, error } }) => (
                   <>
-                    <TextField
-                      error={invalid}
+                    <ReactQuill
                       {...field}
-                      label="Mô tả"
-                      fullWidth
+                      placeholder="Viết vài mô tả về phòng..."
                     />
                     <FormHelperText error={invalid}>
                       {error?.message}
@@ -64,30 +64,7 @@ const ComplaintFormCreate: FC<IComplaintFormCreate> = (props) => {
               />
             </Box>
           </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper className="p-6">
-            <Box className="mb-6">
-              <Controller
-                name="price"
-                control={control}
-                render={({ field, fieldState: { error, invalid } }) => (
-                  <>
-                    <TextField
-                      error={invalid}
-                      {...field}
-                      label="Giá(VND)"
-                      type="number"
-                      fullWidth
-                    />
-                    <FormHelperText error={invalid}>
-                      {error?.message}
-                    </FormHelperText>
-                  </>
-                )}
-              />
-            </Box>
-          </Paper>
+
           <LoadingButton
             className="mt-6"
             fullWidth

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC } from "react";
 
 import {
   Tooltip,
@@ -8,8 +8,6 @@ import {
   TableRow,
   Typography,
   useTheme,
-  Backdrop,
-  CircularProgress,
 } from "@mui/material";
 
 import CheckIcon from "@mui/icons-material/Check";
@@ -23,6 +21,10 @@ import Link from "next/link";
 import BookingStatus from "@/enum/BookingStatus";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import adminBooking from "@/api/admin/booking";
+import {
+  setIsLoadingAction,
+  setNotLoadngAction,
+} from "@/contexts/slices/backDropSlice";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -35,20 +37,20 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
-  const [isLoading, setIsLoading] = useState(false);
 
   const handlePaid = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoadingAction());
+
     await paidBookingMutation.mutateAsync();
   };
 
   const handleDeposit = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoadingAction());
     await depositBookingMutation.mutateAsync();
   };
 
   const handleCancel = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoadingAction());
     await cancelBookingMutation.mutateAsync();
   };
 
@@ -64,7 +66,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Thay đổi thành công thành công",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
     onError: (error) => {
       dispatch(
@@ -74,7 +76,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Xin vui lòng thử lại sau",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
   });
 
@@ -90,7 +92,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Thay đôi thành công thành công",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
     onError: (error) => {
       dispatch(
@@ -100,7 +102,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Xin vui lòng thử lại sau",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
   });
 
@@ -115,7 +117,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Thay đôi thành công thành công",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
     onError: () => {
       dispatch(
@@ -125,7 +127,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Xin vui lòng thử lại sau",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
   });
 
@@ -226,9 +228,6 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           </Tooltip>
         </TableCell>
       </TableRow>
-      <Backdrop className="z-[1000]" open={isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </>
   );
 };

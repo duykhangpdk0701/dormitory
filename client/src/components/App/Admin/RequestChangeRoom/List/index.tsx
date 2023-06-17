@@ -5,21 +5,18 @@ import PageTitleWrapper from "@/components/PageTitleWrapper";
 import PageHeader from "@/components/PageHeader";
 
 interface IRooms {
-  roomsTable: ReactNode;
+  requestChangeRoomTable: ReactNode;
 }
 
-const Rooms: FC<IRooms> = (props) => {
-  const { roomsTable } = props;
+const AdminRequestChangeRoom: FC<IRooms> = (props) => {
+  const { requestChangeRoomTable } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Danh sách phòng"
-          desc="Dưới đây là danh sách phòng trong hệ thống"
-          isHaveNavigateButton={true}
-          type="add"
-          navigationName="Thêm phòng"
-          link="/admin/room/create"
+          title="Danh sách yêu cầu chuyển phòng"
+          desc="Dưới đây là danh sách yêu cầu chuyển phòng trong hệ thống"
+          isHaveNavigateButton={false}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -31,7 +28,7 @@ const Rooms: FC<IRooms> = (props) => {
           spacing={3}
         >
           <Grid item xs={12}>
-            <Card>{roomsTable}</Card>
+            <Card>{requestChangeRoomTable}</Card>
           </Grid>
         </Grid>
       </Container>
@@ -40,4 +37,4 @@ const Rooms: FC<IRooms> = (props) => {
   );
 };
 
-export default Rooms;
+export default AdminRequestChangeRoom;

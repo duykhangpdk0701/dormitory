@@ -23,9 +23,17 @@ const adminComplaintAPI = {
     return res.data;
   },
 
-  create: async (name: string, desc: string): Promise<IComplaint> => {
+  create: async (
+    name: string,
+    desc: string,
+    civilianId: string
+  ): Promise<IComplaint> => {
     const url = "/complaint/store";
-    const res = await axiosClient.post(url, { name, description: desc });
+    const res = await axiosClient.post(url, {
+      name,
+      description: desc,
+      civilianId,
+    });
     return res.data;
   },
 };

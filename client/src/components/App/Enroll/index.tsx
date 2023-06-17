@@ -127,6 +127,35 @@ const Enroll: FC<IEnroll> = (props) => {
                     )}
                   />
                 </Grid>
+
+                <Grid item xs={12}>
+                  <Controller
+                    name="gender"
+                    control={control}
+                    render={({ field, fieldState: { error, invalid } }) => (
+                      <>
+                        <FormControl fullWidth>
+                          <InputLabel id="gender-select-label">
+                            Giới tính
+                          </InputLabel>
+                          <Select
+                            {...field}
+                            labelId="gender-select-label"
+                            id="demo-simple-select"
+                            label="Giới tính"
+                          >
+                            <MenuItem value="Male">Nam</MenuItem>
+                            <MenuItem value="Female">Nữ</MenuItem>
+                          </Select>
+                        </FormControl>
+                        <FormHelperText error={invalid}>
+                          {error?.message}
+                        </FormHelperText>
+                      </>
+                    )}
+                  />
+                </Grid>
+
                 <Grid item xs={12}>
                   <Controller
                     name="email"

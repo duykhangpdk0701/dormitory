@@ -94,6 +94,7 @@ const AddRoomPage: NextPageWithLayout = () => {
         roomType
       ),
     onSuccess: async () => {
+      await router.push("/admin/room");
       dispatch(
         setSnackbar({
           snackbarOpen: true,
@@ -101,7 +102,6 @@ const AddRoomPage: NextPageWithLayout = () => {
           snackbarMessage: "Tạo phòng thành công",
         })
       );
-      await router.push("/admin/room");
       setLoading(false);
     },
     onError: (error: any) => {

@@ -1,25 +1,25 @@
+import React, { FC, ReactNode } from "react";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import { Container } from "@mui/material";
-import React, { FC, ReactNode } from "react";
 
-interface IAddRoom {
+interface IRequestChangeRoom {
   form: ReactNode;
 }
 
-const AddRoom: FC<IAddRoom> = (props) => {
+const RequestChangeRoom: FC<IRequestChangeRoom> = (props) => {
   const { form } = props;
   return (
     <>
       <PageTitleWrapper>
         <PageHeader
-          title="Thêm phòng"
-          desc="Tạo Phòng mới"
+          title="Tạo yêu cầu chuyển phòng"
+          desc="Tạo yêu cầu chuyển phòng"
           isHaveNavigateButton={true}
-          type="add"
-          navigationName="Trở về danh sách phòng"
-          link="/admin/room"
+          type="back"
+          navigationName="Trở về Trang chủ"
+          link="/user/room"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">{form}</Container>
@@ -28,4 +28,4 @@ const AddRoom: FC<IAddRoom> = (props) => {
   );
 };
 
-export default AddRoom;
+export default RequestChangeRoom;

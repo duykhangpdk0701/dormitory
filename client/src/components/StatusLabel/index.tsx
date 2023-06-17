@@ -24,7 +24,7 @@ const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
     },
 
     Pending: {
-      text: "Pending",
+      text: "Đang chờ xác nhận",
       color: "warning",
     },
 

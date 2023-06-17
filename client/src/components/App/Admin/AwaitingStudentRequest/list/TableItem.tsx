@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC } from "react";
 
 import {
   Tooltip,
@@ -8,8 +8,6 @@ import {
   TableRow,
   Typography,
   useTheme,
-  Backdrop,
-  CircularProgress,
 } from "@mui/material";
 
 import CheckIcon from "@mui/icons-material/Check";
@@ -22,6 +20,10 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import Link from "next/link";
 import BookingStatus from "@/enum/BookingStatus";
+import {
+  setIsLoadingAction,
+  setNotLoadngAction,
+} from "@/contexts/slices/backDropSlice";
 
 interface IBookingRequestTableItemProps {
   isSelected: boolean;
@@ -31,18 +33,18 @@ interface IBookingRequestTableItemProps {
 
 const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
   const { isSelected, data, handleSelectOneCryptoOrder } = props;
-  const [isLoading, setIsLoading] = useState(false);
+
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
   const handleAccept = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoadingAction());
     await acceptRequestMutation.mutateAsync();
   };
 
   const handleDeny = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoadingAction());
     await denyRequestMutation.mutateAsync();
   };
 
@@ -58,7 +60,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Chấp nhận thành công",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
     onError: (error: any) => {
       dispatch(
@@ -68,7 +70,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: error.message,
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
   });
 
@@ -84,7 +86,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: "Từ chối thành công",
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
     onError: (error: any) => {
       dispatch(
@@ -94,7 +96,7 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           snackbarMessage: error.message,
         })
       );
-      setIsLoading(false);
+      dispatch(setNotLoadngAction());
     },
   });
 
@@ -181,12 +183,6 @@ const BookingRequestTableItem: FC<IBookingRequestTableItemProps> = (props) => {
           </Tooltip>
         </TableCell>
       </TableRow>
-      <Backdrop
-        className="z-[1000]"
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </>
   );
 };

@@ -20,15 +20,18 @@ import storage from "redux-persist/lib/storage";
 import SnackbarSliceReducer from "@/contexts/slices/snackbarSlice";
 import SidebarReduder from "@/contexts/slices/sidebarSlice";
 
+import BackDropReduder from "@/contexts/slices/backDropSlice";
+
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["snackbar"],
+  blacklist: ["snackbar", "back-drop"],
 };
 
 const rootReducer = combineReducers({
   SnackBarSlice: SnackbarSliceReducer,
   sidebar: SidebarReduder,
+  backdrop: BackDropReduder,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

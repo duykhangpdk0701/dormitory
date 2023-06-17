@@ -4,8 +4,15 @@ import SidebarLayout from "@/layouts/SidebarLayout";
 import PageHead from "@/components/PageHead";
 import ComplaintList from "@/components/App/Complaint/List";
 import ComplaintListList from "@/components/App/Complaint/List/List";
+import { useQuery } from "react-query";
+import adminComplaintAPI from "@/api/admin/complaint";
 
 const ComplaintListPage: NextPageWithLayout = () => {
+  const complantQuery = useQuery({
+    queryKey: ["complant"],
+    queryFn: () => adminComplaintAPI.getList(),
+  });
+
   return (
     <>
       <PageHead title="Danh sách khiếu nại | SGU domitory" />

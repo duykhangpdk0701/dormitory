@@ -40,7 +40,7 @@ const ServiceCreatePage: NextPageWithLayout = () => {
       adminServiceAPI.create(name, desc, price),
     onSuccess: async () => {
       setLoading(false);
-      await router.push("/priority");
+      await router.push("/admin/service");
       dispatch(
         setSnackbar({
           snackbarOpen: true,
