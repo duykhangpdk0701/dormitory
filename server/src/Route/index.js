@@ -21,6 +21,7 @@ const MessageRouter = require('./message.route');
 const ViolationRouter = require('./violation.route');
 const BillRouter = require('./bill.route');
 const ElectronicWaterRouter = require('./electronicWater.route');
+const RequestChangeRoomRouter = require('./requestChangeRoom.route');
 
 const Route = (app) => {
     app.use("/user", userRouter);
@@ -46,6 +47,7 @@ const Route = (app) => {
     app.use('/violation', ViolationRouter);
     app.use('/bill', BillRouter);
     app.use('/electronicWater', ElectronicWaterRouter);
+    app.use('/requestChangeRoom', RequestChangeRoomRouter);
 };
 
 module.exports = Route;
