@@ -150,6 +150,12 @@ export const staffMenu = [
       },
 
       {
+        link: "/staff/electronic-water/create",
+        starIcon: MmsTwoToneIcon,
+        title: "Ghi điện nước",
+      },
+
+      {
         link: "/staff/task",
         starIcon: MmsTwoToneIcon,
         title: "Công việc",
@@ -200,6 +206,16 @@ export const userMenu = [
         link: "/user/contract",
         starIcon: BrightnessLowTwoToneIcon,
         title: "Hợp đồng",
+      },
+      {
+        link: "/user/service",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Đăng ký dịch vụ",
+      },
+      {
+        link: "/user/service/enrolled",
+        starIcon: BrightnessLowTwoToneIcon,
+        title: "Dịch vụ đã đăng ký",
       },
       {
         link: "/user/bill",
