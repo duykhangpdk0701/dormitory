@@ -134,7 +134,6 @@ const ComplaintTable: FC<IComplaintTableProps> = (props) => {
                 <TableCell>Tên</TableCell>
                 <TableCell>Tên cư nhân</TableCell>
                 <TableCell>MSSV</TableCell>
-                <TableCell>Mô tả</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

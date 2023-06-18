@@ -50,12 +50,6 @@ const ComplaintTableItem: FC<IComplaintTableItemProps> = (props) => {
           {data.civilian.studentId}
         </Typography>
       </TableCell>
-
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.description}
-        </Typography>
-      </TableCell>
     </TableRow>
   );
 };

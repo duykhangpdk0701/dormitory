@@ -27,6 +27,7 @@ interface ILogin {
       accountId: string;
       address: IAddress;
       createdAt: string;
+      roomId: string;
       dateStart: string;
       isWorking: true;
       job: string;

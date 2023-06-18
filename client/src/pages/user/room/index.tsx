@@ -16,7 +16,12 @@ const ComplaintListPage: NextPageWithLayout = () => {
 
   const roomDetail = useQuery({
     queryKey: ["room-detail", loadUserinfo],
-    queryFn: () => adminRoomAPI.getById("64510ee8db6970373e149a9a"),
+    queryFn: () => {
+      if (loadUserinfo.data)
+        return adminRoomAPI.getById(loadUserinfo.data.user.infor.roomId);
+      return undefined;
+    },
+    enabled: loadUserinfo.isFetched,
   });
 
   return (

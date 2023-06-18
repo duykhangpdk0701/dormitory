@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 
 import BulkActions from "./BulkActions";
-import IService from "@/interfaces/Service";
 import ServiceTableItem from "./TableItem";
 import { IServiceParams } from "@/pages/admin/service";
 
@@ -30,10 +29,11 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import ServiceTableItemLoading from "./TableItemLoading";
+import IServiceUsage from "@/interfaces/ServiceUsage";
 
 interface IServiceTableProps {
   className?: string;
-  data?: IService[];
+  data?: IServiceUsage[];
   control: Control<IServiceParams, any>;
   handleSubmit: UseFormHandleSubmit<IServiceParams>;
   onSubmit: SubmitHandler<IServiceParams>;
@@ -131,7 +131,7 @@ const ServiceTable: FC<IServiceTableProps> = (props) => {
                   />
                 </TableCell>
                 <TableCell>Tên</TableCell>
-                <TableCell>Mô tả</TableCell>
+
                 <TableCell>Giá(VND)</TableCell>
                 <TableCell align="right">Hành động</TableCell>
               </TableRow>

@@ -22,7 +22,9 @@ const RoomViewContent: FC<IRoomViewContent> = (props) => {
 
             <div className="mb-4">
               <span className="text-base font-bold">Mô tả</span>:{" "}
-              <span className="text-base">{data?.description}</span>
+              {data?.description && (
+                <p dangerouslySetInnerHTML={{ __html: data.description }} />
+              )}
             </div>
           </Grid>
 

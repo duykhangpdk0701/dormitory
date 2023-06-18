@@ -34,7 +34,7 @@ const StaffTaskDetailPage: NextPageWithLayout = () => {
 };
 
 StaffTaskDetailPage.getLayout = function getLayout(page: ReactElement) {
-  return <SidebarLayout>{page}</SidebarLayout>;
+  return <SidebarLayout menuType="staff">{page}</SidebarLayout>;
 };
 
 export default StaffTaskDetailPage;

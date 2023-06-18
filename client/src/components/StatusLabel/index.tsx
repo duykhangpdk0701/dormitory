@@ -57,7 +57,11 @@ const getStatusLabel = (cryptoOrderStatus?: BookingStatus): JSX.Element => {
     ? map[cryptoOrderStatus]
     : map["Pending"];
 
-  return <Label color={color}>{text}</Label>;
+  return (
+    <Label color={color}>
+      <span className="whitespace-nowrap">{text}</span>
+    </Label>
+  );
 };
 
 export default getStatusLabel;

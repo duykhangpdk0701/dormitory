@@ -9,14 +9,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
-import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import Link from "next/link";
-import IService from "@/interfaces/Service";
+import IServiceUsage from "@/interfaces/ServiceUsage";
+import priceFormat from "@/utils/formatPrice";
 
 interface IJobTableItemProps {
   isSelected: boolean;
-  data: IService;
+  data: IServiceUsage;
   handleSelectOneCryptoOrder: (event: any, id: string) => void;
 }
 
@@ -40,36 +41,29 @@ const ServiceTableItem: FC<IJobTableItemProps> = (props) => {
       <TableCell>
         <Link href={`/admin/service/${data._id}`}>
           <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-            {data.name}
+            {data.service.name}
           </Typography>
         </Link>
       </TableCell>
+
       <TableCell>
         <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.description}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="body1" color="text.primary" gutterBottom noWrap>
-          {data.price}
+          {data.service.price && priceFormat(data.service.price)}
         </Typography>
       </TableCell>
 
       <TableCell align="right">
-        <Tooltip title="Chỉnh sửa" arrow>
+        <Tooltip title="Huỷ sửa dụng dịch" arrow>
           <IconButton
             sx={{
-              "&:hover": {
-                background: theme.colors.primary.lighter,
-              },
-              color: theme.palette.primary.main,
+              "&:hover": { background: theme.colors.error.lighter },
+              color: theme.palette.error.main,
             }}
             color="inherit"
             size="small"
-            LinkComponent={Link}
-            href={`/admin/service/${data._id}/edit`}
+            // onClick={handleDeny}
           >
-            <EditTwoToneIcon fontSize="small" />
+            <CloseIcon />
           </IconButton>
         </Tooltip>
       </TableCell>

@@ -42,7 +42,7 @@ const AdminRequestChangeRoomTableItem: FC<IRequestChangeRoomTableItem> = (
     mutationKey: ["request-change-room"],
     mutationFn: () => adminRequestChangeRoomeAPI.accepted(data._id),
     onSuccess: async () => {
-      await queryClient.refetchQueries(["request-change-room"]);
+      await queryClient.refetchQueries({ queryKey: ["request-change-room"] });
       dispatch(
         setSnackbar({
           snackbarOpen: true,
