@@ -202,7 +202,7 @@ class CivilianController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const civilian = await Civilian.deleteOne({ _id: id })
+            const civilian = await Civilian.delete({ _id: id })
             if (!civilian) return res.status(401).json({ success: false, messages: 'Cant delete civilian' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

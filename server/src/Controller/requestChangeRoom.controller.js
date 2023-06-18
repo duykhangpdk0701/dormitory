@@ -27,6 +27,15 @@ class RequestChangeRoomController {
                 { $unwind: '$user' },
                 {
                     $lookup: {
+                        from: "rooms",
+                        localField: "currentRoom",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
+                {
+                    $lookup: {
                         from: "roomtypes",
                         localField: "roomType",
                         foreignField: "_id",
@@ -77,6 +86,15 @@ class RequestChangeRoomController {
                 { $unwind: '$user' },
                 {
                     $lookup: {
+                        from: "rooms",
+                        localField: "currentRoom",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
+                {
+                    $lookup: {
                         from: "roomtypes",
                         localField: "roomType",
                         foreignField: "_id",
@@ -97,8 +115,22 @@ class RequestChangeRoomController {
 
     async store(req, res) {
         try {
-            const requestChangeRoom = new RequestChangeRoom(req.body)
-            await requestChangeRoom.save()
+            const civilian = await Civilian.aggregate([
+                { $match: { accountId: new mongoose.Types.ObjectId(req.body.accountId) } },
+                {
+                    $lookup: {
+                        from: "rooms",
+                        localField: "roomId",
+                        foreignField: "_id",
+                        as: "room"
+                    }
+                },
+                { $unwind: '$room' },
+            ])
+            if( civilian[0]){
+                const requestChangeRoom = new RequestChangeRoom({...req.body, currentRoom: civilian[0].room._id })
+                await requestChangeRoom.save()
+            }
             res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
@@ -197,7 +229,7 @@ class RequestChangeRoomController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const requestChangeRoom = await RequestChangeRoom.deleteOne({ _id: id })
+            const requestChangeRoom = await RequestChangeRoom.delete({ _id: id })
             if (!requestChangeRoom) return res.status(401).json({ success: false, messages: 'Cant delete requestChangeRoom' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

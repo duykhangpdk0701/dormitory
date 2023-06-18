@@ -4,7 +4,7 @@ const mongoose_delete = require('mongoose-delete');
 
 const Complaint = new Schema(
     {
-        title: {
+        name: {
             type: String,
             required: true,
         },

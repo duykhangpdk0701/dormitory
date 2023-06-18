@@ -84,7 +84,7 @@ class PriorityController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const priority = await Priority.deleteOne({ _id: id })
+            const priority = await Priority.delete({ _id: id })
             if (!priority) return res.status(401).json({ success: false, messages: 'Cant delete priority' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

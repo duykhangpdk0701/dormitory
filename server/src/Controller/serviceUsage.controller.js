@@ -52,6 +52,15 @@ class ServiceUsageController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.civilianId) {
+                    aggregate.push({
+                        $match: {
+                            civilianId: new mongoose.Types.ObjectId(
+                                filter.civilianId
+                            ),
+                        },
+                    });
+                }
                 if (filter.page) {
                     aggregate.push(
                         {
@@ -129,8 +138,13 @@ class ServiceUsageController {
 
     async store(req, res) {
         try {
-            const service = new ServiceUsage(req.body)
-            await service.save()
+            const service = await Service.aggregate([
+                { $match: { _id: new mongoose.Types.ObjectId(req.body.serviceId) } },
+            ])
+            if( service[0]){
+                const serviceUsage = new ServiceUsage({...req.body, totalPrice: service[0].price })
+                await serviceUsage.save()
+            }
             res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
@@ -153,7 +167,7 @@ class ServiceUsageController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const service = await ServiceUsage.deleteOne({ _id: id })
+            const service = await ServiceUsage.delete({ _id: id })
             if (!service) return res.status(401).json({ success: false, messages: 'Cant delete service' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

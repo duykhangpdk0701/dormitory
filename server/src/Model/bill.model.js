@@ -22,8 +22,17 @@ const Bill = new Schema(
             required: true,
             ref: "civilians"
         },
+        roomPrice: {
+            type: Number,
+        },
+        servicesPrice: {
+            type: Number,
+        },
+        electronicwatersPrice: {
+            type: Number,
+        },
         totalPrice: {
-            type: String,
+            type: Number,
         },
         paid: { 
             type: Boolean, 

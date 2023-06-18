@@ -48,7 +48,7 @@ class AddressController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const address = await Address.deleteOne({ _id: id })
+            const address = await Address.delete({ _id: id })
             if (!address) return res.status(401).json({ success: false, messages: 'Cant delete address' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

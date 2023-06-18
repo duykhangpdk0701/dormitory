@@ -100,7 +100,7 @@ class ConversationController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const conversation = await Conversation.deleteOne({ _id: id })
+            const conversation = await Conversation.delete({ _id: id })
             if (!conversation) return res.status(401).json({ success: false, messages: 'Cant delete conversation' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

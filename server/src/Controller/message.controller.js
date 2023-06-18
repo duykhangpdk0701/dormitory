@@ -81,7 +81,7 @@ class MessageController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const message = await Message.deleteOne({ _id: id })
+            const message = await Message.delete({ _id: id })
             if (!message) return res.status(401).json({ success: false, messages: 'Cant delete message' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {
