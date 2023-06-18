@@ -4,6 +4,7 @@ enum BookingStatus {
   Pending = "Pending",
   Accepted = "Accepted",
   Cancel = "Cancel",
+  Denied = "Denied",
   Deposit = "Deposit",
   Paid = "Paid",
 }

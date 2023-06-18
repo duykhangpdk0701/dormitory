@@ -18,6 +18,11 @@ const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
       color: "error",
     },
 
+    Denied: {
+      text: "Bị từ chối",
+      color: "error",
+    },
+
     Accepted: {
       text: "Đã duyệt",
       color: "success",

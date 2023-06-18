@@ -117,12 +117,12 @@ const EnrollPage: NextPageWithLayout = () => {
       );
     },
     onSuccess: async (data) => {
-      await router.push("/");
+      await router.push("/enroll/success");
       dispatch(
         setSnackbar({
           snackbarOpen: true,
           snackbarType: "success",
-          snackbarMessage: "Tạo yêu cầu thàng công thành công",
+          snackbarMessage: "Tạo yêu cầu thàng công",
         })
       );
       setLoading(false);
@@ -132,7 +132,7 @@ const EnrollPage: NextPageWithLayout = () => {
         setSnackbar({
           snackbarOpen: true,
           snackbarType: "error",
-          snackbarMessage: error.message,
+          snackbarMessage: error.messages,
         })
       );
       setLoading(false);
