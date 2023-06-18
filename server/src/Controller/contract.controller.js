@@ -6,14 +6,14 @@ const pdf = require("html-pdf");
 class ContractController {
     async test(req, res) {
         try {
-            const html = `<html><body><h1>Hello World</h1><p>This is a PDF generated from HTML.</p></body></html>`;
-            const options = { format: "A4" };
+            // const html = `<html><body><h1>Hello World</h1><p>This is a PDF generated from HTML.</p></body></html>`;
+            // const options = { format: "A4" };
 
-            pdf.create(html, options).toFile("./public/output.pdf", (err, res) => {
-                if (err) return console.log(err);
-                console.log(res);
-            });
-            res.json({ success: true, messages: 'done' });
+            // pdf.create(html, options).toFile("./public/output.pdf", (err, res) => {
+            //     if (err) return console.log(err);
+            //     console.log(res);
+            // });
+            res.json({ success: true, messages: req.protocol + '://' + req.get('host') + req.originalUrl });
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message });
         }
