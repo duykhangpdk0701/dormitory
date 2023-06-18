@@ -52,6 +52,15 @@ class ServiceUsageController {
             ]
             aggregate = aggregate.concat(deFault)
             if (filter) {
+                if (filter.civilianId) {
+                    aggregate.push({
+                        $match: {
+                            civilianId: new mongoose.Types.ObjectId(
+                                filter.civilianId
+                            ),
+                        },
+                    });
+                }
                 if (filter.page) {
                     aggregate.push(
                         {
