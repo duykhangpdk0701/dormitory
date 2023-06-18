@@ -9,12 +9,6 @@ const ElectronicWater = new Schema(
             ref: 'rooms',
             required: true
         },
-        month: {
-            type: Number,
-        },
-        year: {
-            type: Number,
-        },
         numberStart: {
             type: Number,
         },

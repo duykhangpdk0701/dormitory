@@ -84,7 +84,7 @@ class PermissionController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const permission = await Permission.deleteOne({ _id: id })
+            const permission = await Permission.delete({ _id: id })
             if (!permission) return res.status(401).json({ success: false, messages: 'Cant delete permission' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

@@ -151,7 +151,7 @@ class ViolationController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const violation = await Violation.deleteOne({ _id: id })
+            const violation = await Violation.delete({ _id: id })
             if (!violation) return res.status(401).json({ success: false, messages: 'Cant delete violation' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

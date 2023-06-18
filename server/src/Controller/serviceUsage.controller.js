@@ -153,7 +153,7 @@ class ServiceUsageController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const service = await ServiceUsage.deleteOne({ _id: id })
+            const service = await ServiceUsage.delete({ _id: id })
             if (!service) return res.status(401).json({ success: false, messages: 'Cant delete service' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

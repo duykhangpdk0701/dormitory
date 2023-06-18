@@ -236,7 +236,7 @@ class ContractController {
                 .status(401)
                 .json({ success: false, messages: "Thiếu id" });
         try {
-            const contract = await Contract.deleteOne({ _id: id });
+            const contract = await Contract.delete({ _id: id });
             if (!contract)
                 return res
                     .status(401)

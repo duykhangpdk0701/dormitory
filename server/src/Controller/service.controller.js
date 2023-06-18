@@ -84,7 +84,7 @@ class ServiceController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const service = await Service.deleteOne({ _id: id })
+            const service = await Service.delete({ _id: id })
             if (!service) return res.status(401).json({ success: false, messages: 'Cant delete service' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

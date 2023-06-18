@@ -9,6 +9,11 @@ const RequestChangeRoom = new Schema(
             required: true,
             ref: "users"
         },
+        currentRoom: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "rooms"
+        },
         roomType: {
             type: Schema.Types.ObjectId,
             required: true,

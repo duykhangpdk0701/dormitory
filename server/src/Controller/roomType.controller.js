@@ -84,7 +84,7 @@ class RoomTypeController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const roomType = await RoomType.deleteOne({ _id: id })
+            const roomType = await RoomType.delete({ _id: id })
             if (!roomType) return res.status(401).json({ success: false, messages: 'Cant delete roomType' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

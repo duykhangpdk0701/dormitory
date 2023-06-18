@@ -17,18 +17,8 @@ const ServiceUsage = new Schema(
         description: {
             type: String,
         },
-        timeStart: {
-            type: Date,
-        },
-        timeExpire: {
-            type: Date,
-        },
         totalPrice: {
             type: Number,
-        },
-        paid: { 
-            type: Boolean, 
-            default: false,
         },
     },
     {

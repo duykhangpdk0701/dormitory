@@ -135,7 +135,7 @@ class FeedbackController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const feedback = await Feedback.deleteOne({ _id: id })
+            const feedback = await Feedback.delete({ _id: id })
             if (!feedback) return res.status(401).json({ success: false, messages: 'Cant delete feedback' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

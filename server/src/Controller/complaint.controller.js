@@ -148,7 +148,7 @@ class ComplaintController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const complaint = await Complaint.deleteOne({ _id: id })
+            const complaint = await Complaint.delete({ _id: id })
             if (!complaint) return res.status(401).json({ success: false, messages: 'Cant delete complaint' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

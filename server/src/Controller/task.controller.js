@@ -222,7 +222,7 @@ class TaskController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const task = await Task.deleteOne({ _id: id })
+            const task = await Task.delete({ _id: id })
             if (!task) return res.status(401).json({ success: false, messages: 'Cant delete task' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

@@ -130,7 +130,7 @@ class DeviceController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const device = await Device.deleteOne({ _id: id })
+            const device = await Device.delete({ _id: id })
             if (!device) return res.status(401).json({ success: false, messages: 'Cant delete device' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

@@ -84,7 +84,7 @@ class JobController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const job = await Job.deleteOne({ _id: id })
+            const job = await Job.delete({ _id: id })
             if (!job) return res.status(401).json({ success: false, messages: 'Cant delete job' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

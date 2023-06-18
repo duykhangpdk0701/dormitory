@@ -375,7 +375,7 @@ class BookingController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const booking = await Booking.deleteOne({ _id: id })
+            const booking = await Booking.delete({ _id: id })
             if (!booking) return res.status(401).json({ success: false, messages: 'Cant delete booking' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

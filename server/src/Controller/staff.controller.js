@@ -146,7 +146,7 @@ class StaffController {
         const { id } = req.params
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
-            const staff = await Staff.deleteOne({ _id: id })
+            const staff = await Staff.delete({ _id: id })
             if (!staff) return res.status(401).json({ success: false, messages: 'Cant delete staff' })
             res.json({ success: true, messages: 'Xoá thành công' })
         } catch (error) {

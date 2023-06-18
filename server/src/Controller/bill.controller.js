@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const paypal = require('paypal-rest-sdk');
-var sendMail = require('../Service/mail.service');
+const paypal = require("paypal-rest-sdk");
+var sendMail = require("../Service/mail.service");
 const Bill = require("../Model/bill.model");
 const Civilian = require("../Model/civilian.model");
 
@@ -12,8 +12,8 @@ class BillController {
             const deFault = [
                 {
                     $match: {
-                        deleted: { $ne: true }
-                    }
+                        deleted: { $ne: true },
+                    },
                 },
                 {
                     $lookup: {
@@ -233,7 +233,7 @@ class BillController {
                 .status(401)
                 .json({ success: false, messages: "Thiếu id" });
         try {
-            const bill = await Bill.deleteOne({ _id: id });
+            const bill = await Bill.delete({ _id: id });
             if (!bill)
                 return res
                     .status(401)
@@ -285,6 +285,14 @@ class BillController {
                 { $unwind: "$room" },
                 {
                     $lookup: {
+                        from: "electronicwaters",
+                        localField: "room._id",
+                        foreignField: "roomId",
+                        as: "electronicwaters",
+                    },
+                },
+                {
+                    $lookup: {
                         from: "serviceusages",
                         localField: "_id",
                         foreignField: "civilianId",
@@ -301,38 +309,63 @@ class BillController {
                 },
                 { $sort: { createdAt: -1 } },
             ]);
+            const data = []
             for (const civilian of civilians) {
                 let servicePrice = 0;
+                let electronicwatersPrice = 0;
                 let serviceId = [];
                 civilian.serviceusages
-                    .filter((element) => !element.paid)
+                    .filter((element) => !element.deleted)
                     .forEach((element) => {
                         serviceId.push(element._id);
                         servicePrice += element.totalPrice;
                     });
                 const service = {
-                    '_id': serviceId,
-                    'totalPrice': servicePrice
+                    _id: serviceId,
+                    totalPrice: servicePrice,
+                };
+                if(civilian.electronicwaters.length > 0 && new Date().getMonth() === new Date(civilian.electronicwaters[civilian.electronicwaters.length - 1].createdAt).getMonth()){
+                    electronicwatersPrice = civilian.electronicwaters[civilian.electronicwaters.length - 1].totalPrice
                 }
+                data.push(
+                    {
+                        civilianId: civilian._id,
+                        roomId: civilian.room._id,
+                        roomPrice: civilian.room.price,
+                        servicesPrice: service.totalPrice,
+                        electronicwatersPrice,
+                        totalPrice: civilian.room.price + service.totalPrice + electronicwatersPrice,
+                        services: service._id,
+                    }
+                )
                 const bill = new Bill({
                     civilianId: civilian._id,
                     roomId: civilian.room._id,
-                    totalPrice: civilian.room.price + service.totalPrice,
+                    roomPrice: civilian.room.price,
+                    servicesPrice: service.totalPrice,
+                    electronicwatersPrice,
+                    totalPrice: civilian.room.price + service.totalPrice + electronicwatersPrice,
                     services: service._id,
                 });
                 await bill.save();
-            };
-            return res.json({ success: true, messages: 'Gửi hoá đơn thành công' });
+            }
+            return res.json({
+                success: true,
+                messages: "Gửi hoá đơn thành công",
+            });
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message });
         }
     }
 
     async paidPaypal(req, res) {
-        const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
+        const { id } = req.params;
+        if (!id)
+            return res
+                .status(401)
+                .json({ success: false, messages: "Thiếu id" });
         try {
-            const bill = await Bill.findOne({ _id: id});
+            const bill = await Bill.findOne({ _id: id });
             paypal.configure({
                 mode: "sandbox",
                 client_id:
@@ -341,79 +374,109 @@ class BillController {
                     "ENV7adJpOG5DzRA_Y-ZuNcy5KETKc48T5wNPB1uN7DES_FdbWlcJNbLcqReg2jomW1qoVLX6vXxdGghJ",
             });
             const create_payment_json = {
-                "intent": "sale",
-                "payer": {
-                    "payment_method": "paypal"
+                intent: "sale",
+                payer: {
+                    payment_method: "paypal",
                 },
-                "redirect_urls": {
-                    "return_url": `https://dormitory-zeta.vercel.app/bill/${id}/paid/paypal/done`,
-                    "cancel_url": `https://sgu-dormitory.vercel.app`
+                redirect_urls: {
+                    return_url: `https://dormitory-zeta.vercel.app/bill/${id}/paid/paypal/done`,
+                    cancel_url: `https://sgu-dormitory.vercel.app`,
                 },
-                "transactions": [{
-                    "item_list": {
-                        "items": [{
-                            "name": "Thanh toán hoá đơn ",
-                            "sku": "001",
-                            "price": bill.totalPrice,
-                            "currency": "USD",
-                            "quantity": 1
-                        }]
+                transactions: [
+                    {
+                        item_list: {
+                            items: [
+                                {
+                                    name: "Thanh toán hoá đơn ",
+                                    sku: "001",
+                                    price: bill.totalPrice,
+                                    currency: "USD",
+                                    quantity: 1,
+                                },
+                            ],
+                        },
+                        amount: {
+                            currency: "USD",
+                            total: bill.totalPrice,
+                        },
+                        description: "Thanh toán hoá đơn",
                     },
-                    "amount": {
-                        "currency": "USD",
-                        "total": bill.totalPrice
-                    },
-                    "description": "Thanh toán hoá đơn"
-                }]
+                ],
             };
-        
-            paypal.payment.create(create_payment_json, function (error, payment) {
-                if (error) {
-                    throw error;
-                } else {
-                    for (let i = 0; i < payment.links.length; i++) {
-                        if (payment.links[i].rel === 'approval_url') {
-                            res.redirect(payment.links[i].href);
+
+            paypal.payment.create(
+                create_payment_json,
+                function (error, payment) {
+                    if (error) {
+                        throw error;
+                    } else {
+                        for (let i = 0; i < payment.links.length; i++) {
+                            if (payment.links[i].rel === "approval_url") {
+                                res.redirect(payment.links[i].href);
+                            }
                         }
                     }
                 }
-            });
+            );
         } catch (error) {
-            res.status(500).json({ success: false, messages: error.message })
+            res.status(500).json({ success: false, messages: error.message });
         }
     }
 
     async paidPaypalDone(req, res) {
-        const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
+        const { id } = req.params;
+        if (!id)
+            return res
+                .status(401)
+                .json({ success: false, messages: "Thiếu id" });
         try {
-            const bill = await Bill.findOne({ _id: id});
-            if(bill.paid)  res.send('Lỗi, bạn đã thanh toán rồi');
+            const bill = await Bill.findOne({ _id: id });
+            if (bill.paid) res.send("Lỗi, bạn đã thanh toán rồi");
 
-            let billUpdate = await Bill.updateOne({ _id: id }, {paid: true}, { new: true })
-            if (!billUpdate) return res.send('Lỗi không thể cập nhật thông tin');
+            let billUpdate = await Bill.updateOne(
+                { _id: id },
+                { paid: true },
+                { new: true }
+            );
+            if (!billUpdate)
+                return res.send("Lỗi không thể cập nhật thông tin");
 
-            res.send('Success (Thanh toán thành công)');
+            res.send("Success (Thanh toán thành công)");
             // sendMail(booking.email, paidBooking());
         } catch (error) {
-            res.status(500).json({ success: false, messages: error.message })
+            res.status(500).json({ success: false, messages: error.message });
         }
     }
 
     async paid(req, res) {
-        const { id } = req.params
-        if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
+        const { id } = req.params;
+        if (!id)
+            return res
+                .status(401)
+                .json({ success: false, messages: "Thiếu id" });
         try {
-            let bill = await Bill.findOne({ _id: id});
-            if(bill.paid)  return res.json({ success: false, messages: 'Lỗi, đã thanh toán rồi'})
+            let bill = await Bill.findOne({ _id: id });
+            if (bill.paid)
+                return res.json({
+                    success: false,
+                    messages: "Lỗi, đã thanh toán rồi",
+                });
 
-            let billUpdate = await Bill.updateOne({ _id: id }, {paid: true}, { new: true })
-            if (!billUpdate) return res.json({ success: false, messages: 'Cant update bill' })
+            let billUpdate = await Bill.updateOne(
+                { _id: id },
+                { paid: true },
+                { new: true }
+            );
+            if (!billUpdate)
+                return res.json({
+                    success: false,
+                    messages: "Cant update bill",
+                });
 
-            res.json({ success: true, messages: 'Đã thanh toán thành công'})
+            res.json({ success: true, messages: "Đã thanh toán thành công" });
             // sendMail(booking.email, paidBooking());
         } catch (error) {
-            res.status(500).json({ success: false, messages: error.message })
+            res.status(500).json({ success: false, messages: error.message });
         }
     }
 }
