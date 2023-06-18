@@ -138,8 +138,13 @@ class ServiceUsageController {
 
     async store(req, res) {
         try {
-            const service = new ServiceUsage(req.body)
-            await service.save()
+            const service = await Service.aggregate([
+                { $match: { _id: new mongoose.Types.ObjectId(req.body.serviceId) } },
+            ])
+            if( service[0]){
+                const serviceUsage = new ServiceUsage({...req.body, totalPrice: service[0].price })
+                await serviceUsage.save()
+            }
             res.json({ success: true, messages: 'Tạo thành công', data: req.body })
         } catch (error) {
             res.status(500).json({ success: false, messages: error.message})
