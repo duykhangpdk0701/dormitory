@@ -15,7 +15,7 @@ const billAPI = {
   },
 
   payWithPaypal: async (id: string): Promise<IBill> => {
-    const url = `/bill/${id}/paypal`;
+    const url = `/bill/${id}/paid/paypal`;
     const res = await axiosClient.get(url);
     return res.data;
   },

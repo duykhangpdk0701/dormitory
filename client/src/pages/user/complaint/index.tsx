@@ -6,17 +6,24 @@ import ComplaintList from "@/components/App/Complaint/List";
 import ComplaintListList from "@/components/App/Complaint/List/List";
 import { useQuery } from "react-query";
 import adminComplaintAPI from "@/api/admin/complaint";
+import complaintAPI from "@/api/complaint";
 
 const ComplaintListPage: NextPageWithLayout = () => {
   const complantQuery = useQuery({
     queryKey: ["complant"],
-    queryFn: () => adminComplaintAPI.getList(),
+    queryFn: () => {
+      const civilianId = sessionStorage.getItem("id");
+      if (civilianId) {
+        return complaintAPI.getListByUserId(civilianId);
+      }
+      return undefined;
+    },
   });
 
   return (
     <>
       <PageHead title="Danh sách khiếu nại | SGU domitory" />
-      <ComplaintList list={<ComplaintListList />} />
+      <ComplaintList list={<ComplaintListList data={complantQuery.data} />} />
     </>
   );
 };

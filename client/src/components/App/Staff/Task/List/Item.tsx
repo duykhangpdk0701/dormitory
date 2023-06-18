@@ -19,6 +19,10 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setSnackbar } from "@/contexts/slices/snackbarSlice";
 import { useMutation } from "react-query";
 import staffTaskAPI from "@/api/staff/task";
+import {
+  setIsLoadingAction,
+  setNotLoadngAction,
+} from "@/contexts/slices/backDropSlice";
 
 interface IStaffTaskItem {
   data: ITask;
@@ -30,14 +34,17 @@ const StaffTaskItem: FC<IStaffTaskItem> = (props) => {
   const dispatch = useAppDispatch();
 
   const handleStart = async () => {
+    dispatch(setIsLoadingAction());
     await startTaskMutation.mutateAsync();
   };
 
   const handleCancel = async () => {
+    dispatch(setIsLoadingAction());
     await CancelTaskMutation.mutateAsync();
   };
 
   const handleDone = async () => {
+    dispatch(setIsLoadingAction());
     await DoneTaskMutation.mutateAsync();
   };
 
@@ -45,6 +52,7 @@ const StaffTaskItem: FC<IStaffTaskItem> = (props) => {
     mutationKey: ["task"],
     mutationFn: () => staffTaskAPI.startTask(data._id),
     onSuccess: () => {
+      dispatch(setNotLoadngAction());
       dispatch(
         setSnackbar({
           snackbarOpen: true,
@@ -54,6 +62,7 @@ const StaffTaskItem: FC<IStaffTaskItem> = (props) => {
       );
     },
     onError: (error: any) => {
+      dispatch(setNotLoadngAction());
       dispatch(
         setSnackbar({
           snackbarOpen: true,
@@ -68,6 +77,7 @@ const StaffTaskItem: FC<IStaffTaskItem> = (props) => {
     mutationKey: ["task"],
     mutationFn: () => staffTaskAPI.DoneTask(data._id),
     onSuccess: () => {
+      dispatch(setNotLoadngAction());
       dispatch(
         setSnackbar({
           snackbarOpen: true,

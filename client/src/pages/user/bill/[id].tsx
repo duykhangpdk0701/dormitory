@@ -33,7 +33,7 @@ const UserBillDetailPage: NextPageWithLayout = () => {
 };
 
 UserBillDetailPage.getLayout = function getLayout(page: ReactElement) {
-  return <SidebarLayout>{page}</SidebarLayout>;
+  return <SidebarLayout menuType="user">{page}</SidebarLayout>;
 };
 
 export default UserBillDetailPage;

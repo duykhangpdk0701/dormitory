@@ -6,7 +6,6 @@ import React, { ReactElement, useState } from "react";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
-import roomTypeAPI from "@/api/roomType";
 import ElectronicWaterAPI from "@/api/staff/electronicWaterAPI";
 import ElectronicWaterCreate from "@/components/App/Staff/ElectronicWater/Create";
 import ElectronicWaterCreateForm from "@/components/App/Staff/ElectronicWater/Create/Form";
@@ -22,8 +21,14 @@ export interface IElectronicWaterCreateParams {
 
 const electronicWaterCreateSchema = yup.object({
   roomId: yup.string().required("Vui lòng chọ phòng"),
-  numberStart: yup.string().required("Vui lofng nhập số bắt đầu"),
-  numberEnd: yup.string().required("Vui lòng nhập số kết thúc"),
+  numberStart: yup
+    .string()
+    .required("Vui lofng nhập số bắt đầu")
+    .min(1, "Vui lòng không điền số âm"),
+  numberEnd: yup
+    .string()
+    .required("Vui lòng nhập số kết thúc")
+    .min(1, "Vui lòng không điền số âm"),
 });
 
 const ElectronicWaterCreatePage: NextPageWithLayout = () => {

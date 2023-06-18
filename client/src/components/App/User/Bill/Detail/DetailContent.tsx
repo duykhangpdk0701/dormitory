@@ -54,9 +54,10 @@ const UserBillDetailContent: FC<IUserBillDetailContent> = (props) => {
                     startIcon={<CreditScoreIcon fontSize="small" />}
                     onClick={handlePaid}
                     LinkComponent={Link}
+                    target="_blank"
                     href={
                       process.env.NEXT_PUBLIC_SERVER_URL +
-                      `/bill/${data?._id}/paypal`
+                      `/bill/${data?._id}/paid/paypal`
                     }
                   >
                     Thanh toán

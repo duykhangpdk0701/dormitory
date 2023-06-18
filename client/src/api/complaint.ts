@@ -1,3 +1,4 @@
+import IComplaint from "@/interfaces/Complaint";
 import axiosClient from "./axiosClient";
 
 const complaintAPI = {
@@ -10,7 +11,11 @@ const complaintAPI = {
     });
     return res.data;
   },
-  getListByUserId: async (id: string) => {},
+  getListByUserId: async (civilianId: string): Promise<IComplaint[]> => {
+    const url = `/complaint?civilianId=${civilianId}`;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };
 
 export default complaintAPI;

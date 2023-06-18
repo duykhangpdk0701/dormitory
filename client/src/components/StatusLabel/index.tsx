@@ -1,7 +1,7 @@
 import Label from "../Label";
 import BookingStatus from "@/enum/BookingStatus";
 
-const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
+const getStatusLabel = (cryptoOrderStatus?: BookingStatus): JSX.Element => {
   const map = {
     Active: {
       text: "Hoạt động",
@@ -42,9 +42,20 @@ const getStatusLabel = (cryptoOrderStatus: BookingStatus): JSX.Element => {
       text: "Đã thanh toán",
       color: "info",
     },
+
+    Working: {
+      text: "Đang làm việc",
+      color: "warning",
+    },
+    Done: {
+      text: "Đã hoàn thành",
+      color: "success",
+    },
   };
 
-  const { text, color }: any = map[cryptoOrderStatus] || map["Pending"];
+  const { text, color }: any = cryptoOrderStatus
+    ? map[cryptoOrderStatus]
+    : map["Pending"];
 
   return <Label color={color}>{text}</Label>;
 };

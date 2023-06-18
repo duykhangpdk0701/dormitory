@@ -7,6 +7,8 @@ enum BookingStatus {
   Denied = "Denied",
   Deposit = "Deposit",
   Paid = "Paid",
+  Done = "Done",
+  Working = "Working",
 }
 
 export default BookingStatus;

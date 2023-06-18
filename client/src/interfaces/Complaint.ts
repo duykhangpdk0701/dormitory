@@ -4,6 +4,7 @@ interface IComplaint {
   _id: string;
   title: string;
   description: string;
+  name: string;
   civilianId: string;
   status: string;
   createdAt: string;

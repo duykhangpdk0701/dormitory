@@ -1,19 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import Link from "next/link";
 import cover from "@/assets/images/covers/cover_3.jpg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import IComplaint from "@/interfaces/Complaint";
+import moment from "moment";
 
-const ComplaintItem = () => {
+interface IComplaintItem {
+  data: IComplaint;
+}
+
+const ComplaintItem: FC<IComplaintItem> = (props) => {
+  const { data } = props;
   return (
     <Card className="overflow-hidden  relative">
       <CardContent className="absolute bottom-0 px-6 pb-6 z-10 w-full">
         <Typography variant="caption" className="text-gray-300">
-          05 May 2023
+          {moment(data.createdAt).format("DD MM YYYY")}
         </Typography>
         <Link href="#">
           <Typography variant="h5" className="text-white text-base">
-            Yêu cầu sửa máy quạt
+            {data.name}
           </Typography>
         </Link>
         <div className="mt-6 flex justify-end">
