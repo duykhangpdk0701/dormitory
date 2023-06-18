@@ -160,7 +160,7 @@ class BookingController {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": `https://dormitory-zeta.vercel.app/booking/${id}/deposit/paypal/done`,
+                    "return_url": req.protocol + '://' + req.get('host') + `/booking/${id}/deposit/paypal/done`,
                     "cancel_url": `https://sgu-dormitory.vercel.app`
                 },
                 "transactions": [{
@@ -274,7 +274,7 @@ class BookingController {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": `https://dormitory-zeta.vercel.app/booking/${id}/paid/paypal/done`,
+                    "return_url": req.protocol + '://' + req.get('host') + `/booking/${id}/paid/paypal/done`,
                     "cancel_url": `https://sgu-dormitory.vercel.app`
                 },
                 "transactions": [{

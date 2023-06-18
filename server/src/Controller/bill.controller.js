@@ -379,7 +379,7 @@ class BillController {
                     payment_method: "paypal",
                 },
                 redirect_urls: {
-                    return_url: `https://dormitory-zeta.vercel.app/bill/${id}/paid/paypal/done`,
+                    return_url: req.protocol + '://' + req.get('host') + `/bill/${id}/paid/paypal/done`,
                     cancel_url: `https://sgu-dormitory.vercel.app`,
                 },
                 transactions: [
