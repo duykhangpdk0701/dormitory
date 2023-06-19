@@ -163,6 +163,8 @@ class BookingRequestController {
                 if(rooms[i].numberPeople > rooms[i].contracts.length && rooms[i].contracts.length > 0){
                     const civilian = await Civilian.findById(rooms[i].contracts[0].civilianId)
                     const account = await Account.findById(civilian.accountId)
+                    console.log(account.gender)
+                    console.log(bookingRequest._doc.gender)
                     if(account.gender && account.gender == bookingRequest._doc.gender){
                         room = rooms[i]
                         break
@@ -172,7 +174,7 @@ class BookingRequestController {
                     break
                 }
             }
-
+            // console.log(room)
             if(!room){
                 return res.json({ success: false, messages: 'Cant find suitable room' })
             }

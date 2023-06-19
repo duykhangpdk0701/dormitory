@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const argon2 = require('argon2');
 const paypal = require('paypal-rest-sdk');
 var sendMail = require('../Service/mail.service');
+const RoomType = require('../Model/roomType.model');
 const Room = require('../Model/room.model');
 const Booking = require('../Model/booking.model');
 const Civilian = require('../Model/civilian.model');
@@ -337,7 +338,7 @@ class BookingController {
         if (!id) return res.status(401).json({ success: false, messages: 'Thiếu id' })
         try {
             let booking = await Booking.findOne({ _id: id});
-            if(booking.status == "Paid")  return res.json({ success: false, messages: 'Lỗi, đã thanh toán rồi'})
+            // if(booking.status == "Paid")  return res.json({ success: false, messages: 'Lỗi, đã thanh toán rồi'})
 
             let bookingUpdate = await Booking.updateOne({ _id: id }, {status: "Paid"}, { new: true })
             if (!bookingUpdate) return res.json({ success: false, messages: 'Cant update booking' })
