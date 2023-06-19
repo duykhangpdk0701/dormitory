@@ -9,6 +9,11 @@ const Booking = new Schema(
             required: true,
             ref: "roomTypes"
         },
+        room: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "rooms"
+        },
         firstname: {
             type: String,
             require: true,
