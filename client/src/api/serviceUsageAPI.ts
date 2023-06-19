@@ -1,9 +1,10 @@
 import IService from "@/interfaces/Service";
 import axiosClient from "./axiosClient";
 import queryString from "query-string";
+import IServiceUsage from "@/interfaces/ServiceUsage";
 
 const serviceUsageAPI = {
-  getAll: async (): Promise<IService[]> => {
+  getAll: async (): Promise<IServiceUsage[]> => {
     const url = "/serviceUsage";
     const res = await axiosClient.get(url);
     return res.data;
@@ -14,7 +15,7 @@ const serviceUsageAPI = {
     search?: string,
     limit?: number,
     page?: number
-  ): Promise<IService[]> => {
+  ): Promise<IServiceUsage[]> => {
     const url = `/serviceUsage?civilianId=${civilianId}`;
     const searchUrl = queryString.stringifyUrl(
       { url, query: { search, limit, page: page ? page : undefined } },
@@ -28,7 +29,7 @@ const serviceUsageAPI = {
     serviceId: string,
     civilianId: string,
     description: string
-  ): Promise<IService> => {
+  ): Promise<IServiceUsage> => {
     const url = "/serviceUsage/store";
     const res = await axiosClient.post(url, {
       serviceId,
